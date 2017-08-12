@@ -3,16 +3,26 @@ import { StyleSheet, Text, View } from 'react-native';
 import { Navigator } from 'react-native-deprecated-custom-components';
 
 import HomeComponent from './app/components/Home';
-import AllQuestions from './app/components/AllQuestions'
+import AllQuestions from './app/components/AllQuestions';
+import SingleQuestion from './app/components/SingleQuestion';
 
 export default class App extends React.Component {
 
   renderScene(route, navigator) {
+
     switch (route.id) {
+
       case 'homecomponent':
         return (<HomeComponent navigator={navigator} />)
+
       case 'all-questions-component':
         return (<AllQuestions navigator={navigator} />)
+
+      case 'single-question-component':
+        return (<SingleQuestion navigator={navigator} question={route.question} />)
+
+      default:
+        return (<HomeComponent navigator={navigator} />)
     }
   }
 
