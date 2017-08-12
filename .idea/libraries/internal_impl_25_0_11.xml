@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="internal_impl-25.0.11">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/node_modules/lottie-react-native/lib/android/build/intermediates/exploded-aar/com.android.support/support-core-utils/25.0.1/jars/libs/internal_impl-25.0.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

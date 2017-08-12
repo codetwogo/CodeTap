@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="classes1">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/node_modules/react-native-maps/lib/android/build/intermediates/exploded-aar/com.android.support/support-v4/24.0.0/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

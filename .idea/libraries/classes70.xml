@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="classes70">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/node_modules/react-native-branch/android/build/intermediates/exploded-aar/com.facebook.fresco/fbcore/0.11.0/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

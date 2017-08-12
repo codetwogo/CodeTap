@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="classes25">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/node_modules/lottie-react-native/lib/android/build/intermediates/bundles/release/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

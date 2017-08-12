@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="main">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/node_modules/react-native-branch/android/build/intermediates/transforms/mergeJavaRes/release/jars/2/3/main.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Branch-2.6.11">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/node_modules/react-native-branch/android/libs/Branch-2.6.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

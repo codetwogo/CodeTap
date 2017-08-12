@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="mockable-android-23">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/node_modules/react-native-maps/lib/android/build/generated/mockable-android-23.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

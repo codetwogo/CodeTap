@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="mockable-android-25">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/node_modules/lottie-react-native/lib/android/build/generated/mockable-android-25.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

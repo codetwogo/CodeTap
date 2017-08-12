@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="annotations13">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/node_modules/react-native-branch/android/build/intermediates/exploded-aar/com.android.support/support-v4/23.4.0/annotations.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

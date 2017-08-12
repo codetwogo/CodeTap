@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="annotations12">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/node_modules/react-native-branch/android/build/intermediates/exploded-aar/com.facebook.fbui.textlayoutbuilder/textlayoutbuilder/1.0.0/annotations.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
