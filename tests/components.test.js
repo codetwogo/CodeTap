@@ -32,7 +32,7 @@ describe('The Home Component...', () => {
     const component = renderer.create(<Home />)
 
     it('renders without crashing', () => {
-        const rendered = component.toJSON();
+        const rendered = component;
         expect(rendered).toBeTruthy();
     });
 
@@ -60,7 +60,12 @@ describe('The AllQuestions Component...', () => {
 
 describe('The SingleQuestion Component...', () => {
 
-    const component = renderer.create(<SingleQuestion />)
+    const component = renderer.create(<SingleQuestion question={{
+        id: 'single-question-component',
+        title: 'testing-question',
+        tests: 'tests',
+        boilerPlate: '1234'
+    }} />)
 
     it('renders without crashing', () => {
         const rendered = component.toJSON();
