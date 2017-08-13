@@ -61,10 +61,17 @@ describe('The AllQuestions Component...', () => {
 describe('The SingleQuestion Component...', () => {
 
     const component = renderer.create(<SingleQuestion question={{
+<<<<<<< HEAD
         id: 'single-question-component',
         title: 'testing-question',
         tests: 'tests',
         boilerPlate: '1234'
+=======
+        id: 'single-component',
+        title: 'test-title',
+        tests: '1234',
+        boilerPlate: 'function(){}'
+>>>>>>> 1889a4d44355ceacdc9634457fbf4938085e56ef
     }} />)
 
     it('renders without crashing', () => {
