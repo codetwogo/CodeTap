@@ -1,23 +1,37 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { Navigator } from 'react-native-deprecated-custom-components';
+
+import HomeComponent from './app/components/Home';
+import AllQuestions from './app/components/AllQuestions';
+import SingleQuestion from './app/components/SingleQuestion';
 
 export default class App extends React.Component {
+
+  renderScene(route, navigator) {
+
+    switch (route.id) {
+
+      case 'homecomponent':
+        return (<HomeComponent navigator={navigator} />)
+
+      case 'all-questions-component':
+        return (<AllQuestions navigator={navigator} />)
+
+      case 'single-question-component':
+        return (<SingleQuestion navigator={navigator} question={route.question} />)
+
+      default:
+        return (<HomeComponent navigator={navigator} />)
+    }
+  }
+
   render() {
     return (
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
-      </View>
+      <Navigator
+        initialRoute={{ id: 'homecomponent' }}
+        renderScene={this.renderScene}
+        configureScene={(route, routeStack) => Navigator.SceneConfigs.FloatFromBottom} />
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
