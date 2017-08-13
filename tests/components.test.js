@@ -60,7 +60,12 @@ describe('The AllQuestions Component...', () => {
 
 describe('The SingleQuestion Component...', () => {
 
-    const component = renderer.create(<SingleQuestion />)
+    const component = renderer.create(<SingleQuestion question={{
+        id: 'single-component',
+        title: 'test-title',
+        tests: '1234',
+        boilerPlate: 'function(){}'
+    }} />)
 
     it('renders without crashing', () => {
         const rendered = component.toJSON();

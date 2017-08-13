@@ -240,159 +240,75 @@ exports[`The AllQuestions Component... matches snapshot 1`] = `
 exports[`The Home Component... matches snapshot 1`] = `
 <View
   style={
-    Array [
-      Object {
-        "flex": 1,
-        "overflow": "hidden",
-      },
-      undefined,
-    ]
+    Object {
+      "alignItems": "center",
+      "backgroundColor": "#fff",
+      "flex": 1,
+      "justifyContent": "center",
+    }
   }
 >
+  <Text
+    accessible={true}
+    allowFontScaling={true}
+    disabled={false}
+    ellipsizeMode="tail"
+  >
+    Welcome to the Home Component
+  </Text>
   <View
-    onMoveShouldSetResponder={[Function]}
-    onMoveShouldSetResponderCapture={[Function]}
-    onResponderEnd={[Function]}
+    accessibilityComponentType="button"
+    accessibilityLabel={undefined}
+    accessibilityTraits={
+      Array [
+        "button",
+      ]
+    }
+    accessible={true}
+    collapsable={undefined}
+    hitSlop={undefined}
+    isTVSelectable={true}
+    nativeID={undefined}
+    onLayout={undefined}
     onResponderGrant={[Function]}
     onResponderMove={[Function]}
-    onResponderReject={[Function]}
     onResponderRelease={[Function]}
-    onResponderStart={[Function]}
     onResponderTerminate={[Function]}
     onResponderTerminationRequest={[Function]}
     onStartShouldSetResponder={[Function]}
-    onStartShouldSetResponderCapture={[Function]}
-    onTouchStart={[Function]}
     style={
       Object {
-        "backgroundColor": "transparent",
-        "flex": 1,
-        "overflow": "hidden",
+        "opacity": 1,
       }
     }
+    testID={undefined}
+    tvParallaxProperties={undefined}
   >
     <View
-      collapsable={false}
-      onStartShouldSetResponderCapture={[Function]}
-      pointerEvents="auto"
       style={
         Array [
-          Object {
-            "bottom": 0,
-            "left": 0,
-            "overflow": "hidden",
-            "position": "absolute",
-            "right": 0,
-            "top": 0,
-          },
-          Object {
-            "bottom": 0,
-            "left": 0,
-            "position": "absolute",
-            "right": 0,
-            "top": 0,
-            "transform": Array [
-              Object {
-                "translateX": 0,
-              },
-              Object {
-                "translateY": 0,
-              },
-              Object {
-                "scaleX": 1,
-              },
-              Object {
-                "scaleY": 1,
-              },
-              Object {
-                "rotate": "0deg",
-              },
-              Object {
-                "skewX": "0deg",
-              },
-              Object {
-                "skewY": "0deg",
-              },
-            ],
-          },
-          null,
+          Object {},
         ]
       }
     >
-      <View
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        disabled={false}
+        ellipsizeMode="tail"
         style={
-          Object {
-            "alignItems": "center",
-            "backgroundColor": "#fff",
-            "flex": 1,
-            "justifyContent": "center",
-          }
+          Array [
+            Object {
+              "color": "#0C42FD",
+              "fontSize": 18,
+              "padding": 8,
+              "textAlign": "center",
+            },
+          ]
         }
       >
-        <Text
-          accessible={true}
-          allowFontScaling={true}
-          disabled={false}
-          ellipsizeMode="tail"
-        >
-          Welcome to the Home Component
-        </Text>
-        <View
-          accessibilityComponentType="button"
-          accessibilityLabel={undefined}
-          accessibilityTraits={
-            Array [
-              "button",
-            ]
-          }
-          accessible={true}
-          collapsable={undefined}
-          hitSlop={undefined}
-          isTVSelectable={true}
-          nativeID={undefined}
-          onLayout={undefined}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
-          style={
-            Object {
-              "opacity": 1,
-            }
-          }
-          testID={undefined}
-          tvParallaxProperties={undefined}
-        >
-          <View
-            style={
-              Array [
-                Object {},
-              ]
-            }
-          >
-            <Text
-              accessible={true}
-              allowFontScaling={true}
-              disabled={false}
-              ellipsizeMode="tail"
-              style={
-                Array [
-                  Object {
-                    "color": "#0C42FD",
-                    "fontSize": 18,
-                    "padding": 8,
-                    "textAlign": "center",
-                  },
-                ]
-              }
-            >
-              Start a War
-            </Text>
-          </View>
-        </View>
-      </View>
+        Start a War
+      </Text>
     </View>
   </View>
 </View>
