@@ -5,8 +5,9 @@ export default class AllQuestions extends Component {
     constructor(props){
         super(props);
 
-        this.onPress = this.onPress.bind(this);
+        this.onBackPress = this.onBackPress.bind(this);
         this.renderRow = this.renderRow.bind(this);
+        this.onQuestionPress = this.onQuestionPress.bind(this);
 
         const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         const questions = [
@@ -20,14 +21,21 @@ export default class AllQuestions extends Component {
         }
     }
 
-    onPress(object) {
-        this.props.navigator.push(object)
+    onBackPress() {
+        this.props.navigator.push({id: 'homecomponent'})
+    }
+
+    onQuestionPress(question){
+        this.props.navigator.push({
+            id: 'single-question-component',
+            question: question
+        })
     }
 
     renderRow(question) {
         return (
-            <TouchableHighlight 
-            onPress={() => {this.onPress(question)}}>
+            <TouchableHighlight
+            onPress={() => {this.onQuestionPress(question)}}>
             <View style={styles.row}>
                 <Text style={styles.rowText}>{question.title}</Text>
             </View>
@@ -42,7 +50,7 @@ export default class AllQuestions extends Component {
                     dataSource={this.state.dataSource}
                     renderRow={this.renderRow}/>
                 <Button
-                    onPress={() => this.onPress({id: 'homecomponent'})}
+                    onPress={() => this.onBackPress()}
                     title="Go back to base"
                 />
             </View>

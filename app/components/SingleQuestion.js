@@ -4,6 +4,11 @@ import { AppRegistry, View, Text, StyleSheet, Button } from 'react-native';
 export default class SingleQuestionComponent extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            title: this.props.question.title,
+            tests: this.props.question.tests,
+            boilerplate: this.props.question.boilerPlate
+        }
         this.onPress = this.onPress.bind(this);
     }
 
@@ -15,7 +20,10 @@ export default class SingleQuestionComponent extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text>Welcome to the Single Question Component</Text>
+                <Text>{this.state.title}</Text>
+                <Text>{this.state.tests}</Text>
+                <Text>{this.state.boilerplate}</Text>
+                
                 <Button
                     onPress={this.onPress}
                     title="Go Back"
