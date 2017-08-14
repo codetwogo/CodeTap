@@ -27,6 +27,9 @@ export default class SingleQuestionComponent extends Component {
                 <Button
                     onPress={this.onPress}
                     title="Go Back"
+                /><Button
+                    onPress={this.onPress2}
+                    title="Answer"
                 />
             </View>
         );

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { AppRegistry, View, Text, StyleSheet, Button, KeyInput } from 'react-native';
+import { AppRegistry, View, Text, StyleSheet, Button, TextInput } from 'react-native';
 
 export default class CodeEnv extends Component {
     constructor(props) {
