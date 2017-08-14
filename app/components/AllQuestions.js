@@ -13,26 +13,26 @@ export default class AllQuestions extends Component {
             {id: 'single-question-component', title: 'Question1', tests: 'test', boilerPlate: 'function(word){\n}'},
             {id: 'single-question-component', title: 'Question2', tests: 'test2', boilerPlate: 'function(word2){\n}'},
             {id: 'single-question-component', title: 'Question3', tests: 'test3', boilerPlate: 'function(word3){\n}'}
-        ]
+        ];
 
         this.state = {
             dataSource: ds.cloneWithRows(questions)
-        }
+        };
     }
 
     onPress(object) {
-        this.props.navigator.push(object)
+        this.props.navigator.push(object);
     }
 
     renderRow(question) {
         return (
-            <TouchableHighlight 
-            onPress={() => {this.onPress(question)}}>
+            <TouchableHighlight
+            onPress={() => {this.onPress(question);}}>
             <View style={styles.row}>
                 <Text style={styles.rowText}>{question.title}</Text>
             </View>
             </TouchableHighlight>
-        )
+        );
     }
 
     render() {
@@ -46,7 +46,7 @@ export default class AllQuestions extends Component {
                     title="Go back to base"
                 />
             </View>
-        )
+        );
     }
 }
 
