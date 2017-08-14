@@ -5,13 +5,21 @@ export default class SingleQuestionComponent extends Component {
     constructor(props) {
         super(props);
         this.onPress = this.onPress.bind(this);
+        this.onPress2 = this.onPress2.bind(this);
     }
 
     onPress() {
         this.props.navigator.push({
             id: 'all-questions-component'
-        })
+        });
     }
+
+    onPress2() {
+        this.props.navigator.push({
+            id: 'Code-Env'
+        });
+    }
+
     render() {
         return (
             <View style={styles.container}>
@@ -21,7 +29,7 @@ export default class SingleQuestionComponent extends Component {
                     title="Go Back"
                 />
             </View>
-        )
+        );
     }
 }
 

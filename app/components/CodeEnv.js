@@ -1,12 +1,17 @@
 import React, { Component } from 'react';
 import { AppRegistry, View, Text, StyleSheet, Button, KeyInput } from 'react-native';
 
-export default class KeyInput extends Component {
+export default class CodeEnv extends Component {
     constructor(props) {
         super(props);
         this.state = {
           textValue:'Hello'
         };
+        this.onBackPress = this.onBackPress.bind(this);
+    }
+
+    onBackPress() {
+        this.props.navigator.push({id: 'single-question-component'});
     }
 
     onChangeText(value){
@@ -30,15 +35,19 @@ export default class KeyInput extends Component {
                 onSubmitEditing={this.onSubmit}
               />
                 <Button
-                    onPress={this.onPress}
+                    onPress={this.onSubmit}
                     title="Submit"
+                />
+                <Button
+                    onPress={this.onBackPress}
+                    title="Back"
                 />
             </View>
         );
     }
 }
 
-AppRegistry.registerComponent('KeyInput', () => KeyInput);
+AppRegistry.registerComponent('CodeEnv', () => CodeEnv);
 
 const styles = StyleSheet.create({
     container: {

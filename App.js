@@ -5,7 +5,7 @@ import { Navigator } from 'react-native-deprecated-custom-components';
 import HomeComponent from './app/components/Home';
 import AllQuestions from './app/components/AllQuestions';
 import SingleQuestion from './app/components/SingleQuestion';
-import KeyInput from './app/components/KeyInput';
+import CodeEnv from './app/components/CodeEnv';
 
 export default class App extends React.Component {
 
@@ -22,8 +22,8 @@ export default class App extends React.Component {
       case 'single-question-component':
         return (<SingleQuestion navigator={navigator} question={route.question} />);
 
-        case 'Key-Input' :
-          return (<KeyInput navigator={navigator}/>);
+        case 'Code-Env' :
+          return (<CodeEnv navigator={navigator}/>);
 
       default:
         return (<HomeComponent navigator={navigator} />);
