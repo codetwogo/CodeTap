@@ -24,10 +24,10 @@ export default class App extends React.Component {
         return (<SingleQuestion navigator={navigator} question={route.question} />);
 
       case 'Code-Env' :
-        return (<CodeEnv navigator={navigator}/>);
+        return (<CodeEnv navigator={navigator} question={route.question}/>);
 
       case 'test-env':
-        return (<TestEnv navigator={navigator}/>);
+        return (<TestEnv navigator={navigator} userAnswer={route.userAnswer} tests={route.tests}/>);
 
       default:
         return (<HomeComponent navigator={navigator} />);
