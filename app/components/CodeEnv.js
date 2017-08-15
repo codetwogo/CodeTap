@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { KeyboardAvoidingView, View, AppRegistry, Keyboard, StyleSheet, Button, TextInput, Switch, Text } from 'react-native';
+import ClipButtons from './ClipButtons';
 
 export default class CodeEnv extends Component {
     constructor(props) {
@@ -39,11 +40,11 @@ export default class CodeEnv extends Component {
         this.setState({
             textValue,
             focus: true
-        })
+        });
         if (this.state.switchVal) {
             this.setState({
                 switchVal: false
-            })
+            });
         }
     }
 
@@ -64,7 +65,7 @@ export default class CodeEnv extends Component {
         if (this.state.focus) {
             this.setState({
                 switchVal: !value
-            })
+            });
         }
     }
 
@@ -80,7 +81,7 @@ export default class CodeEnv extends Component {
                         value={this.state.textValue}
                         clearTextOnFocus={false}
                         multiline={true}
-                        ref={(input) => { this.textInput = input }}
+                        ref={(input) => { this.textInput = input; }}
                     />
                     <View>
                         <Switch
@@ -99,6 +100,7 @@ export default class CodeEnv extends Component {
                             this.state.showQuestion ? <Text>{this.state.description}</Text> : null
                         }
                     </View>
+                    <ClipButtons/>
                 </View>
                 <View style={{ flex: 0.2 }}>
                     <Button
