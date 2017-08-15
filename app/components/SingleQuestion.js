@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { AppRegistry, View, Text, StyleSheet, Button } from 'react-native';
 
 export default class SingleQuestionComponent extends Component {
+    //consider destructuring {question: { title, tests, boilerPlate, description}}
     constructor(props) {
         super(props);
         this.state = {
@@ -10,6 +11,7 @@ export default class SingleQuestionComponent extends Component {
             boilerPlate: this.props.question.boilerPlate,
             description: this.props.question.description
         };
+        //consider Arrow functions
         this.onBackPress = this.onBackPress.bind(this);
         this.onCodePress = this.onCodePress.bind(this);
     }

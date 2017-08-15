@@ -58,14 +58,16 @@ export default class CodeEnv extends Component {
             switchVal: value,
             focus: false
         });
-        if (!this.state.switchVal) {
-            Keyboard.dismiss();
-        }
-        if (this.state.focus) {
-            this.setState({
-                switchVal: !value
-            })
-        }
+
+        //This is not working as we'd like. this.setState is async
+        // if (!this.state.switchVal) {
+        //     Keyboard.dismiss();
+        // }
+        // if (this.state.focus) {
+        //     this.setState({
+        //         switchVal: !value
+        //     })
+        // }
     }
 
     render() {
