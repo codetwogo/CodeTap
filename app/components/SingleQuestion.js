@@ -7,21 +7,22 @@ export default class SingleQuestionComponent extends Component {
         this.state = {
             title: this.props.question.title,
             tests: this.props.question.tests,
-            boilerplate: this.props.question.boilerPlate
+            boilerPlate: this.props.question.boilerPlate,
+            description: this.props.question.description
         };
-        this.onPress = this.onPress.bind(this);
-        this.onPress2 = this.onPress2.bind(this);
+        this.onBackPress = this.onBackPress.bind(this);
+        this.onCodePress = this.onCodePress.bind(this);
     }
 
     // go back to all questions list
-    onPress() {
+    onBackPress() {
         this.props.navigator.push({
             id: 'all-questions-component'
         });
     }
 
     // navigate to the code environment to begin question
-    onPress2() {
+    onCodePress() {
         this.props.navigator.push({
             id: 'Code-Env',
             question: this.state
@@ -33,18 +34,15 @@ export default class SingleQuestionComponent extends Component {
             <View style={styles.container}>
                 <Text>{this.state.title}</Text>
                 <Text>{this.state.tests}</Text>
-                <Text>{this.state.boilerplate}</Text>
-
+                <Text>{this.state.description}</Text>
                 <Button
-                    onPress={this.onPress}
-                    title="Go Back"
-                />
-
-                <Button
-                    onPress={this.onPress2}
+                    onPress={this.onCodePress}
                     title="Code!"
                 />
-
+                <Button
+                    onPress={this.onBackPress}
+                    title="Go Back"
+                />
             </View>
         );
     }
