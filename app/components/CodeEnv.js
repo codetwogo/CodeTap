@@ -59,14 +59,17 @@ export default class CodeEnv extends Component {
             switchVal: value,
             focus: false
         });
-        if (!this.state.switchVal) {
-            Keyboard.dismiss();
-        }
-        if (this.state.focus) {
-            this.setState({
-                switchVal: !value
-            });
-        }
+
+        //This is not working as we'd like. this.setState is async
+        // if (!this.state.switchVal) {
+        //     Keyboard.dismiss();
+        // }
+        // if (this.state.focus) {
+        //     this.setState({
+        //         switchVal: !value
+        //     })
+        // }
+
     }
 
     render() {
@@ -79,6 +82,13 @@ export default class CodeEnv extends Component {
                     <TextInput style={styles.textInput}
                         onChangeText={textValue => this.onChangeText(textValue)}
                         value={this.state.textValue}
+                        // This event keeps track of the cursor position...we will need for our keyboard implementation
+                        onSelectionChange={(e) => {
+                          const start = e.nativeEvent.selection.start;
+                          const end = e.nativeEvent.selection.end;
+                          console.log('start', start);
+                          console.log('end', end);
+                        }}
                         clearTextOnFocus={false}
                         multiline={true}
                         ref={(input) => { this.textInput = input; }}
