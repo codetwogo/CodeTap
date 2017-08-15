@@ -18,7 +18,7 @@ export default class TestEnvComponent extends Component {
     }
 
     componentDidMount() {
-        // initialize with a dummy question
+        // initialize with a dummy question *** replace with bottom section code when ready
         this.setState({
             questionTitle: 'A Dummy Question',
             questionDescription: 'Return true if the input is 5',
@@ -29,6 +29,14 @@ export default class TestEnvComponent extends Component {
             ],
             userAnswer: "function (num) {return num2 === 5}"
         })
+
+        // ****  Once we integrate with components, run following code: **** //
+        /*
+            this.setState({
+                tests: [this.props.tests],
+                userAnswer: this.props.userAnswer
+            })
+        */
     }
 
     evaluateTest(test) {
@@ -39,15 +47,13 @@ export default class TestEnvComponent extends Component {
         var result;
         var error;
 
+        // run try, catch to obtain errors and report back to the user
         try {
             const result = eval(callFunc.apply(this, test.inputs))
         }
         catch(err) {
             error = err;
             console.log(err)
-        }
-        finally {
-
         }
 
         const output = test.output.toString();
