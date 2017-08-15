@@ -1,38 +1,46 @@
 import React, { Component } from 'react';
-import { AppRegistry, View, Text, StyleSheet, Button, TextInput } from 'react-native';
+import {Keyboard, AppRegistry, View, Text, StyleSheet, Button, TextInput, Switch } from 'react-native';
 
 export default class CodeEnv extends Component {
     constructor(props) {
         super(props);
         this.state = {
-          textValue:'Hello'
+          textValue: 'Hello',
+          switchVal: false
         };
         this.onBackPress = this.onBackPress.bind(this);
     }
 
     onBackPress() {
-        this.props.navigator.push({id: 'single-question-component'});
-    }
-
-    onChangeText(value){
-      this.setState({
-        textValue:value
-      });
+        this.props.navigator.push({id: 'homecomponent'});
     }
 
     onSubmit(){
       console.log("solution page coming soon");
     }
 
+    onSwitchChange(value){
+      this.setState(
+        {switchVal: value});
+      if(!this.state.switchVal){
+        Keyboard.dismiss();
+      }
+    }
+
     render() {
         return (
             <View style={styles.container}>
-                <Text>{this.state.textValue}</Text>
-              <TextInput
-                placeHolder="Answer"
+
+              <TextInput style={styles.textInput}
+                onChangeText={(textValue) => this.setState({textValue})}
                 value={this.state.textValue}
-                onChangeText={(value) => this.onChangeText(value)}
-                onSubmitEditing={this.onSubmit}
+                clearTextOnFocus= {true}
+                multiline= {true}
+                isFocused= {true}
+              />
+              <Switch
+                value={this.state.switchVal}
+                onValueChange={(value)=> this.onSwitchChange(value)}
               />
                 <Button
                     onPress={this.onSubmit}
@@ -49,11 +57,15 @@ export default class CodeEnv extends Component {
 
 AppRegistry.registerComponent('CodeEnv', () => CodeEnv);
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
+const styles = StyleSheet.create ({
+   container: {
+      flex: 1,
+      marginTop: 50
+   },
+
+  textInput: {
+      margin: 15,
+      height: 200,
+      borderWidth: 1
+   }
 });
