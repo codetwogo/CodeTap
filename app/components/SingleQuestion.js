@@ -11,6 +11,7 @@ export default class SingleQuestionComponent extends Component {
         };
         this.onPress = this.onPress.bind(this);
         this.onPress2 = this.onPress2.bind(this);
+        this.onPress3 = this.onPress3.bind(this);
     }
 
     onPress() {
@@ -22,6 +23,12 @@ export default class SingleQuestionComponent extends Component {
     onPress2() {
         this.props.navigator.push({
             id: 'Code-Env'
+        });
+    }
+
+    onPress3() {
+        this.props.navigator.push({
+            id: 'test-env'
         });
     }
 
@@ -40,6 +47,10 @@ export default class SingleQuestionComponent extends Component {
                 <Button
                     onPress={this.onPress2}
                     title="Code!"
+                />
+                <Button
+                    onPress={this.onPress3}
+                    title="Test Env"
                 />
 
             </View>

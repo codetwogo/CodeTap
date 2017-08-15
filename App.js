@@ -6,6 +6,7 @@ import HomeComponent from './app/components/Home';
 import AllQuestions from './app/components/AllQuestions';
 import SingleQuestion from './app/components/SingleQuestion';
 import CodeEnv from './app/components/CodeEnv';
+import TestEnv from './app/components/TestEnv';
 
 export default class App extends React.Component {
 
@@ -22,8 +23,11 @@ export default class App extends React.Component {
       case 'single-question-component':
         return (<SingleQuestion navigator={navigator} question={route.question} />);
 
-        case 'Code-Env' :
-          return (<CodeEnv navigator={navigator}/>);
+      case 'Code-Env' :
+        return (<CodeEnv navigator={navigator}/>);
+
+      case 'test-env':
+        return (<TestEnv navigator={navigator}/>);
 
       default:
         return (<HomeComponent navigator={navigator} />);
