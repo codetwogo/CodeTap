@@ -1,26 +1,40 @@
 import React, { Component } from 'react';
-import { ListView, AppRegistry, Keyboard, StyleSheet, Button, Text, TouchableOpacity, Clipboard } from 'react-native';
+import { View, ListView, AppRegistry, Keyboard, StyleSheet, Button, Text, TouchableOpacity, Clipboard } from 'react-native';
+import LoopsButton from './LoopsButton';
 
 export default class ClipButton extends Component {
     constructor(props) {
         super(props);
         const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         this.state = {
-            hotKeys: ds.cloneWithRows(['row 1', 'row 2', 'row 3', 'row 4', 'row 5'])
+            hotKeys: ds.cloneWithRows([{title: 'Loops', comp: LoopsButton}]),
+            buttonPushed: false
         };
+        this.onButtonPush= this.onButtonPush.bind(this);
+    }
+    onButtonPush(){
+      this.setState({buttonPushed: !this.state.buttonPushed});
     }
 
     render() {
         return (
-                <ListView
+          <View>
+          {
+            this.state.buttonPushed ?
+            <TouchableOpacity onPress={()=>this.onButtonPush()}>
+              <LoopsButton toggle={this.onButtonPush} edit={this.props.edit}/>
+              </TouchableOpacity>
+            : <ListView
                   dataSource={this.state.hotKeys}
                   renderRow={(rowData)=>
-                    <TouchableOpacity onPress={()=> Clipboard.setString(rowData)}>
+                    <TouchableOpacity onPress={()=>this.onButtonPush()}>
                     <Text style={styles.hotKey}>
-                    {rowData}
+                    {rowData.title}
                     </Text>
                   </TouchableOpacity>}
                 />
+              }
+              </View>
         );
     }
 }
