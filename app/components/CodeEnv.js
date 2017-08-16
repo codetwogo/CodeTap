@@ -6,7 +6,7 @@ export default class CodeEnv extends Component {
   constructor(props) {
     super(props);
 
-    const cursorStart = this.props.question.boilerPlate.length - 2
+    const cursorStart = this.props.question.boilerPlate.length - 2;
 
     this.state = {
       textValue: this.props.question.boilerPlate,
@@ -66,13 +66,14 @@ export default class CodeEnv extends Component {
       switchVal: value,
       focus: false
     }, () => {
-      if (!this.state.switchVal) {
+      if (this.state.switchVal) {
         Keyboard.dismiss();
       }
+    }, () => {
       if (this.state.focus) {
         this.setState({
-          switchVal: !value
-        })
+          switchVal: false
+        });
       }
     });
   }
@@ -82,11 +83,11 @@ export default class CodeEnv extends Component {
     // change state text value based on text returned from btn
     // appends based on last cursor position
     const _self = this.state.textValue;
-    const start = this.state.cursorPositions[0]
-    const end = this.state.cursorPositions[1]
+    const start = this.state.cursorPositions[0];
+    const end = this.state.cursorPositions[1];
 
     const output = _self.slice(0, start) + text + _self.slice(end);
-    
+
     if (!this.state.cursorPositions.length) return false;
 
     this.onChangeText(output);
@@ -105,12 +106,15 @@ export default class CodeEnv extends Component {
           <TextInput style={styles.textInput}
             onChangeText={textValue => this.onChangeText(textValue)}
             value={this.state.textValue}
+            onFocus={() => this.setState({
+              switchVal: false
+            })}
             // This event keeps track of the cursor position...we will need for our keyboard implementation
             onSelectionChange={(e) => {
               if (this.state.startRender) {
                 this.setState({
                   startRender: false
-                })
+                });
                 return;
               }
               const start = e.nativeEvent.selection.start;
@@ -118,7 +122,7 @@ export default class CodeEnv extends Component {
 
               this.setState({
                 cursorPositions: [start, end]
-              })
+              });
             }}
             clearTextOnFocus={false}
             multiline={true}
