@@ -13,7 +13,9 @@ export default class CodeEnv extends Component {
       switchVal: false,
       showQuestion: false,
       description: this.props.question.description,
-      cursorPositions: [cursorStart, cursorStart]
+      cursorPositions: [cursorStart, cursorStart],
+      startRender: true,
+
     };
     // bind methods
     this.onBackPress = this.onBackPress.bind(this);
@@ -21,6 +23,7 @@ export default class CodeEnv extends Component {
     this.onQuestionSwitchChange = this.onQuestionSwitchChange.bind(this);
     this.edit = this.edit.bind(this);
   }
+
 
   // navigates back a url
   onBackPress() {
@@ -90,6 +93,8 @@ export default class CodeEnv extends Component {
   }
 
   render() {
+    console.log('cursor', this.state.cursorPositions);
+
     return (
       <KeyboardAvoidingView
         style={styles.container}
@@ -102,6 +107,12 @@ export default class CodeEnv extends Component {
             value={this.state.textValue}
             // This event keeps track of the cursor position...we will need for our keyboard implementation
             onSelectionChange={(e) => {
+              if (this.state.startRender) {
+                this.setState({
+                  startRender: false
+                })
+                return;
+              }
               const start = e.nativeEvent.selection.start;
               const end = e.nativeEvent.selection.end;
 
