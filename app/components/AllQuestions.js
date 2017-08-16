@@ -7,9 +7,9 @@ export default class AllQuestions extends Component {
 
         const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
         const questions = [
-            { id: 'single-question-component', title: 'Question1', tests: 'test', boilerPlate: 'function(word){\n}', description: 'Enter question Description' },
-            { id: 'single-question-component', title: 'Question2', tests: 'test2', boilerPlate: 'function(word2){\n}', description: 'Enter question Description' },
-            { id: 'single-question-component', title: 'Question3', tests: 'test3', boilerPlate: 'function(word3){\n}', description: 'Enter question Description' }
+            { id: 'single-question-component', title: 'Question1', tests: 'test', boilerPlate: 'function(word){\n\t\n}', description: 'Enter question Description' },
+            { id: 'single-question-component', title: 'Question2', tests: 'test2', boilerPlate: 'function(word2){\n\t\n}', description: 'Enter question Description' },
+            { id: 'single-question-component', title: 'Question3', tests: 'test3', boilerPlate: 'function(word3){\n\t\n}', description: 'Enter question Description' }
         ]
         this.state = {
             dataSource: ds.cloneWithRows(questions)
