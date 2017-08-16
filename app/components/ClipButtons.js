@@ -4,6 +4,9 @@ import LoopsButton from './Buttons/LoopsButton';
 import ConditionalButton from './Buttons/ConditionalButton';
 import VariableButton from './Buttons/VariableButton';
 import ArrayButton from './Buttons/ArrayButton';
+import OperatorButton from './Buttons/OperatorButton';
+import ActionButton from './Buttons/ActionButton';
+import StringButton from './Buttons/StringButton';
 
 export default class ClipButton extends Component {
   constructor(props) {
@@ -15,8 +18,11 @@ export default class ClipButton extends Component {
         { title: 'Conditional', comp: ConditionalButton },
         { title: 'Variable', comp: VariableButton },
         { title: 'Array', comp: ArrayButton },
+        { title: 'Operator', comp: OperatorButton },
+        { title: 'Action', comp: ActionButton },
+        { title: 'String', comp: StringButton },
       ]),
-      selectedButton:{},
+      selectedButton: {},
       buttonPushed: false
     };
     this.onButtonPush = this.onButtonPush.bind(this);
