@@ -6,7 +6,7 @@ export default class ConditionalButton extends Component {
         super(props);
         const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         this.state = {
-            ConditionalKeys: ds.cloneWithRows([{title: 'if', output: 'if( ){/n}'}, {title: 'else if', output: 'else if( ){/n}'}, {title: 'else', output: 'else {/n}'}]),
+            ConditionalKeys: ds.cloneWithRows([{title: 'if', output: 'if( ){\n}'}, {title: 'else if', output: 'else if( ){\n}'}, {title: 'else', output: 'else {\n}'}]),
         };
     }
 

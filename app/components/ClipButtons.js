@@ -16,12 +16,16 @@ export default class ClipButton extends Component {
         { title: 'Variable', comp: VariableButton },
         { title: 'Array', comp: ArrayButton },
       ]),
+      selectedButton:{},
       buttonPushed: false
     };
     this.onButtonPush = this.onButtonPush.bind(this);
   }
   onButtonPush() {
     this.setState({ buttonPushed: !this.state.buttonPushed });
+  }
+  selectButton(button){
+    this.setState({selectedButton: button});
   }
 
   render() {
@@ -30,15 +34,14 @@ export default class ClipButton extends Component {
         {
           this.state.buttonPushed ?
             <TouchableOpacity onPress={() => this.onButtonPush()}>
-              <LoopsButton toggle={this.onButtonPush} edit={this.props.edit} />
-              <ConditionalButton toggle={this.onButtonPush} edit={this.props.edit} />
-              <VariableButton toggle={this.onButtonPush} edit={this.props.edit} />
-              <ArrayButton toggle={this.onButtonPush} edit={this.props.edit} />
+              <this.state.selectedButton toggle={this.onButtonPush} edit={this.props.edit}/>
             </TouchableOpacity>
             : <ListView
               dataSource={this.state.hotKeys}
               renderRow={(rowData) =>
-                <TouchableOpacity onPress={() => this.onButtonPush()}>
+                <TouchableOpacity onPress={() => {
+                  this.selectButton(rowData.comp);
+                  this.onButtonPush();}}>
                   <Text style={styles.hotKey}>
                     {rowData.title}
                   </Text>
