@@ -15,7 +15,7 @@ export default class LoopButton extends Component {
                 <ListView
                   dataSource={this.state.LoopKeys}
                   renderRow={(rowData)=>
-                    <TouchableOpacity onPress={()=> {Clipboard.setString(rowData.output);
+                    <TouchableOpacity onPress={()=> {this.props.edit(rowData.output);
                     return this.props.toggle();}}>
                     <Text style={styles.hotKey}>
                     {rowData.title}
