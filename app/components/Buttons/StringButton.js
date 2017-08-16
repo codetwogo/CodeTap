@@ -1,22 +1,18 @@
 import React, { Component } from 'react';
 import { ListView, AppRegistry, Keyboard, StyleSheet, Button, Text, TouchableOpacity, Clipboard } from 'react-native';
 
-export default class ArrayButton extends Component {
+export default class StringButton extends Component {
     constructor(props) {
         super(props);
         const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         this.state = {
-            ArrayKeys: ds.cloneWithRows([
+            StringKeys: ds.cloneWithRows([
+                {title: 'slice', output: '.slice( )'}, 
+                {title: 'split', output: '.split()'}, 
+                {title: 'startsWith', output: '.startsWith()'},
                 {title: 'length', output: '.length'},
-                {title: 'slice', output: '.slice()'}, 
-                {title: 'splice', output: '.splice()'}, 
-                {title: 'pop', output: '.pop()'},
-                {title: 'push', output: '.push()'},
-                {title: 'shift', output: '.shift()'},
-                {title: 'unshift', output: '.unshift()'},
-                {title: 'sort', output: '.sort()'},
-                {title: 'join', output: '.join()'},
-                {title: 'concat', output: '.concat()'}
+                {title: 'toLowerCase', output: '.toLowerCase()'},
+                {title: 'toUpperCase', output: '.toUpperCase()'}
             ]),
 
         };
@@ -25,7 +21,7 @@ export default class ArrayButton extends Component {
     render() {
         return (
                 <ListView
-                  dataSource={this.state.ArrayKeys}
+                  dataSource={this.state.StringKeys}
                   renderRow={(rowData)=>
                     <TouchableOpacity onPress={()=> {this.props.edit(rowData.output);
                     return this.props.toggle();}}>
