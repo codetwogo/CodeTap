@@ -27,6 +27,7 @@ export default class CodeEnv extends Component {
     this.textEnvChange = this.textEnvChange.bind(this);
     this.textFocus = this.textFocus.bind(this);
     this.onSelectionChange = this.onSelectionChange.bind(this);
+    this.onSwitchChange = this.onSwitchChange.bind(this);
   }
 
   // **************************************//
