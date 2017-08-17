@@ -1,8 +1,6 @@
 import React from 'react';
 import {View, Switch, Text} from 'react-native';
 
-import ClipButtons from '../ClipButtons';
-
 export default ({switchVal, onSwitchChange, onQuestionSwitchChange, switchQuestion, description, edit, showQuestion}) => {
     return (
         <View style={{
@@ -27,7 +25,6 @@ export default ({switchVal, onSwitchChange, onQuestionSwitchChange, switchQuesti
                 {
                     showQuestion ? <Text>{description}</Text> : null
                 }
-            <ClipButtons edit={edit} />
         </View>
     );
 };

@@ -20,6 +20,7 @@ export default ({ textEnvChange, textValue, textFocus, onSelectionChange }) => {
 };
 const styles = StyleSheet.create({
     textInput: {
+      fontSize: 18,
       margin: 10,
       height: 200,
       borderWidth: 1,

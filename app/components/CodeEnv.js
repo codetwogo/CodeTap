@@ -3,19 +3,20 @@ import { KeyboardAvoidingView, View, Keyboard, StyleSheet, Button, TextInput, Sw
 
 import TextIDE from './Editor/TextEnv';
 import SwitchView from './Editor/SwitchView';
+import ClipButtons from './ClipButtons';
 
 export default class CodeEnv extends Component {
   constructor(props) {
     super(props);
 
-    console.log(this.props.question.tests)
+    console.log(this.props.question.tests);
     const cursorStart = this.props.question.boilerPlate.length - 2;
 
     // textValue and textStates will come from either single question comp or testenv
     const textValue = (this.props.userAnswer) ? this.props.userAnswer : this.props.question.boilerPlate;
     const textStates = (this.props.textStates)
     ? this.props.textStates
-    : [{text: this.props.question.boilerPlate, cursorPosition: [cursorStart, cursorStart]}]
+    : [{text: this.props.question.boilerPlate, cursorPosition: [cursorStart, cursorStart]}];
 
     this.state = {
       // user answer
@@ -77,7 +78,7 @@ export default class CodeEnv extends Component {
 
       this.setState({
         textStates: [...statesPlaceHolder, { text: textValue, cursorPosition: this.state.cursorPositions }]
-      })
+      });
     }
 
     if (this.state.textStates.length < 20) {
@@ -86,8 +87,8 @@ export default class CodeEnv extends Component {
       }, () => {
         // checking state change
         console.log('currentstate', this.state.textValue);
-        console.log('lastarray', this.state.textStates[this.state.textStates.length - 1])
-      })
+        console.log('lastarray', this.state.textStates[this.state.textStates.length - 1]);
+      });
     }
 
     // hides keyboard?
@@ -108,7 +109,7 @@ export default class CodeEnv extends Component {
     this.setState({
       textValue: statesPlaceHolder[lastInd].text,
       textStates: [...statesPlaceHolder]
-    })
+    });
   }
 
   textFocus() {
@@ -210,7 +211,10 @@ export default class CodeEnv extends Component {
             switchQuestion={this.state.switchQuestion}
             description={this.state.description}
             showQuestion={this.state.showQuestion}
-            edit={this.edit} />
+            />
+        </View>
+        <View>
+        <ClipButtons edit={this.edit} />
         </View>
       </View>
 
