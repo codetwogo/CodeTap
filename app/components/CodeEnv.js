@@ -8,11 +8,18 @@ export default class CodeEnv extends Component {
   constructor(props) {
     super(props);
 
+    console.log(this.props.question.tests)
     const cursorStart = this.props.question.boilerPlate.length - 2;
+
+    // textValue and textStates will come from either single question comp or testenv
+    const textValue = (this.props.userAnswer) ? this.props.userAnswer : this.props.question.boilerPlate;
+    const textStates = (this.props.textStates)
+    ? this.props.textStates
+    : [{text: this.props.question.boilerPlate, cursorPosition: [cursorStart, cursorStart]}]
 
     this.state = {
       // user answer
-      textValue: this.props.question.boilerPlate,
+      textValue: textValue,
       switchVal: false,
       showQuestion: false,
       description: this.props.question.description,
@@ -21,9 +28,7 @@ export default class CodeEnv extends Component {
       startRender: true,
 
       // testing previous states for undo button
-      textStates: [
-        { text: this.props.question.boilerPlate, cursorPosition: [cursorStart, cursorStart] }
-      ]
+      textStates: textStates
 
     };
     // bind methods
@@ -52,7 +57,8 @@ export default class CodeEnv extends Component {
     this.props.navigator.push({
       id: 'test-env',
       userAnswer: this.state.textValue,
-      tests: this.props.question.tests
+      tests: this.props.question.tests,
+      textStates: this.state.textStates
     });
   }
 
