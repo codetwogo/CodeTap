@@ -11,12 +11,19 @@ export default class CodeEnv extends Component {
     const cursorStart = this.props.question.boilerPlate.length - 2;
 
     this.state = {
+      // user answer
       textValue: this.props.question.boilerPlate,
       switchVal: false,
       showQuestion: false,
       description: this.props.question.description,
+      // keeps track of user cursor positon
       cursorPositions: [cursorStart, cursorStart],
       startRender: true,
+
+      // testing previous states for undo button
+      textStates: [
+        { text: this.props.question.boilerPlate, cursorPosition: [cursorStart, cursorStart] }
+      ]
 
     };
     // bind methods
@@ -28,6 +35,7 @@ export default class CodeEnv extends Component {
     this.textFocus = this.textFocus.bind(this);
     this.onSelectionChange = this.onSelectionChange.bind(this);
     this.onSwitchChange = this.onSwitchChange.bind(this);
+    this.undo = this.undo.bind(this);
   }
 
   // **************************************//
@@ -52,13 +60,49 @@ export default class CodeEnv extends Component {
   textEnvChange(textValue) {
     this.setState({
       textValue,
-      focus: true
+      focus: true,
     });
+
+    // test appending text state to states
+    if (this.state.textStates.length >= 20) {
+
+      const statesPlaceHolder = this.state.textStates;
+      statesPlaceHolder.shift();
+
+      this.setState({
+        textStates: [...statesPlaceHolder, { text: textValue, cursorPosition: this.state.cursorPositions }]
+      })
+    }
+
+    if (this.state.textStates.length < 20) {
+      this.setState({
+        textStates: [...this.state.textStates, { text: textValue, cursorPosition: this.state.cursorPositions }]
+      }, () => {
+        // checking state change
+        console.log('currentstate', this.state.textValue);
+        console.log('lastarray', this.state.textStates[this.state.textStates.length - 1])
+      })
+    }
+
+    // hides keyboard?
     if (this.state.switchVal) {
       this.setState({
         switchVal: false
       });
     }
+  }
+
+  // Go back a text state from states array
+  undo() {
+    if (this.state.textStates.length === 1) return false;
+    const statesPlaceHolder = this.state.textStates;
+    statesPlaceHolder.pop();
+    const lastInd = statesPlaceHolder.length - 1;
+
+    this.setState({
+      textValue: statesPlaceHolder[lastInd].text,
+      textStates: [...statesPlaceHolder]
+    })
   }
 
   textFocus() {
@@ -139,6 +183,9 @@ export default class CodeEnv extends Component {
           <Button
             onPress={this.onBackPress}
             title="Back" />
+          <Button
+            onPress={this.undo}
+            title="Undo" />
           <Button
             onPress={this.onSubmit}
             title="Submit" />
