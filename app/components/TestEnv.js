@@ -11,10 +11,12 @@ export default class TestEnvComponent extends Component {
         this.state = {
             questionTitle: '',
             tests: [],
-            questionDescription: ''
+            questionDescription: '',
+            textStates: this.props.textStates
         }
 
         this.evaluateTest = this.evaluateTest.bind(this);
+        this.navigateBack = this.navigateBack.bind(this);
     }
 
     componentDidMount() {
@@ -41,10 +43,14 @@ export default class TestEnvComponent extends Component {
     }
 
     navigateBack() {
+        console.log(this.props.textStates)
         this.props.navigator.push({
             id: 'back-code-env',
             userAnswer: this.props.userAnswer,
-            textStates: this.props.textStates
+            textStates: this.props.textStates,
+            question: {
+                description: this.props.description
+            }
         })
     }
 
@@ -66,7 +72,11 @@ export default class TestEnvComponent extends Component {
         }
 
         const output = test.output.toString();
-        const resultStr = (error) ? 'N/A' : result.toString();
+        const resultStr = (error) 
+        ? 'N/A' 
+        : (!result) 
+            ? null
+            : result.toString();
 
         return (
             <Text key={test.id}>

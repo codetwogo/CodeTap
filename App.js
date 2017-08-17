@@ -28,10 +28,10 @@ export default class App extends React.Component {
         return (<CodeEnv navigator={navigator} question={route.question}/>);
 
       case 'back-code-env':
-        return (<CodeEnv navigator={navigator} userAnswer={route.userAnswer} textStates={route.textStates} />);
+        return (<CodeEnv navigator={navigator} userAnswer={route.userAnswer} textStates={route.textStates} question={route.question} />);
 
       case 'test-env':
-        return (<TestEnv navigator={navigator} userAnswer={route.userAnswer} tests={route.tests} textStates={route.textStates}/>);
+        return (<TestEnv navigator={navigator} userAnswer={route.userAnswer} tests={route.tests} textStates={route.textStates} description={route.description}/>);
 
       case 'beta-questions':
         return (<BetaQuestions navigator={navigator} />);
