@@ -64,7 +64,7 @@ export default class CodeEnv extends Component {
   textFocus() {
     this.setState({
       switchVal: false
-    })
+    });
   }
 
   // toggles question description
@@ -127,11 +127,16 @@ export default class CodeEnv extends Component {
 
   render() {
     return (
-      <KeyboardAvoidingView
-        style={styles.container}
+      <View   style={styles.container}
         behavior="padding">
-
+        <Button
+          onPress={this.onBackPress}
+          title="Back" />
+        <Button
+          onPress={this.onSubmit}
+          title="Submit" />
         <TextIDE
+          textFocus={this.textFocus}
           textValue={this.state.textValue}
           textEnvChange={this.textEnvChange}
           onSelectionChange={this.onSelectionChange} />
@@ -144,17 +149,8 @@ export default class CodeEnv extends Component {
           description={this.state.description}
           showQuestion={this.state.showQuestion}
           edit={this.edit} />
-
-        <View style={{ flex: 0.2 }}>
-          <Button
-            onPress={this.onSubmit}
-            title="Submit" />
-          <Button
-            onPress={this.onBackPress}
-            title="Back" />
         </View>
 
-      </KeyboardAvoidingView >
     );
   }
 }
