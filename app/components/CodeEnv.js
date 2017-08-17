@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import { KeyboardAvoidingView, View, AppRegistry, Keyboard, StyleSheet, Button, TextInput, Switch, Text } from 'react-native';
-import ClipButtons from './ClipButtons';
+import { KeyboardAvoidingView, View, Keyboard, StyleSheet, Button, TextInput, Switch, Text } from 'react-native';
+
+import TextIDE from './Editor/TextEnv';
+import SwitchView from './Editor/SwitchView';
 
 export default class CodeEnv extends Component {
   constructor(props) {
@@ -22,8 +24,13 @@ export default class CodeEnv extends Component {
     this.onSubmit = this.onSubmit.bind(this);
     this.onQuestionSwitchChange = this.onQuestionSwitchChange.bind(this);
     this.edit = this.edit.bind(this);
+    this.textEnvChange = this.textEnvChange.bind(this);
+    this.textFocus = this.textFocus.bind(this);
   }
 
+  // **************************************//
+  // ************* Methods *************** //
+  // **************************************//
 
   // navigates back a url
   onBackPress() {
@@ -40,8 +47,7 @@ export default class CodeEnv extends Component {
   }
 
   // changes the text value in state after keyboard sends data
-  onChangeText(textValue) {
-
+  textEnvChange(textValue) {
     this.setState({
       textValue,
       focus: true
@@ -51,6 +57,12 @@ export default class CodeEnv extends Component {
         switchVal: false
       });
     }
+  }
+
+  textFocus() {
+    this.setState({
+      switchVal: false
+    })
   }
 
   // toggles question description
@@ -80,8 +92,6 @@ export default class CodeEnv extends Component {
 
   // will append user input into code env in correct place
   edit(text) {
-    // change state text value based on text returned from btn
-    // appends based on last cursor position
     const _self = this.state.textValue;
     const start = this.state.cursorPositions[0];
     const end = this.state.cursorPositions[1];
@@ -90,94 +100,47 @@ export default class CodeEnv extends Component {
 
     if (!this.state.cursorPositions.length) return false;
 
-    this.onChangeText(output);
+    this.textEnvChange(output);
   }
 
-  render() {
-    console.log('cursor', this.state.cursorPositions);
+  //****************************************//
+  // **************** Render ************** //
+  //****************************************//
 
+  render() {
     return (
       <KeyboardAvoidingView
         style={styles.container}
-        behavior="padding"
-      >
-        <View style={{ flex: 0.8 }}>
+        behavior="padding">
 
-          <TextInput style={styles.textInput}
-            onChangeText={textValue => this.onChangeText(textValue)}
-            value={this.state.textValue}
-            onFocus={() => this.setState({
-              switchVal: false
-            })}
-            // This event keeps track of the cursor position...we will need for our keyboard implementation
-            onSelectionChange={(e) => {
-              if (this.state.startRender) {
-                this.setState({
-                  startRender: false
-                });
-                return;
-              }
-              const start = e.nativeEvent.selection.start;
-              const end = e.nativeEvent.selection.end;
 
-              this.setState({
-                cursorPositions: [start, end]
-              });
-            }}
-            clearTextOnFocus={false}
-            multiline={true}
-          />
-
-          <View>
-
-            <Switch
-              value={this.state.switchVal}
-              onValueChange={(value) => this.onSwitchChange(value)}
-            />
-
-            <Text>Show Keyboard</Text>
-
-          </View>
-
-          <View>
-
-            <Switch
-              value={this.state.showQuestion}
-              onValueChange={(value) => this.onQuestionSwitchChange(value)}
-            />
-
-            <Text>Show Question</Text>
-
-            {
-              this.state.showQuestion ? <Text>{this.state.description}</Text> : null
-            }
-
-          </View>
-
-          <ClipButtons edit={this.edit} />
-
-        </View>
+          <TextIDE 
+            textValue={this.state.textValue}
+            textEnvChange={this.textEnvChange} />
+          
+          
+          <SwitchView 
+            switchVal={this.state.switchVal}
+            onSwitchChange={this.onSwitchChange}
+            onQuestionSwitchChange={this.onQuestionSwitchChange}
+            switchQuestion={this.state.switchQuestion}
+            description={this.state.description}
+            showQuestion={this.state.showQuestion}
+            edit={this.edit}/>
 
         <View style={{ flex: 0.2 }}>
-
           <Button
             onPress={this.onSubmit}
-            title="Submit"
-          />
-
+            title="Submit" />
           <Button
             onPress={this.onBackPress}
-            title="Back"
-          />
-
+            title="Back" />
         </View>
 
       </KeyboardAvoidingView >
     );
   }
 }
-
-AppRegistry.registerComponent('CodeEnv', () => CodeEnv);
 
 const styles = StyleSheet.create({
   container: {
