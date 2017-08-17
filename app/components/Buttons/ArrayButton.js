@@ -16,10 +16,10 @@ export default class ArrayButton extends Component {
         { title: 'sort', output: '.sort()' },
         { title: 'join', output: '.join()' },
         { title: 'concat', output: '.concat()' },
-        { title: 'map', output: '.map( () => {\n})' },
-        { title: 'filter', output: '.filter( () => {\n})' },
-        { title: 'reduce', output: '.reduce( () => {\n})' },
-        { title: 'forEach', output: '.forEach( () => {\n})' },
+        { title: 'map', output: '.map( () => {\n\t\n})' },
+        { title: 'filter', output: '.filter( () => {\n\t\n})' },
+        { title: 'reduce', output: '.reduce( () => {\n\t\n})' },
+        { title: 'forEach', output: '.forEach( () => {\n\t\n})' },
         { title: 'indexOf', output: '.indexOf()' }
       ],
     };

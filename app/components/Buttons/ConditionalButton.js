@@ -6,9 +6,9 @@ export default class ConditionalButton extends Component {
     super(props);
     this.state = {
       ConditionalKeys: [
-        { title: 'if', output: 'if( ){\n}' },
-        { title: 'else if', output: 'else if( ){\n}' },
-        { title: 'else', output: 'else {\n}' }
+        { title: 'if', output: 'if( ){\n\t\n}' },
+        { title: 'else if', output: 'else if( ){\n\t\n}' },
+        { title: 'else', output: 'else {\n\t\n}' }
       ],
     };
   }

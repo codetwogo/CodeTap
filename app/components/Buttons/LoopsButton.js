@@ -6,9 +6,9 @@ export default class LoopButton extends Component {
     super(props);
     this.state = {
       LoopKeys: [
-        { title: 'for', output: 'for(let i=0; ;i++){}' },
-        { title: 'for in', output: 'for(let key in ){}' },
-        { title: 'while', output: 'while(){}' }
+        { title: 'for', output: 'for(let i=0; ;i++){\n\t\n}' },
+        { title: 'for in', output: 'for(let key in ){\n\t\n}' },
+        { title: 'while', output: 'while(){\n\t\n}' }
       ],
     };
   }
