@@ -74,7 +74,11 @@ export default class TestEnvComponent extends Component {
         }
 
         const output = test.output.toString();
-        const resultStr = (error) ? 'N/A' : result.toString();
+        const resultStr = (error) 
+        ? 'N/A' 
+        : (!result) 
+            ? null
+            : result.toString();
 
         return (
             <Text key={test.id}>
