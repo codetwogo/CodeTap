@@ -19,14 +19,9 @@ export default ({ textEnvChange, textValue, textFocus, onSelectionChange }) => {
     );
 };
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      marginTop: 50,
-    },
-
     textInput: {
-      margin: 15,
+      margin: 10,
       height: 200,
-      borderWidth: 1
+      borderWidth: 1,
     },
   });

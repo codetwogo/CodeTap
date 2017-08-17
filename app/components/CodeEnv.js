@@ -127,29 +127,39 @@ export default class CodeEnv extends Component {
 
   render() {
     return (
-      <View   style={styles.container}
+      <View style={styles.container}
         behavior="padding">
-        <Button
-          onPress={this.onBackPress}
-          title="Back" />
-        <Button
-          onPress={this.onSubmit}
-          title="Submit" />
-        <TextIDE
-          textFocus={this.textFocus}
-          textValue={this.state.textValue}
-          textEnvChange={this.textEnvChange}
-          onSelectionChange={this.onSelectionChange} />
-
-        <SwitchView
-          switchVal={this.state.switchVal}
-          onSwitchChange={this.onSwitchChange}
-          onQuestionSwitchChange={this.onQuestionSwitchChange}
-          switchQuestion={this.state.switchQuestion}
-          description={this.state.description}
-          showQuestion={this.state.showQuestion}
-          edit={this.edit} />
+        <View style={
+          {
+            flex: 0.1,
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center'
+          }}>
+          <Button
+            onPress={this.onBackPress}
+            title="Back" />
+          <Button
+            onPress={this.onSubmit}
+            title="Submit" />
         </View>
+        <View style={{ flex: 0.9 }}>
+          <TextIDE
+            textFocus={this.textFocus}
+            textValue={this.state.textValue}
+            textEnvChange={this.textEnvChange}
+            onSelectionChange={this.onSelectionChange} />
+
+          <SwitchView
+            switchVal={this.state.switchVal}
+            onSwitchChange={this.onSwitchChange}
+            onQuestionSwitchChange={this.onQuestionSwitchChange}
+            switchQuestion={this.state.switchQuestion}
+            description={this.state.description}
+            showQuestion={this.state.showQuestion}
+            edit={this.edit} />
+        </View>
+      </View>
 
     );
   }
@@ -158,9 +168,8 @@ export default class CodeEnv extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 50,
+    marginTop: 20,
   },
-
   textInput: {
     margin: 15,
     height: 200,
