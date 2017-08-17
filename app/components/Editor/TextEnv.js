@@ -12,7 +12,7 @@ export default ({ textEnvChange, textValue, textFocus }) => {
             onFocus={() => textFocus}
 
             // This event keeps track of the cursor position...we will need for our keyboard implementation
-            onSelectionChange={(e) => onSelectionChange}
+                onSelectionChange={(e) => {onSelectionChange(e)}}
             clearTextOnFocus={false}
             multiline={true}
         />
