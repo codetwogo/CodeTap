@@ -56,7 +56,9 @@ export default class TestEnvComponent extends Component {
 
     evaluateTest(test) {
         // assigns the string function from user input into callFunc variable
-        eval(`const callFunc = ${this.state.userAnswer}`);
+        var callFunc;
+
+        eval(`callFunc = ${this.state.userAnswer}`);
 
         // stores result of running test with proper params
         var result;
