@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { TextInput, StyleSheet } from 'react-native';
 
-export default ({ textEnvChange, textValue, textFocus }) => {
+export default ({ textEnvChange, textValue, textFocus, onSelectionChange }) => {
 
     return (
         <TextInput
