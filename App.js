@@ -7,6 +7,7 @@ import AllQuestions from './app/components/AllQuestions';
 import SingleQuestion from './app/components/SingleQuestion';
 import CodeEnv from './app/components/CodeEnv';
 import TestEnv from './app/components/TestEnv';
+import BetaQuestions from './app/components/AllQuestionsBeta';
 
 export default class App extends React.Component {
 
@@ -28,6 +29,9 @@ export default class App extends React.Component {
 
       case 'test-env':
         return (<TestEnv navigator={navigator} userAnswer={route.userAnswer} tests={route.tests}/>);
+
+      case 'beta-questions':
+        return (<BetaQuestions navigator={navigator} />);
 
       default:
         return (<HomeComponent navigator={navigator} />);

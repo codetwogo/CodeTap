@@ -18,11 +18,15 @@ export default class AllQuestions extends Component {
         this.onBackPress = this.onBackPress.bind(this);
         this.renderRow = this.renderRow.bind(this);
         this.onQuestionPress = this.onQuestionPress.bind(this);
+        this.onBetaPress = this.onBetaPress.bind(this);
 
     }
 
     onBackPress() {
         this.props.navigator.push({ id: 'homecomponent' })
+    }
+    onBetaPress() {
+        this.props.navigator.push({ id: 'beta-questions' })
     }
 
     onQuestionPress(question) {
@@ -52,6 +56,10 @@ export default class AllQuestions extends Component {
                 <Button
                     onPress={() => this.onBackPress()}
                     title="Go back to base"
+                />
+                <Button
+                    onPress={() => this.onBetaPress()}
+                    title="Go Qestions Beta"
                 />
             </View>
         )
