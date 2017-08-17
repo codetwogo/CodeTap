@@ -12,7 +12,8 @@ export default class TestEnvComponent extends Component {
             questionTitle: '',
             tests: [],
             questionDescription: '',
-            textStates: this.props.textStates
+            textStates: this.props.textStates,
+            pass: false
         }
 
         this.evaluateTest = this.evaluateTest.bind(this);
@@ -20,20 +21,6 @@ export default class TestEnvComponent extends Component {
     }
 
     componentDidMount() {
-        // initialize with a dummy question *** replace with bottom section code when ready
-        // this.setState({
-        //     questionTitle: 'A Dummy Question',
-        //     questionDescription: 'Return true if the input is 5',
-        //     tests: [
-        //         { id: 1, inputs: [1], output: [false] },
-        //         { id: 2, inputs: [2], output: [false] },
-        //         { id: 3, inputs: [5], output: [true] }
-        //     ],
-        //     userAnswer: "function (num) {return num2 === 5}"
-        // })
-
-        // ****  Once we integrate with components, run following code: **** //
-
         this.setState({
             tests: [...this.props.tests],
             userAnswer: this.props.userAnswer,
@@ -55,6 +42,10 @@ export default class TestEnvComponent extends Component {
         })
     }
 
+    navigateToAllQuestions() {
+        console.log('placeholder')
+    }
+
     evaluateTest(test) {
         // assigns the string function from user input into callFunc variable
         var callFunc;
@@ -73,17 +64,24 @@ export default class TestEnvComponent extends Component {
             error = err;
             console.log(err)
         }
+        
 
         const output = test.output.toString();
         const resultStr = (error) 
         ? 'N/A' 
         : (!result) 
-            ? result.toString()
+            ? '***No result returned from function***'
             : result.toString();
+
+        if (output === resultStr) {
+            this.setState({
+                pass: true
+            })
+        }
 
         return (
             <Text key={test.id}>
-                {error ? `Error received: ${error}` : `The result of test with inputs of ${test.inputs} and an expected output of : ${output} have actually returned : ${resultStr}`}
+                {error ? `Error received: ${error}` : `The result of test with inputs of [${test.inputs}] \n An expected output of : ${output} \n Actually returned : ${resultStr} \n`}
             </Text>
         )
     }
@@ -101,6 +99,23 @@ export default class TestEnvComponent extends Component {
                         )
                     })
                 }
+
+                {
+                    (this.state.pass)
+                    ? <View>
+                        <Text> Congratulations you passed all the tests!!!!</Text>
+                        <Button 
+                            onPress={this.navigateToAllQuestions}
+                            title='Go back to all questions'/>
+                      </View>
+                    : <View>
+                        <Text> Sadly, you failed one or more tests!!!!</Text>
+                        <Button 
+                            onPress={this.navigateBack}
+                            title='Try again'/>
+                      </View>
+                }
+
             </View>
         )
     }
