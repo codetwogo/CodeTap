@@ -49,7 +49,8 @@ export default class TestEnvComponent extends Component {
             userAnswer: this.props.userAnswer,
             textStates: this.props.textStates,
             question: {
-                description: this.props.description
+                description: this.props.description,
+                tests: this.props.tests
             }
         })
     }
