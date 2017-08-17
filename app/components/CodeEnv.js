@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
-import { KeyboardAvoidingView, View, Keyboard, StyleSheet, Button, TextInput, Switch, Text } from 'react-native';
+import { KeyboardAvoidingView, Keyboard, StyleSheet, TextInput, Switch } from 'react-native';
+
+import { Container, Header, View, DeckSwiper, Card, CardItem, Thumbnail, Text, Left, Body, Icon, Button, Input } from 'native-base';
 
 import TextIDE from './Editor/TextEnv';
 import SwitchView from './Editor/SwitchView';
+import HeaderComponent from './Header.js';
 
 export default class CodeEnv extends Component {
   constructor(props) {
@@ -14,7 +17,7 @@ export default class CodeEnv extends Component {
 
     // textValue and textStates will come from either single question comp or testenv
     const textValue = (this.props.userAnswer) ? this.props.userAnswer : this.props.question.boilerPlate;
-    
+
     const textStates = this.props.textStates || [{text: this.props.question.boilerPlate, cursorPosition: [cursorStart, cursorStart]}]
 
     this.state = {
@@ -178,43 +181,48 @@ export default class CodeEnv extends Component {
 
   render() {
     return (
-      <View style={styles.container}
-        behavior="padding">
-        <View style={
-          {
-            flex: 0.1,
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center'
-          }}>
-          <Button
-            onPress={this.onBackPress}
-            title="Back" />
-          <Button
-            onPress={this.undo}
-            title="Undo" />
-          <Button
-            onPress={this.onSubmit}
-            title="Submit" />
-        </View>
-        <View style={{ flex: 0.9 }}>
-          <TextIDE
-            textFocus={this.textFocus}
-            textValue={this.state.textValue}
-            textEnvChange={this.textEnvChange}
-            onSelectionChange={this.onSelectionChange} />
+      <Container>
+        <HeaderComponent navigator={this.props.navigator} style={styles.item} />
+        <View style={styles.container}
+          behavior="padding">
+          <View style={
+            {
+              flex: 0.1,
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center'
+            }}>
+            <Button
+              onPress={this.onBackPress}>
+              <Text>Back</Text>
+            </Button>
+            <Button
+              onPress={this.undo}>
+              <Text>Undo</Text>
+            </Button>
+            <Button
+              onPress={this.onSubmit}>
+              <Text>Submit</Text>
+            </Button>
+          </View>
+          <View style={{ flex: 0.9 }}>
+            <TextIDE style={styles.textInput}
+              textFocus={this.textFocus}
+              textValue={this.state.textValue}
+              textEnvChange={this.textEnvChange}
+              onSelectionChange={this.onSelectionChange} />
 
-          <SwitchView
-            switchVal={this.state.switchVal}
-            onSwitchChange={this.onSwitchChange}
-            onQuestionSwitchChange={this.onQuestionSwitchChange}
-            switchQuestion={this.state.switchQuestion}
-            description={this.state.description}
-            showQuestion={this.state.showQuestion}
-            edit={this.edit} />
+            <SwitchView
+              switchVal={this.state.switchVal}
+              onSwitchChange={this.onSwitchChange}
+              onQuestionSwitchChange={this.onQuestionSwitchChange}
+              switchQuestion={this.state.switchQuestion}
+              description={this.state.description}
+              showQuestion={this.state.showQuestion}
+              edit={this.edit} />
+          </View>
         </View>
-      </View>
-
+      </Container>
     );
   }
 }
@@ -222,11 +230,11 @@ export default class CodeEnv extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 20,
   },
   textInput: {
     margin: 15,
     height: 200,
-    borderWidth: 1
+    padding: 10,
+    borderWidth: 0
   },
 });

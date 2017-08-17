@@ -7,7 +7,7 @@ import AllQuestions from './app/components/AllQuestions';
 import SingleQuestion from './app/components/SingleQuestion';
 import CodeEnv from './app/components/CodeEnv';
 import TestEnv from './app/components/TestEnv';
-import BetaQuestions from './app/components/AllQuestionsBeta';
+// import BetaQuestions from './app/components/AllQuestionsBeta';
 
 export default class App extends React.Component {
 
