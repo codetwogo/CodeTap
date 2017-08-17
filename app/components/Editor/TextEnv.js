@@ -12,20 +12,7 @@ export default ({ textEnvChange, textValue, textFocus }) => {
             onFocus={() => textFocus}
 
             // This event keeps track of the cursor position...we will need for our keyboard implementation
-            onSelectionChange={(e) => {
-                if (this.state.startRender) {
-                    this.setState({
-                        startRender: false
-                    });
-                    return;
-                }
-                const start = e.nativeEvent.selection.start;
-                const end = e.nativeEvent.selection.end;
-
-                this.setState({
-                    cursorPositions: [start, end]
-                });
-            }}
+            onSelectionChange={(e) => onSelectionChange}
             clearTextOnFocus={false}
             multiline={true}
         />
