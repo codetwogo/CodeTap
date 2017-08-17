@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, ListView, AppRegistry, Keyboard, StyleSheet, Button, Text, TouchableOpacity, Clipboard } from 'react-native';
+import { View, AppRegistry, Keyboard, StyleSheet, Button, Text, TouchableOpacity, Clipboard } from 'react-native';
 import LoopsButton from './Buttons/LoopsButton';
 import ConditionalButton from './Buttons/ConditionalButton';
 import VariableButton from './Buttons/VariableButton';
@@ -11,9 +11,8 @@ import StringButton from './Buttons/StringButton';
 export default class ClipButton extends Component {
   constructor(props) {
     super(props);
-    const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
     this.state = {
-      hotKeys: ds.cloneWithRows([
+      hotKeys: [
         { title: 'Loops', comp: LoopsButton },
         { title: 'Conditional', comp: ConditionalButton },
         { title: 'Variable', comp: VariableButton },
@@ -21,7 +20,7 @@ export default class ClipButton extends Component {
         { title: 'Operator', comp: OperatorButton },
         { title: 'Action', comp: ActionButton },
         { title: 'String', comp: StringButton },
-      ]),
+      ],
       selectedButton: {},
       buttonPushed: false
     };
@@ -42,17 +41,17 @@ export default class ClipButton extends Component {
             <TouchableOpacity onPress={() => this.onButtonPush()}>
               <this.state.selectedButton toggle={this.onButtonPush} edit={this.props.edit}/>
             </TouchableOpacity>
-            : <ListView
-              dataSource={this.state.hotKeys}
-              renderRow={(rowData) =>
-                <TouchableOpacity onPress={() => {
-                  this.selectButton(rowData.comp);
+            : <View style={styles.container}>
+              {this.state.hotKeys.map((hotkey)=>{
+                return(
+                <TouchableOpacity style={styles.hotKey} key={hotkey.title} onPress={() => {
+                  this.selectButton(hotkey.comp);
                   this.onButtonPush();}}>
-                  <Text style={styles.hotKey}>
-                    {rowData.title}
+                  <Text>
+                    {hotkey.title}
                   </Text>
-                </TouchableOpacity>}
-            />
+                </TouchableOpacity>);})}
+              </View>
         }
       </View>
     );
@@ -63,11 +62,21 @@ AppRegistry.registerComponent('ClipButton', () => ClipButton);
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    marginTop: 50,
+    flexWrap: 'wrap',
+    marginTop: 30,
+    flexDirection:'row',
+    justifyContent: 'space-between',
+    alignItems: 'center'
   },
   hotKey: {
-    flex: 1,
-    color: 'green'
+    justifyContent: 'center',
+    alignItems: 'center',
+    width:100,
+    borderColor: 'red',
+    backgroundColor: 'green',
+    padding: 10,
+    marginTop: 5,
+    marginBottom: 5,
+    borderWidth: 1
   }
 });
