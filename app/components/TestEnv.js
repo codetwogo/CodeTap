@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { View, Text } from 'react-native';
+import { View, Text, StyleSheet, Button } from 'react-native';
 
 
 
@@ -19,24 +19,33 @@ export default class TestEnvComponent extends Component {
 
     componentDidMount() {
         // initialize with a dummy question *** replace with bottom section code when ready
-        this.setState({
-            questionTitle: 'A Dummy Question',
-            questionDescription: 'Return true if the input is 5',
-            tests: [
-                { id: 1, inputs: [1], output: [false] },
-                { id: 2, inputs: [2], output: [false] },
-                { id: 3, inputs: [5], output: [true] }
-            ],
-            userAnswer: "function (num) {return num2 === 5}"
-        })
+        // this.setState({
+        //     questionTitle: 'A Dummy Question',
+        //     questionDescription: 'Return true if the input is 5',
+        //     tests: [
+        //         { id: 1, inputs: [1], output: [false] },
+        //         { id: 2, inputs: [2], output: [false] },
+        //         { id: 3, inputs: [5], output: [true] }
+        //     ],
+        //     userAnswer: "function (num) {return num2 === 5}"
+        // })
 
         // ****  Once we integrate with components, run following code: **** //
-        /*
-            this.setState({
-                tests: [this.props.tests],
-                userAnswer: this.props.userAnswer
-            })
-        */
+
+        this.setState({
+            tests: [...this.props.tests],
+            userAnswer: this.props.userAnswer,
+            textStates: this.props.textStates
+        })
+
+    }
+
+    navigateBack() {
+        this.props.navigator.push({
+            id: 'back-code-env',
+            userAnswer: this.props.userAnswer,
+            textStates: this.props.textStates
+        })
     }
 
     evaluateTest(test) {
@@ -51,7 +60,7 @@ export default class TestEnvComponent extends Component {
         try {
             const result = eval(callFunc.apply(this, test.inputs))
         }
-        catch(err) {
+        catch (err) {
             error = err;
             console.log(err)
         }
@@ -68,7 +77,10 @@ export default class TestEnvComponent extends Component {
 
     render() {
         return (
-            <View>
+            <View style={styles.container}>
+                <Button
+                    onPress={this.navigateBack}
+                    title='Back to Code Env' />
                 {
                     this.state.tests.map(test => {
                         return (
@@ -80,3 +92,16 @@ export default class TestEnvComponent extends Component {
         )
     }
 }
+
+const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      marginTop: 20,
+    },
+    textInput: {
+      margin: 15,
+      height: 200,
+      borderWidth: 1
+    },
+  });
+  
