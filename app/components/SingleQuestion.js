@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
-import { AppRegistry, View, Text, StyleSheet, Button } from 'react-native';
+import { AppRegistry, StyleSheet} from 'react-native';
+
+import { Container, Content, Header, View, DeckSwiper, Card, CardItem, Thumbnail, Text, Left, Body, Icon, Button, Input } from 'native-base';
+
+import HeaderComponent from './Header.js'
 
 export default class SingleQuestionComponent extends Component {
     //consider destructuring {question: { title, tests, boilerPlate, description}}
@@ -33,39 +37,41 @@ export default class SingleQuestionComponent extends Component {
 
     render() {
         return (
-            <View style={styles.container}>
+          <Container>
+            <HeaderComponent navigator={this.props.navigator} />
+            <Content styles={styles.container}>
+              <View>
                 <Text>{this.state.title}</Text>
                 {
-                    this.state.tests.map(test => {
-                        return (
-                            <View key={test.inputs}>
-                                <Text>Inputs: {test.inputs}</Text>
-                                <Text>Output: {test.output} </Text>
-                            </View>
-                        )
-                    })
+                  this.state.tests.map(test => {
+                      return (
+                          <View key={test.inputs}>
+                              <Text>Inputs: {test.inputs}</Text>
+                              <Text>Output: {test.output} </Text>
+                          </View>
+                      )
+                  })
                 }
                 <Text>{this.state.description}</Text>
-                <Button
-                    onPress={this.onCodePress}
-                    title="Code!"
-                />
-                <Button
-                    onPress={this.onBackPress}
-                    title="Go Back"
-                />
-            </View>
+                <Container style={styles.container}>
+                  <Button onPress={this.onCodePress} bordered>
+                    <Text>Code!</Text>
+                  </Button>
+                </Container>
+              </View>
+            </Content>
+
+          </Container>
         );
     }
 }
 
-AppRegistry.registerComponent('SingleQuestionComponent', () => SingleQuestionComponent);
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+  },
 });
