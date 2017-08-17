@@ -9,7 +9,10 @@ export default class HeaderComponent extends Component {
   }
 
   onBackPress() {
-      this.props.navigator.push({ id: 'beta-questions' })
+      this.props.navigator.push({ id: 'all-questions-component' })
+  }
+  onCancelPress() {
+      this.props.navigator.push({ id: 'homecomponent' })
   }
 
   render() {
@@ -26,7 +29,9 @@ export default class HeaderComponent extends Component {
             <Title>CodeToGo</Title>
           </Body>
           <Right>
-            <Button transparent>
+            <Button transparent onPress={()=>
+              this.onCancelPress()
+            }>
               <Text>Cancel</Text>
             </Button>
           </Right>
