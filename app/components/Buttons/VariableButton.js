@@ -1,38 +1,56 @@
 import React, { Component } from 'react';
-import { ListView, AppRegistry, Keyboard, StyleSheet, Button, Text, TouchableOpacity, Clipboard } from 'react-native';
+import { View, AppRegistry, Keyboard, StyleSheet, Button, Text, TouchableOpacity, Clipboard } from 'react-native';
 
 export default class VariableButton extends Component {
     constructor(props) {
         super(props);
-        const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         this.state = {
-            VariableKeys: ds.cloneWithRows([{title: 'let', output: 'let = '}, {title: 'const', output: 'const = '}, {title: 'var', output: 'var = '}]),
+            VariableKeys: [
+              {title: 'let', output: 'let = '},
+              {title: 'const', output: 'const = '},
+              {title: 'var', output: 'var = '}],
         };
     }
 
     render() {
         return (
-                <ListView
-                  dataSource={this.state.VariableKeys}
-                  renderRow={(rowData)=>
-                    <TouchableOpacity onPress={()=> {this.props.edit(rowData.output);
-                    return this.props.toggle();}}>
-                    <Text style={styles.hotKey}>
-                    {rowData.title}
-                    </Text>
-                  </TouchableOpacity>}
-                />
+                <View style={styles.container}>
+                  {this.state.VariableKeys.map((key)=> {
+                    return(
+                      <TouchableOpacity key={key.title} style={styles.hotKey}
+                        onPress={()=> {
+                          this.props.edit(key.output);
+                          return this.props.toggle();
+                        }
+                      }>
+                      <Text>
+                      {key.title}
+                      </Text>
+                    </TouchableOpacity>);
+                    })
+                }
+                  </View>
         );
     }
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        marginTop: 50,
-    },
-    hotKey:{
-      flex: 1,
-      color: 'green'
-    }
+  container: {
+    flexWrap: 'wrap',
+    marginTop: 30,
+    flexDirection:'row',
+    justifyContent: 'space-between',
+    alignItems: 'center'
+  },
+  hotKey: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    width:100,
+    borderColor: 'red',
+    backgroundColor: 'green',
+    padding: 10,
+    marginTop: 5,
+    marginBottom: 5,
+    borderWidth: 1
+  }
 });

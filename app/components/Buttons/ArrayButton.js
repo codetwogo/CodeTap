@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
-import { ListView, AppRegistry, Keyboard, StyleSheet, Button, Text, TouchableOpacity, Clipboard } from 'react-native';
+import { View, AppRegistry, Keyboard, StyleSheet, Button, Text, TouchableOpacity, Clipboard } from 'react-native';
 
 export default class ArrayButton extends Component {
     constructor(props) {
         super(props);
-        const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         this.state = {
-            ArrayKeys: ds.cloneWithRows([
+            ArrayKeys: [
                 {title: 'length', output: '.length'},
-                {title: 'slice', output: '.slice()'}, 
-                {title: 'splice', output: '.splice()'}, 
+                {title: 'slice', output: '.slice()'},
+                {title: 'splice', output: '.splice()'},
                 {title: 'pop', output: '.pop()'},
                 {title: 'push', output: '.push()'},
                 {title: 'shift', output: '.shift()'},
@@ -17,34 +16,49 @@ export default class ArrayButton extends Component {
                 {title: 'sort', output: '.sort()'},
                 {title: 'join', output: '.join()'},
                 {title: 'concat', output: '.concat()'}
-            ]),
-
+            ],
         };
     }
 
     render() {
         return (
-                <ListView
-                  dataSource={this.state.ArrayKeys}
-                  renderRow={(rowData)=>
-                    <TouchableOpacity onPress={()=> {this.props.edit(rowData.output);
-                    return this.props.toggle();}}>
-                    <Text style={styles.hotKey}>
-                    {rowData.title}
-                    </Text>
-                  </TouchableOpacity>}
-                />
+                <View style={styles.container}>
+                  {this.state.ArrayKeys.map((key)=> {
+                    return(
+                      <TouchableOpacity key={key.title} style={styles.hotKey}
+                        onPress={()=> {
+                          this.props.edit(key.output);
+                          return this.props.toggle();
+                        }
+                      }>
+                      <Text>
+                      {key.title}
+                      </Text>
+                    </TouchableOpacity>);
+                    })
+                }
+                  </View>
         );
     }
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        marginTop: 50,
-    },
-    hotKey:{
-      flex: 1,
-      color: 'green'
-    }
+  container: {
+    flexWrap: 'wrap',
+    marginTop: 30,
+    flexDirection:'row',
+    justifyContent: 'space-between',
+    alignItems: 'center'
+  },
+  hotKey: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    width:100,
+    borderColor: 'red',
+    backgroundColor: 'green',
+    padding: 10,
+    marginTop: 5,
+    marginBottom: 5,
+    borderWidth: 1
+  }
 });
