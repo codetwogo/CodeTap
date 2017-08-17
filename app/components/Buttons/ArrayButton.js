@@ -17,9 +17,9 @@ export default class ArrayButton extends Component {
         { title: 'join', output: '.join()' },
         { title: 'concat', output: '.concat()' },
         { title: 'map', output: '.map( () => {\n\t\n})' },
-        { title: 'filter', output: '.filter( () => {\n\t\n})' },
-        { title: 'reduce', output: '.reduce( () => {\n\t\n})' },
-        { title: 'forEach', output: '.forEach( () => {\n\t\n})' },
+        { title: 'filter', output: '.filter( () => {\n\t\n\t})' },
+        { title: 'reduce', output: '.reduce( () => {\n\t\n\t})' },
+        { title: 'forEach', output: '.forEach( () => {\n\t\n\t})' },
         { title: 'indexOf', output: '.indexOf()' }
       ],
     };
