@@ -78,7 +78,7 @@ export default class TestEnvComponent extends Component {
         const resultStr = (error) 
         ? 'N/A' 
         : (!result) 
-            ? null
+            ? result.toString()
             : result.toString();
 
         return (
