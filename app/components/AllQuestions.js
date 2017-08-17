@@ -7,9 +7,9 @@ export default class AllQuestions extends Component {
 
         const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
         const questions = [
-            { id: 'single-question-component', title: 'Question1', tests: [{id: 1, inputs:[1], output:[true]}], boilerPlate: 'function(word){\n\t\n}', description: 'Enter question Description' },
-            { id: 'single-question-component', title: 'Question2', tests: [{id: 1, inputs:[1], output:[false]}], boilerPlate: 'function(word2){\n\t\n}', description: 'Enter question Description' },
-            { id: 'single-question-component', title: 'Question3', tests: [{id: 1, inputs:[1], output:[false]}], boilerPlate: 'function(word3){\n\t\n}', description: 'Enter question Description' }
+            { id: 'single-question-component', title: 'String Search', tests: [{inputs:['or', 'hello world'], output:[true]}], boilerPlate: 'function indexOf (needle, haystack){\n\t\n}', description: 'You are attempting to find the index of the first appearance of one string (the needle) inside of another (the haystack).' },
+            { id: 'single-question-component', title: 'Question2', tests: [{inputs:[1], output:[false]}], boilerPlate: 'function(word2){\n\t\n}', description: 'Enter question Description' },
+            { id: 'single-question-component', title: 'Question3', tests: [{inputs:[1], output:[false]}], boilerPlate: 'function(word3){\n\t\n}', description: 'Enter question Description' }
         ]
         this.state = {
             dataSource: ds.cloneWithRows(questions)
