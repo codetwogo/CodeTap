@@ -35,7 +35,16 @@ export default class SingleQuestionComponent extends Component {
         return (
             <View style={styles.container}>
                 <Text>{this.state.title}</Text>
-                <Text>{this.state.tests}</Text>
+                {
+                    this.state.tests.map(test => {
+                        return (
+                            <View key={test.inputs}>
+                                <Text>Inputs: {test.inputs}</Text>
+                                <Text>Output: {test.output} </Text>
+                            </View>
+                        )
+                    })
+                }
                 <Text>{this.state.description}</Text>
                 <Button
                     onPress={this.onCodePress}
