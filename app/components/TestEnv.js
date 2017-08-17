@@ -66,7 +66,7 @@ export default class TestEnvComponent extends Component {
 
         // run try, catch to obtain errors and report back to the user
         try {
-            const result = eval(callFunc.apply(this, test.inputs))
+            result = eval(callFunc.apply(this, test.inputs))
         }
         catch (err) {
             error = err;
