@@ -3,7 +3,6 @@ import { KeyboardAvoidingView, View, Keyboard, StyleSheet, Button, TextInput, Sw
 
 import TextIDE from './Editor/TextEnv';
 import SwitchView from './Editor/SwitchView';
-import ClipButtons from './ClipButtons';
 
 export default class CodeEnv extends Component {
   constructor(props) {
@@ -211,10 +210,7 @@ export default class CodeEnv extends Component {
             switchQuestion={this.state.switchQuestion}
             description={this.state.description}
             showQuestion={this.state.showQuestion}
-            />
-        </View>
-        <View>
-        <ClipButtons edit={this.edit} />
+            edit={this.edit} />
         </View>
       </View>
 
