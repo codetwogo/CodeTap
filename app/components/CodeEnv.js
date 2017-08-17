@@ -8,14 +8,14 @@ export default class CodeEnv extends Component {
   constructor(props) {
     super(props);
 
-    console.log(this.props.question.tests)
-    const cursorStart = this.props.question.boilerPlate.length - 2;
+    console.log(this.props.textStates);
+
+    const cursorStart = (this.props.userAnswer) ? this.props.textStates[this.props.textStates.length - 1].cursorPosition : this.props.question.boilerPlate.length - 2;
 
     // textValue and textStates will come from either single question comp or testenv
     const textValue = (this.props.userAnswer) ? this.props.userAnswer : this.props.question.boilerPlate;
-    const textStates = (this.props.textStates)
-    ? this.props.textStates
-    : [{text: this.props.question.boilerPlate, cursorPosition: [cursorStart, cursorStart]}]
+    
+    const textStates = this.props.textStates || [{text: this.props.question.boilerPlate, cursorPosition: [cursorStart, cursorStart]}]
 
     this.state = {
       // user answer
@@ -58,7 +58,8 @@ export default class CodeEnv extends Component {
       id: 'test-env',
       userAnswer: this.state.textValue,
       tests: this.props.question.tests,
-      textStates: this.state.textStates
+      textStates: this.state.textStates,
+      description: this.state.description
     });
   }
 
