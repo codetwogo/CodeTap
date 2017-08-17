@@ -26,6 +26,7 @@ export default class CodeEnv extends Component {
     this.edit = this.edit.bind(this);
     this.textEnvChange = this.textEnvChange.bind(this);
     this.textFocus = this.textFocus.bind(this);
+    this.onSelectionChange = this.onSelectionChange.bind(this);
   }
 
   // **************************************//
@@ -90,6 +91,22 @@ export default class CodeEnv extends Component {
     });
   }
 
+  // method to keep track of cursor position when user moves cursor
+  onSelectionChange(e) {
+    if (this.state.startRender) {
+      this.setState({
+        startRender: false
+      });
+      return;
+    }
+    const start = e.nativeEvent.selection.start;
+    const end = e.nativeEvent.selection.end;
+
+    this.setState({
+      cursorPositions: [start, end]
+    });
+  }
+
   // will append user input into code env in correct place
   edit(text) {
     const _self = this.state.textValue;
@@ -113,20 +130,19 @@ export default class CodeEnv extends Component {
         style={styles.container}
         behavior="padding">
 
+        <TextIDE
+          textValue={this.state.textValue}
+          textEnvChange={this.textEnvChange}
+          onSelectionChange={this.onSelectionChange} />
 
-          <TextIDE 
-            textValue={this.state.textValue}
-            textEnvChange={this.textEnvChange} />
-          
-          
-          <SwitchView 
-            switchVal={this.state.switchVal}
-            onSwitchChange={this.onSwitchChange}
-            onQuestionSwitchChange={this.onQuestionSwitchChange}
-            switchQuestion={this.state.switchQuestion}
-            description={this.state.description}
-            showQuestion={this.state.showQuestion}
-            edit={this.edit}/>
+        <SwitchView
+          switchVal={this.state.switchVal}
+          onSwitchChange={this.onSwitchChange}
+          onQuestionSwitchChange={this.onQuestionSwitchChange}
+          switchQuestion={this.state.switchQuestion}
+          description={this.state.description}
+          showQuestion={this.state.showQuestion}
+          edit={this.edit} />
 
         <View style={{ flex: 0.2 }}>
           <Button
