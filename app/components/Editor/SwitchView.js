@@ -9,13 +9,13 @@ export default ({switchVal, onSwitchChange, onQuestionSwitchChange, switchQuesti
             <View>
                 <Switch
                     value={switchVal}
-                    onValueChange={(value) => onSwitchChange(value)} />
+                    onValueChange={(value) => {onSwitchChange(value)}} />
                 <Text>Show Keyboard</Text>
             </View>
             <View>
                 <Switch
                     value={showQuestion}
-                    onValueChange={(value) => onQuestionSwitchChange(value)} />
+                    onValueChange={(value) => {onQuestionSwitchChange(value)}} />
                 <Text>Show Question</Text>
                 {
                     showQuestion ? <Text>{description}</Text> : null
