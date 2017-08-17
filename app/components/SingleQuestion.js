@@ -38,7 +38,7 @@ export default class SingleQuestionComponent extends Component {
                 {
                     this.state.tests.map(test => {
                         return (
-                            <View>
+                            <View key={test.inputs}>
                                 <Text>Inputs: {test.inputs}</Text>
                                 <Text>Output: {test.output} </Text>
                             </View>
