@@ -3,7 +3,7 @@ import { KeyboardAvoidingView, Keyboard, StyleSheet, TextInput, Switch } from 'r
 
 import { Container, Header, View, DeckSwiper, Card, CardItem, Thumbnail, Text, Left, Body, Icon, Button, Input } from 'native-base';
 
-import TextIDE from './Editor/TextEnv';
+import TextIDE from './Editor/TextIDE';
 import SwitchView from './Editor/SwitchView';
 import HeaderComponent from './Header.js';
 
@@ -11,14 +11,12 @@ export default class CodeEnv extends Component {
   constructor(props) {
     super(props);
 
-    console.log(this.props.textStates);
-
     const cursorStart = (this.props.userAnswer) ? this.props.textStates[this.props.textStates.length - 1].cursorPosition : this.props.question.boilerPlate.length - 2;
 
     // textValue and textStates will come from either single question comp or testenv
     const textValue = (this.props.userAnswer) ? this.props.userAnswer : this.props.question.boilerPlate;
 
-    const textStates = this.props.textStates || [{text: this.props.question.boilerPlate, cursorPosition: [cursorStart, cursorStart]}]
+    const textStates = this.props.textStates || [{ text: this.props.question.boilerPlate, cursorPosition: [cursorStart, cursorStart] }]
 
     this.state = {
       // user answer
@@ -44,6 +42,7 @@ export default class CodeEnv extends Component {
     this.onSelectionChange = this.onSelectionChange.bind(this);
     this.onSwitchChange = this.onSwitchChange.bind(this);
     this.undo = this.undo.bind(this);
+    this.cursorBlur = this.cursorBlur.bind(this);
   }
 
   // **************************************//
@@ -66,12 +65,28 @@ export default class CodeEnv extends Component {
     });
   }
 
+  edit(text) {
+    const _self = this.state.textValue;
+    const start = this.state.cursorPositions[0];
+    const end = this.state.cursorPositions[1];
+
+    const output = _self.slice(0, start) + text + _self.slice(end);
+
+    // if (!this.state.cursorPositions.length) return false;
+    console.log('EDIT FIRED!!!')
+    this.textEnvChange(output, text.length);
+  }
+
   // changes the text value in state after keyboard sends data
-  textEnvChange(textValue) {
+  textEnvChange(textValue, textLength = 0) {
+    const start = this.state.cursorPositions[0];
+    const end = this.state.cursorPositions[1];
+    console.log(textLength);
     this.setState({
       textValue,
       focus: true,
-    });
+      cursorPositions: [start + textLength, end + textLength]
+    }, () => console.log('TEXT ENV CURSOR', this.state.cursorPositions));
 
     // test appending text state to states
     if (this.state.textStates.length >= 20) {
@@ -80,17 +95,13 @@ export default class CodeEnv extends Component {
       statesPlaceHolder.shift();
 
       this.setState({
-        textStates: [...statesPlaceHolder, { text: textValue, cursorPosition: this.state.cursorPositions }]
+        textStates: [...statesPlaceHolder, { text: textValue, cursorPosition: [start + textLength, end + textLength] }]
       })
     }
 
     if (this.state.textStates.length < 20) {
       this.setState({
-        textStates: [...this.state.textStates, { text: textValue, cursorPosition: this.state.cursorPositions }]
-      }, () => {
-        // checking state change
-        console.log('currentstate', this.state.textValue);
-        console.log('lastarray', this.state.textStates[this.state.textStates.length - 1])
+        textStates: [...this.state.textStates, { text: textValue, cursorPosition: [start + textLength, end + textLength] }]
       })
     }
 
@@ -116,6 +127,11 @@ export default class CodeEnv extends Component {
   }
 
   textFocus() {
+    console.log("initial cursor position", this.state.cursorPositions[0])
+    console.log("lenght of function", this.state.textValue.length)
+    if (this.state.cursorPositions[0] === this.state.textValue.length) {
+      this.setState({ cursorPositions: [this.state.cursorPositions[0] - 1, this.state.cursorPositions[1] - 1] })
+    }
     this.setState({
       switchVal: false
     });
@@ -154,25 +170,19 @@ export default class CodeEnv extends Component {
       });
       return;
     }
+    console.log('E-event', e.nativeEvent)
     const start = e.nativeEvent.selection.start;
     const end = e.nativeEvent.selection.end;
 
     this.setState({
       cursorPositions: [start, end]
-    });
+    }, () => console.log('Cursor At Selection Change', this.state.cursorPositions));
   }
 
   // will append user input into code env in correct place
-  edit(text) {
-    const _self = this.state.textValue;
-    const start = this.state.cursorPositions[0];
-    const end = this.state.cursorPositions[1];
 
-    const output = _self.slice(0, start) + text + _self.slice(end);
-
-    if (!this.state.cursorPositions.length) return false;
-
-    this.textEnvChange(output);
+  cursorBlur() {
+    console.log('Cursor Blur', this.state.cursorPositions);
   }
 
   //****************************************//
@@ -210,7 +220,8 @@ export default class CodeEnv extends Component {
               textFocus={this.textFocus}
               textValue={this.state.textValue}
               textEnvChange={this.textEnvChange}
-              onSelectionChange={this.onSelectionChange} />
+              onSelectionChange={this.onSelectionChange}
+              cursorBlur={this.cursorBlur} />
 
             <SwitchView
               switchVal={this.state.switchVal}

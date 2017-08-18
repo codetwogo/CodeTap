@@ -7,6 +7,7 @@ import ArrayButton from './Buttons/ArrayButton';
 import OperatorButton from './Buttons/OperatorButton';
 import ActionButton from './Buttons/ActionButton';
 import StringButton from './Buttons/StringButton';
+import SpacingButton from './Buttons/SpacingButton';
 
 export default class ClipButton extends Component {
   constructor(props) {
@@ -20,6 +21,7 @@ export default class ClipButton extends Component {
         { title: 'Operator', comp: OperatorButton },
         { title: 'Action', comp: ActionButton },
         { title: 'String', comp: StringButton },
+        { title: 'Spacing', comp: SpacingButton },
       ],
       selectedButton: {},
       buttonPushed: false
