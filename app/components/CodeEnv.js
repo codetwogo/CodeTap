@@ -16,7 +16,7 @@ export default class CodeEnv extends Component {
     // textValue and textStates will come from either single question comp or testenv
     const textValue = (this.props.userAnswer) ? this.props.userAnswer : this.props.question.boilerPlate;
 
-    const textStates = this.props.textStates || [{ text: this.props.question.boilerPlate, cursorPosition: [cursorStart, cursorStart] }]
+    const textStates = this.props.textStates || [{ text: this.props.question.boilerPlate, cursorPosition: [cursorStart, cursorStart] }];
 
     this.state = {
       // user answer
@@ -73,7 +73,7 @@ export default class CodeEnv extends Component {
     const output = _self.slice(0, start) + text + _self.slice(end);
 
     // if (!this.state.cursorPositions.length) return false;
-    console.log('EDIT FIRED!!!')
+    console.log('EDIT FIRED!!!');
     this.textEnvChange(output, text.length);
   }
 
@@ -96,13 +96,13 @@ export default class CodeEnv extends Component {
 
       this.setState({
         textStates: [...statesPlaceHolder, { text: textValue, cursorPosition: [start + textLength, end + textLength] }]
-      })
+      });
     }
 
     if (this.state.textStates.length < 20) {
       this.setState({
         textStates: [...this.state.textStates, { text: textValue, cursorPosition: [start + textLength, end + textLength] }]
-      })
+      });
     }
 
     // hides keyboard?
@@ -123,14 +123,14 @@ export default class CodeEnv extends Component {
     this.setState({
       textValue: statesPlaceHolder[lastInd].text,
       textStates: [...statesPlaceHolder]
-    })
+    });
   }
 
   textFocus() {
-    console.log("initial cursor position", this.state.cursorPositions[0])
-    console.log("lenght of function", this.state.textValue.length)
+    console.log("initial cursor position", this.state.cursorPositions[0]);
+    console.log("lenght of function", this.state.textValue.length);
     if (this.state.cursorPositions[0] === this.state.textValue.length) {
-      this.setState({ cursorPositions: [this.state.cursorPositions[0] - 1, this.state.cursorPositions[1] - 1] })
+      this.setState({ cursorPositions: [this.state.cursorPositions[0] - 1, this.state.cursorPositions[1] - 1] });
     }
     this.setState({
       switchVal: false
@@ -170,7 +170,7 @@ export default class CodeEnv extends Component {
       });
       return;
     }
-    console.log('E-event', e.nativeEvent)
+    console.log('E-event', e.nativeEvent);
     const start = e.nativeEvent.selection.start;
     const end = e.nativeEvent.selection.end;
 
@@ -221,7 +221,9 @@ export default class CodeEnv extends Component {
               textValue={this.state.textValue}
               textEnvChange={this.textEnvChange}
               onSelectionChange={this.onSelectionChange}
-              cursorBlur={this.cursorBlur} />
+              cursorBlur={this.cursorBlur}
+              switchVal={this.state.switchVal}
+             />
 
             <SwitchView
               switchVal={this.state.switchVal}

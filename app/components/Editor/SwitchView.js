@@ -27,7 +27,10 @@ export default ({switchVal, onSwitchChange, onQuestionSwitchChange, switchQuesti
                 {
                     showQuestion ? <Text>{description}</Text> : null
                 }
-            <ClipButtons edit={edit} />
+              {switchVal ?
+                <ClipButtons edit={edit} /> :
+                null
+              }
         </View>
     );
 };
