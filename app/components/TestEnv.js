@@ -20,6 +20,7 @@ export default class TestEnvComponent extends Component {
 
         this.evaluateTest = this.evaluateTest.bind(this);
         this.navigateBack = this.navigateBack.bind(this);
+        this.navigateToAllQuestions = this.navigateToAllQuestions.bind(this);
     }
 
     componentDidMount() {
