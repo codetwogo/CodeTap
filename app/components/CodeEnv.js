@@ -5,7 +5,7 @@ import { Container, Header, View, DeckSwiper, Card, CardItem, Thumbnail, Text, L
 
 import TextIDE from './Editor/TextIDE';
 import SwitchView from './Editor/SwitchView';
-import HeaderComponent from './Header.js';
+import CodeHeader from './CodeHeader.js';
 
 export default class CodeEnv extends Component {
   constructor(props) {
@@ -192,29 +192,12 @@ export default class CodeEnv extends Component {
   render() {
     return (
       <Container>
-        <HeaderComponent navigator={this.props.navigator} style={styles.item} />
+        <CodeHeader
+          navigator={this.props.navigator}
+          submit={this.onSubmit}
+          style={styles.item} />
         <View style={styles.container}
           behavior="padding">
-          <View style={
-            {
-              flex: 0.1,
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              alignItems: 'center'
-            }}>
-            <Button
-              onPress={this.onBackPress}>
-              <Text>Back</Text>
-            </Button>
-            <Button
-              onPress={this.undo}>
-              <Text>Undo</Text>
-            </Button>
-            <Button
-              onPress={this.onSubmit}>
-              <Text>Submit</Text>
-            </Button>
-          </View>
           <View style={{ flex: 0.9 }}>
             <TextIDE style={styles.textInput}
               textFocus={this.textFocus}
@@ -224,7 +207,10 @@ export default class CodeEnv extends Component {
               cursorBlur={this.cursorBlur}
               switchVal={this.state.switchVal}
              />
-
+             <Button
+               onPress={this.undo}>
+               <Text>Undo</Text>
+             </Button>
             <SwitchView
               switchVal={this.state.switchVal}
               onSwitchChange={this.onSwitchChange}
