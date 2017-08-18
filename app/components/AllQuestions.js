@@ -7,7 +7,7 @@ import HeaderComponent from './Header.js'
 const cards = [
   { id: 'single-question-component', title: 'String Search', tests: [{inputs:['or', 'hello world'], output:[true]},{inputs:['he', 'hello'], output: [true]},
   {inputs:['wet', 'youse sir'], output: [false]}], boilerPlate: 'function indexOf (needle, haystack){\n\t\n}', description:  'You are attempting to find the index of the first appearance of one string (the needle) inside of another (the haystack).', image: require('./img/fullstack.png') },
-  { id: 'single-question-component', title: 'Question2', tests: [{inputs:[1], output:[false]}], boilerPlate: 'function(word2){\n\t\n}', description: 'Enter question Description of New Problem here',image: require('./img/fullstack.png') },
+  { id: 'single-question-component', title: 'Reverse Array', tests: [{inputs:[[1,2,3,4]], output:[[4,3,2,1]]}], boilerPlate: 'function reverseArray(arr){\n\t\n}', description: 'Write a function reverseArray that reverses the elements of an array and returns the reversed array.',image: require('./img/fullstack.png') },
   { id: 'single-question-component', title: 'Question3', tests: [{inputs:[1], output:[false]}], boilerPlate: 'function(word3){\n\t\n}', description: 'Enter question Description', image: require('./img/front-page.png') }
 ];
 export default class AllQuestions extends Component {

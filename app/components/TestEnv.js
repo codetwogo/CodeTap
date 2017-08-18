@@ -107,6 +107,7 @@ export default class TestEnvComponent extends Component {
     }
 
     render() {
+        console.log('TEST', this.state.tests)
         return (
             <View style={styles.container}>
                 {
