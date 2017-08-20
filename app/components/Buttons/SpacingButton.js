@@ -2,21 +2,21 @@ import React, { Component } from 'react';
 import { AppRegistry, Keyboard, StyleSheet, TouchableOpacity, Clipboard } from 'react-native';
 import { Container, Header, View, DeckSwiper, Card, CardItem, Thumbnail, Text, Left, Body, Icon, Button, Input } from 'native-base';
 
-export default class VariableButton extends Component {
+export default class SpacingButton extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      VariableKeys: [
-        { title: 'let', output: 'let = ' },
-        { title: 'const', output: 'const = ' },
-        { title: 'var', output: 'var = ' }],
+      SpacingKeys: [
+        { title: 'tab', output: '\t' },
+        { title: 'enter', output: '\n' },
+      ],
     };
   }
 
   render() {
     return (
       <View style={styles.container}>
-        {this.state.VariableKeys.map((key) => {
+        {this.state.SpacingKeys.map((key) => {
           return (
             <Button key={key.title} style={styles.hotKey}
               onPress={() => {

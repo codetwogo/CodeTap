@@ -10,35 +10,37 @@ export default class TestEnvComponent extends Component {
 
         this.state = {
             questionTitle: '',
+            userAnswer: this.props.userAnswer,
             tests: [],
             questionDescription: '',
-            textStates: this.props.textStates
+            textStates: this.props.textStates,
+            isPassing: false,
+            resultArr: []
         }
 
         this.evaluateTest = this.evaluateTest.bind(this);
         this.navigateBack = this.navigateBack.bind(this);
+        this.navigateToAllQuestions = this.navigateToAllQuestions.bind(this);
     }
 
     componentDidMount() {
-        // initialize with a dummy question *** replace with bottom section code when ready
-        // this.setState({
-        //     questionTitle: 'A Dummy Question',
-        //     questionDescription: 'Return true if the input is 5',
-        //     tests: [
-        //         { id: 1, inputs: [1], output: [false] },
-        //         { id: 2, inputs: [2], output: [false] },
-        //         { id: 3, inputs: [5], output: [true] }
-        //     ],
-        //     userAnswer: "function (num) {return num2 === 5}"
-        // })
+        const resultArr = this.props.tests.map(test => {
+            return this.evaluateTest(test);
+        })
 
-        // ****  Once we integrate with components, run following code: **** //
+        const isPassing = resultArr.reduce((a, b) => {
+            console.log('bbbbbb', b.pass)
+            return a && b.pass
+        }, {"pass":true});
 
         this.setState({
             tests: [...this.props.tests],
-            userAnswer: this.props.userAnswer,
-            textStates: this.props.textStates
+            //userAnswer: this.props.userAnswer,
+            textStates: this.props.textStates,
+            isPassing: isPassing,
+            resultArr: resultArr
         })
+
 
     }
 
@@ -52,6 +54,12 @@ export default class TestEnvComponent extends Component {
                 description: this.props.description,
                 tests: this.props.tests
             }
+        })
+    }
+
+    navigateToAllQuestions() {
+        this.props.navigator.push({
+            id: 'all-questions-component'
         })
     }
 
@@ -74,33 +82,60 @@ export default class TestEnvComponent extends Component {
             console.log(err)
         }
 
-        const output = test.output.toString();
-        const resultStr = (error) 
-        ? 'N/A' 
-        : (!result) 
-            ? result.toString()
-            : result.toString();
 
-        return (
-            <Text key={test.id}>
-                {error ? `Error received: ${error}` : `The result of test with inputs of ${test.inputs} and an expected output of : ${output} have actually returned : ${resultStr}`}
-            </Text>
-        )
+        const output = test.output.toString();
+        const resultStr = (error)
+            ? 'N/A'
+            : (result == undefined || result == null)
+                ? '***No result returned from function***'
+                : result.toString();
+
+        return {
+            error: error || null,
+            inputs: test.inputs,
+            output: output,
+            result: resultStr,
+            pass: (output == resultStr)
+        }
+
+
+        // return (
+        //     <Text key={test.id}>
+        //         {error ? `Error received: ${error}` : `The result of test with inputs of [${test.inputs}] \n An expected output of : ${output} \n Actually returned : ${resultStr} \n`}
+        //     </Text>
+        // )
     }
 
     render() {
+        console.log('TEST', this.state.tests)
         return (
             <View style={styles.container}>
-                <Button
-                    onPress={this.navigateBack}
-                    title='Back to Code Env' />
                 {
-                    this.state.tests.map(test => {
+                    this.state.resultArr.map(result => {
                         return (
-                            this.evaluateTest(test)
+                            <Text>
+                                {result.error ? `Error received: ${result.error}` : `The result of test with inputs of [${result.inputs}] \n An expected output of : ${result.output} \n Actually returned : ${result.result} \n`}
+                            </Text>
                         )
                     })
                 }
+
+                {
+                    (this.state.isPassing)
+                        ? <View>
+                            <Text style={{color: 'green'}}> Congratulations you passed all the tests!!!!</Text>
+                            <Button
+                                onPress={this.navigateToAllQuestions}
+                                title='Go back to all questions' />
+                        </View>
+                        : <View>
+                            <Text style={{color: 'red'}}> Sadly, you failed one or more tests!!!!</Text>
+                            <Button
+                                onPress={this.navigateBack}
+                                title='Try again' />
+                        </View>
+                }
+
             </View>
         )
     }
@@ -108,13 +143,12 @@ export default class TestEnvComponent extends Component {
 
 const styles = StyleSheet.create({
     container: {
-      flex: 1,
-      marginTop: 20,
+        flex: 1,
+        marginTop: 20,
     },
     textInput: {
-      margin: 15,
-      height: 200,
-      borderWidth: 1
+        margin: 15,
+        height: 200,
+        borderWidth: 1
     },
-  });
-  
+});

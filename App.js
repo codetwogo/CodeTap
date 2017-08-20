@@ -46,7 +46,7 @@ export default class App extends React.Component {
       <Navigator
         initialRoute={{ id: 'homecomponent' }}
         renderScene={this.renderScene}
-        configureScene={(route, routeStack) => Navigator.SceneConfigs.FloatFromBottom} />
+        configureScene={(route, routeStack) => Navigator.SceneConfigs.FloatFromLeft} />
     );
   }
 }

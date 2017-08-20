@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import { TextInput, StyleSheet } from 'react-native';
 
-export default ({ textEnvChange, textValue, textFocus, onSelectionChange }) => {
+export default ({ textEnvChange, textValue, textFocus, onSelectionChange, cursorBlur, switchVal }) => {
 
     return (
         <TextInput
             style={styles.textInput}
-            onChangeText={textValue => {textEnvChange(textValue);}}
+            onChangeText={text => {textEnvChange(text);}}
             value={textValue}
-
             onFocus={textFocus}
+            onBlur={cursorBlur}
 
             // This event keeps track of the cursor position...we will need for our keyboard implementation
                 onSelectionChange={(e) => {onSelectionChange(e);}}
@@ -20,8 +20,15 @@ export default ({ textEnvChange, textValue, textFocus, onSelectionChange }) => {
 };
 const styles = StyleSheet.create({
     textInput: {
-      margin: 10,
+      color: 'white',
+      fontSize: 18,
       height: 200,
-      borderWidth: 1,
+      padding: 15,
+      paddingTop: 15,
+      marginTop: 4,
+      marginBottom: 4,
+      backgroundColor: '#666666',
+      borderRadius: 10
+
     },
   });
