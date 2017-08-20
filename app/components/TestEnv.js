@@ -123,13 +123,13 @@ export default class TestEnvComponent extends Component {
                 {
                     (this.state.isPassing)
                         ? <View>
-                            <Text> Congratulations you passed all the tests!!!!</Text>
+                            <Text style={{color: 'green'}}> Congratulations you passed all the tests!!!!</Text>
                             <Button
                                 onPress={this.navigateToAllQuestions}
                                 title='Go back to all questions' />
                         </View>
                         : <View>
-                            <Text> Sadly, you failed one or more tests!!!!</Text>
+                            <Text style={{color: 'red'}}> Sadly, you failed one or more tests!!!!</Text>
                             <Button
                                 onPress={this.navigateBack}
                                 title='Try again' />

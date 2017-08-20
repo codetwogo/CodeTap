@@ -21,7 +21,7 @@ export default class CodeEnv extends Component {
     this.state = {
       // user answer
       textValue: textValue,
-      switchVal: false,
+      switchVal: true,
       showQuestion: false,
       description: this.props.question.description,
       // keeps track of user cursor positon
@@ -75,6 +75,9 @@ export default class CodeEnv extends Component {
     // if (!this.state.cursorPositions.length) return false;
     console.log('EDIT FIRED!!!');
     this.textEnvChange(output, text.length);
+    this.setState({
+      switchVal: true
+    })
   }
 
   // changes the text value in state after keyboard sends data
@@ -133,7 +136,12 @@ export default class CodeEnv extends Component {
       this.setState({ cursorPositions: [this.state.cursorPositions[0] - 1, this.state.cursorPositions[1] - 1] });
     }
     this.setState({
-      switchVal: false
+      switchVal: false,
+      showQuestion: false
+    }, () => {
+      if (this.state.switchVal) {
+        Keyboard.dismiss();
+      }
     });
   }
 
@@ -141,12 +149,25 @@ export default class CodeEnv extends Component {
   onQuestionSwitchChange(value) {
     this.setState({
       showQuestion: value,
+      switchVal: !value,
+      focus: false
+    }, () => {
+      if (this.state.showQuestion) {
+        Keyboard.dismiss();
+      }
+    }, () => {
+      if (this.state.focus) {
+        this.setState({
+          showQuestion: false
+        });
+      }
     });
   }
 
   // toggles keyboard display based on switch status
   onSwitchChange(value) {
     this.setState({
+      showQuestion: !value,
       switchVal: value,
       focus: false
     }, () => {
@@ -198,8 +219,8 @@ export default class CodeEnv extends Component {
           style={styles.item} />
         <View style={styles.container}
           behavior="padding">
-          <View style={{ flex: 0.9 }}>
-            <TextIDE style={styles.textInput}
+          <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'stretch' }}>
+            <TextIDE
               textFocus={this.textFocus}
               textValue={this.state.textValue}
               textEnvChange={this.textEnvChange}
@@ -207,11 +228,8 @@ export default class CodeEnv extends Component {
               cursorBlur={this.cursorBlur}
               switchVal={this.state.switchVal}
              />
-             <Button
-               onPress={this.undo}>
-               <Text>Undo</Text>
-             </Button>
             <SwitchView
+              undo={this.undo}
               switchVal={this.state.switchVal}
               onSwitchChange={this.onSwitchChange}
               onQuestionSwitchChange={this.onQuestionSwitchChange}
@@ -229,11 +247,7 @@ export default class CodeEnv extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  textInput: {
-    margin: 15,
-    height: 200,
     padding: 10,
-    borderWidth: 0
-  },
+    justifyContent: 'space-between'
+  }
 });

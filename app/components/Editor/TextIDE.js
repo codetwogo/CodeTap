@@ -20,8 +20,15 @@ export default ({ textEnvChange, textValue, textFocus, onSelectionChange, cursor
 };
 const styles = StyleSheet.create({
     textInput: {
-      margin: 10,
+      color: 'white',
+      fontSize: 18,
       height: 200,
-      borderWidth: 1,
+      padding: 15,
+      paddingTop: 15,
+      marginTop: 4,
+      marginBottom: 4,
+      backgroundColor: '#666666',
+      borderRadius: 10
+
     },
   });
