@@ -70,8 +70,16 @@ export default class CodeEnv extends Component {
   shiftLeft(){
     const start = this.state.cursorPositions[0];
     const end = this.state.cursorPositions[1];
-    if(this.state.cursorPositions[0]-1){
-      this.setState({cursorPositions:[]});
+    if(start-1){
+      this.setState({cursorPositions:[start-1 , end-1]});
+    }
+  }
+
+  shiftRight(){
+    const start = this.state.cursorPositions[0];
+    const end = this.state.cursorPositions[1];
+    if(end+1){
+      this.setState({cursorPositions:[start+1 , end+1]});
     }
   }
 
