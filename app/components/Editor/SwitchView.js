@@ -17,13 +17,13 @@ export default ({switchVal, onSwitchChange, onQuestionSwitchChange, switchQuesti
               </Button>
             </View>
             <View style={{flex: 1, flexDirection: 'row', justifyContent: 'flex-end'}}>
-              <Text style={{color:'#444444', fontSize: 13, width: 66, textAlign: 'right', paddingRight: 5}}>Smart Keyboard</Text>
+              <Text style={{color:'#777777', fontSize: 13, width: 66, textAlign: 'right', paddingRight: 5}}>Smart Keyboard</Text>
               <Switch
                 value={switchVal}
                 onValueChange={(value) => {onSwitchChange(value);}} />
             </View>
             <View style={{flex: 1, flexDirection: 'row', justifyContent: 'flex-end'}}>
-              <Text style={{color:'#444444', fontSize: 13, width: 66, textAlign: 'right', paddingRight: 5}}>Detailed Question</Text>
+              <Text style={{color:'#777777', fontSize: 13, width: 66, textAlign: 'right', paddingRight: 5}}>Detailed Question</Text>
               <Switch
                 value={showQuestion}
                 onValueChange={(value) => {onQuestionSwitchChange(value);}} />
@@ -33,7 +33,7 @@ export default ({switchVal, onSwitchChange, onQuestionSwitchChange, switchQuesti
             <View style={{ flex: 1, height:75,  justifyContent: 'flex-start' }}>
               {
                 showQuestion ?
-                <Text style={{flex: 2, color: '#000055', lineHeight: 22,  padding: 5,  alignItems: 'stretch' }}>
+                <Text style={{flex: 2, color: '#779973', lineHeight: 22,  padding: 5,  alignItems: 'stretch' }}>
                   {description}
                 </Text>
                 : null
