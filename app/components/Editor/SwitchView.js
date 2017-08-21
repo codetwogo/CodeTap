@@ -33,7 +33,9 @@ export default ({switchVal, onSwitchChange, onQuestionSwitchChange, switchQuesti
             <View style={{ flex: 1, height:75,  justifyContent: 'flex-start' }}>
               {
                 showQuestion ?
-                <Text style={{flex: 2, lineHeight: 22,  padding: 5,  alignItems: 'stretch' }}>{description}</Text>
+                <Text style={{flex: 2, color: '#000055', lineHeight: 22,  padding: 5,  alignItems: 'stretch' }}>
+                  {description}
+                </Text>
                 : null
               }
               {
