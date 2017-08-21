@@ -24,7 +24,7 @@ export default class SpacingButton extends Component {
                 return this.props.toggle();
               }
               }>
-              <Text>
+              <Text style={{color: '#444444'}}>
                 {key.title}
               </Text>
             </Button>);

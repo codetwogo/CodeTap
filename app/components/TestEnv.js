@@ -1,154 +1,239 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
+import {Image, StyleSheet, TouchableOpacity} from 'react-native';
+import {
+  Container,
+  Header,
+  View,
+  DeckSwiper,
+  Card,
+  CardItem,
+  Thumbnail,
+  Text,
+  Left,
+  Body,
+  Icon,
+  Button,
+  Input,
+  Content
+} from 'native-base';
 
-import { View, Text, StyleSheet, Button } from 'react-native';
-
-
+import HeaderComponent from './Header.js'
 
 export default class TestEnvComponent extends Component {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.state = {
-            questionTitle: '',
-            userAnswer: this.props.userAnswer,
-            tests: [],
-            questionDescription: '',
-            textStates: this.props.textStates,
-            isPassing: false,
-            resultArr: []
-        }
-
-        this.evaluateTest = this.evaluateTest.bind(this);
-        this.navigateBack = this.navigateBack.bind(this);
-        this.navigateToAllQuestions = this.navigateToAllQuestions.bind(this);
+    this.state = {
+      questionTitle: '',
+      userAnswer: this.props.userAnswer,
+      tests: [],
+      questionDescription: '',
+      textStates: this.props.textStates,
+      isPassing: false,
+      resultArr: []
     }
 
-    componentDidMount() {
-        const resultArr = this.props.tests.map(test => {
-            return this.evaluateTest(test);
-        })
+    this.evaluateTest = this.evaluateTest.bind(this);
+    this.navigateBack = this.navigateBack.bind(this);
+    this.navigateToAllQuestions = this.navigateToAllQuestions.bind(this);
+  }
 
-        const isPassing = resultArr.reduce((a, b) => {
-            console.log('bbbbbb', b.pass)
-            return a && b.pass
-        }, {"pass":true});
+  componentDidMount() {
+    const resultArr = this.props.tests.map(test => {
+      return this.evaluateTest(test);
+    })
 
-        this.setState({
-            tests: [...this.props.tests],
-            //userAnswer: this.props.userAnswer,
-            textStates: this.props.textStates,
-            isPassing: isPassing,
-            resultArr: resultArr
-        })
+    const isPassing = resultArr.reduce((a, b) => {
+      console.log('bbbbbb', b.pass)
+      return a && b.pass
+    }, {"pass": true});
 
+    this.setState({
+      tests: [...this.props.tests],
+      //userAnswer: this.props.userAnswer,
+      textStates: this.props.textStates,
+      isPassing: isPassing,
+      resultArr: resultArr
+    })
 
+  }
+
+  navigateBack() {
+    console.log(this.props.textStates)
+    this.props.navigator.push({
+      id: 'back-code-env',
+      userAnswer: this.props.userAnswer,
+      textStates: this.props.textStates,
+      question: {
+        description: this.props.description,
+        tests: this.props.tests
+      }
+    })
+  }
+
+  navigateToAllQuestions() {
+    this.props.navigator.push({id: 'all-questions-component'})
+  }
+
+  evaluateTest(test) {
+    // assigns the string function from user input into callFunc variable
+    var callFunc;
+
+    eval(`callFunc = ${this.state.userAnswer}`);
+
+    // stores result of running test with proper params
+    var result;
+    var error;
+
+    // run try, catch to obtain errors and report back to the user
+    try {
+      result = eval(callFunc.apply(this, test.inputs))
+    } catch (err) {
+      error = err;
+      console.log(err)
     }
 
-    navigateBack() {
-        console.log(this.props.textStates)
-        this.props.navigator.push({
-            id: 'back-code-env',
-            userAnswer: this.props.userAnswer,
-            textStates: this.props.textStates,
-            question: {
-                description: this.props.description,
-                tests: this.props.tests
-            }
-        })
+    const output = test.output.toString();
+    const resultStr = (error)
+      ? 'N/A'
+      : (result == undefined || result == null)
+        ? '***No result returned from function***'
+        : result.toString();
+
+    return {
+      error: error || null,
+      inputs: test.inputs,
+      output: output,
+      result: resultStr,
+      pass: (output == resultStr)
     }
 
-    navigateToAllQuestions() {
-        this.props.navigator.push({
-            id: 'all-questions-component'
-        })
-    }
+    // return (
+    //     <Text key={test.id}>
+    //         {error ? `Error received: ${error}` : `The result of test with inputs of [${test.inputs}] \n An expected output of : ${output} \n Actually returned : ${resultStr} \n`}
+    //     </Text>
+    // )
+  }
 
-    evaluateTest(test) {
-        // assigns the string function from user input into callFunc variable
-        var callFunc;
+  render() {
+    return (
+      <Container >
+        <HeaderComponent navigator={this.props.navigator} style={styles.item}/>
+        <Content style={styles.container}>
+          <View style={styles.topRowContainer}>
+            <View style={{
+              flex: 1,
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}>
 
-        eval(`callFunc = ${this.state.userAnswer}`);
-
-        // stores result of running test with proper params
-        var result;
-        var error;
-
-        // run try, catch to obtain errors and report back to the user
-        try {
-            result = eval(callFunc.apply(this, test.inputs))
-        }
-        catch (err) {
-            error = err;
-            console.log(err)
-        }
-
-
-        const output = test.output.toString();
-        const resultStr = (error)
-            ? 'N/A'
-            : (result == undefined || result == null)
-                ? '***No result returned from function***'
-                : result.toString();
-
-        return {
-            error: error || null,
-            inputs: test.inputs,
-            output: output,
-            result: resultStr,
-            pass: (output == resultStr)
-        }
-
-
-        // return (
-        //     <Text key={test.id}>
-        //         {error ? `Error received: ${error}` : `The result of test with inputs of [${test.inputs}] \n An expected output of : ${output} \n Actually returned : ${resultStr} \n`}
-        //     </Text>
-        // )
-    }
-
-    render() {
-        console.log('TEST', this.state.tests)
-        return (
-            <View style={styles.container}>
-                {
-                    this.state.resultArr.map(result => {
-                        return (
-                            <Text>
-                                {result.error ? `Error received: ${result.error}` : `The result of test with inputs of [${result.inputs}] \n An expected output of : ${result.output} \n Actually returned : ${result.result} \n`}
-                            </Text>
-                        )
-                    })
-                }
-
-                {
-                    (this.state.isPassing)
-                        ? <View>
-                            <Text style={{color: 'green'}}> Congratulations you passed all the tests!!!!</Text>
-                            <Button
-                                onPress={this.navigateToAllQuestions}
-                                title='Go back to all questions' />
-                        </View>
-                        : <View>
-                            <Text style={{color: 'red'}}> Sadly, you failed one or more tests!!!!</Text>
-                            <Button
-                                onPress={this.navigateBack}
-                                title='Try again' />
-                        </View>
-                }
+              <Text style={{
+                flex: 1,
+                textAlign: 'center',
+                height: 25,
+                paddingTop: 5,
+                fontSize: 20,
+                fontWeight: 'bold',
+                color: '#aaaaaa'
+              }}>Result</Text>
 
             </View>
-        )
-    }
+          </View>
+          {(this.state.isPassing)
+            ? <View>
+                <Text style={StyleSheet.flatten([
+                  styles.resultText, {
+                    color: '#339933',
+                    borderColor: '#339933'
+                  }
+                ])}>
+                  Congratulations,{`\n`}
+                  you've passed all the tests!!!!</Text>
+              </View>
+            : <View>
+              <Text style={styles.resultText}>
+                Sadly, you've FAILED {`\n`}one or more tests!!!!</Text>
+            </View>
+}
+          {this.state.resultArr.map(result => {
+            return (
+              <View style={styles.resultDetails}>
+                {result.error
+                  ? `Error received: ${result.error}`
+                  : <View style={styles.inputOutput}>
+                    <Text style={{color: '#aaa'}}>Inputs: [{result.inputs}]
+                    </Text>
+                    <Text style={{color: '#66aa55'}}>Expected Output: {result.output}
+                    </Text>
+                    <Text style={{color: '#cc7777'}}>
+                      Actual Output : {result.result}
+                    </Text>
+                  </View>}
+              </View>
+            )
+          })
+}
+
+          {(this.state.isPassing)
+            ? <View>
+                <Button style={styles.resultButton} onPress={this.navigateToAllQuestions}>
+                  <Text>Go back to all questions</Text>
+                </Button>
+              </View>
+            : <View>
+              <Button danger style={styles.resultButton} onPress={this.navigateBack}>
+                <Text style={{color: '#aaa'}}>Try again</Text>
+              </Button>
+            </View>
+}
+        </Content>
+      </Container>
+    )
+  }
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        marginTop: 20,
-    },
-    textInput: {
-        margin: 15,
-        height: 200,
-        borderWidth: 1
-    },
+  container: {
+    flex: 1,
+    flexDirection: 'column',
+    padding: 10,
+    paddingTop: 12,
+    backgroundColor: '#333333'
+  },
+  topRowContainer: {
+    flex: 1
+  },
+  resultButton: {
+    flex: 1,
+    alignSelf: 'center',
+    backgroundColor: '#339933'
+
+  },
+  resultDetails: {
+    paddingTop: 3,
+    paddingBottom: 10
+  },
+  resultText: {
+    color: '#dd0000',
+    marginTop: 10,
+    marginBottom: 10,
+    fontWeight: 'bold',
+    fontSize: 22,
+    textAlign: 'center',
+    paddingTop: 35,
+    paddingBottom: 45,
+    borderColor: '#dd0000',
+    borderWidth: 2.5,
+    backgroundColor: '#bbb'
+  },
+  inputOutput: {
+    flex: 1,
+    backgroundColor: '#555555',
+    borderWidth: 1,
+    borderColor: '#555555',
+    padding: 15,
+    paddingBottom: 15,
+    borderRadius: 10
+  }
 });

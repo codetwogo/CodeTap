@@ -9,6 +9,10 @@ import CodeEnv from './app/components/CodeEnv';
 import TestEnv from './app/components/TestEnv';
 // import BetaQuestions from './app/components/AllQuestionsBeta';
 
+// toggles yellow warnning box for demo purposes
+// console.disableYellowBox = true;
+
+
 export default class App extends React.Component {
 
   renderScene(route, navigator) {
