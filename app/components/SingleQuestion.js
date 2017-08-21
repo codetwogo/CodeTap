@@ -12,6 +12,7 @@ export default class SingleQuestionComponent extends Component {
         this.state = {
             title: this.props.question.title,
             tests: this.props.question.tests,
+            likes: this.props.question.likes,
             boilerPlate: this.props.question.boilerPlate,
             description: this.props.question.description
         };
@@ -39,28 +40,35 @@ export default class SingleQuestionComponent extends Component {
         return (
           <Container>
             <HeaderComponent navigator={this.props.navigator} />
-            <Content styles={styles.container}>
-              <View>
-                <Text>{this.state.title}</Text>
+            <Content style={styles.container}>
+              <View style={styles.topRowContainer}>
+                <View style={{flexDirection: 'row', alignItems:'center'}}>
+                  <Icon name="heart" style={{ fontSize: 24, color: '#ED4A6A' }} />
+                  <Text style={{flex: 1, color: '#888888'}}>{` ${this.props.question.likes}`}</Text>
+                  <Text style={{flex: 2, fontSize: 22, fontWeight: 'bold', color: '#880000', alignSelf: 'center'}}>{this.state.title}</Text>
+                  <Text style={{flex: 1, color: '#880000', alignSelf: 'center'}}>{` `}</Text>
+                </View>
+              </View>
+              <View style={{flex: 1, minHeight: 10, borderRadius: 10, padding: 10, paddingTop: 10, paddingBottom: 20, backgroundColor: '#99cccc', marginTop: 20, marginBottom: 16}}>
                 {
                   this.state.tests.map(test => {
-                      return (
-                          <View key={test.inputs}>
-                              <Text>Inputs: {test.inputs}</Text>
-                              <Text>Output: {test.output} </Text>
-                          </View>
-                      )
+                    return (
+                      <View key={test.inputs}>
+                        <Text style={{lineHeight: 44}}>Inputs: {test.inputs}</Text>
+                        <Text>Output: {test.output} </Text>
+                      </View>
+                    )
                   })
                 }
-                <Text>{this.state.description}</Text>
-                <Container style={styles.container}>
-                  <Button onPress={this.onCodePress} bordered>
-                    <Text>Code!</Text>
-                  </Button>
-                </Container>
               </View>
+              <Text style={{padding: 5, fontSize: 16, marginBottom: 15, color: '#555555'}}>{this.state.description}</Text>
+              <Button
+                onPress={this.onCodePress}
+                bordered
+                style={{alignSelf: 'center'}}>
+                <Text>Code!</Text>
+              </Button>
             </Content>
-
           </Container>
         );
     }
@@ -70,8 +78,11 @@ export default class SingleQuestionComponent extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
+    flexDirection: 'column',
+    padding: 10,
+    marginTop: 12
   },
+  topRowContainer: {
+
+  }
 });
