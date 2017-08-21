@@ -16,7 +16,7 @@ export default class HomeComponent extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text style={{textAlign: 'center', fontSize: 22, fontWeight: 'bold'}}>Code to Train.{'\n'}Train to Code.</Text>
+                <Text style={{textAlign: 'center', fontSize: 24, lineHeight: 28, fontWeight: 'bold'}}>Code to Train.{'\n'}Train to Code.</Text>
 
                 <Button bordered rounded light style={{alignSelf: 'center', marginTop: 30}} onPress={this.onPress}>
                   <Text style={{alignSelf: 'center', fontWeight: 'bold'}}>Code to War.</Text>
