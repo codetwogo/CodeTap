@@ -1,14 +1,6 @@
 import React, { Component } from 'react';
-import { AppRegistry, View, Text, StyleSheet, Button } from 'react-native';
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-});
+import { AppRegistry, StyleSheet } from 'react-native';
+import { Container, Header, View, DeckSwiper, Card, CardItem, Thumbnail, Text, Left, Body, Icon, Button, Input } from 'native-base';
 
 export default class HomeComponent extends Component {
     constructor(props) {
@@ -24,14 +16,23 @@ export default class HomeComponent extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text>Welcome to the Home Component</Text>
-                <Button
-                    onPress={this.onPress}
-                    title="Start a War"
-                />
+                <Text style={{textAlign: 'center', fontSize: 24, lineHeight: 28, fontWeight: 'bold'}}>Code to Train.{'\n'}Train to Code.</Text>
+
+                <Button bordered rounded light style={{alignSelf: 'center', marginTop: 30}} onPress={this.onPress}>
+                  <Text style={{alignSelf: 'center', fontWeight: 'bold'}}>Code to War.</Text>
+                </Button>
             </View>
         )
     }
 }
 
 AppRegistry.registerComponent('HomeComponent', () => HomeComponent);
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#550000',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+});
