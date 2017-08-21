@@ -29,13 +29,13 @@ export default class AllQuestions extends Component {
       <Container style={styles.container}>
         <HeaderComponent navigator={this.props.navigator} style={styles.item} />
 
-        <View>
+        <View style={{flex:1}}>
           <DeckSwiper
             dataSource={cards}
             renderItem={item =>
               <TouchableOpacity onPress={() => { this.onQuestionPress(item) }} >
-              <Card style={{ elevation: 3 }}>
-                <CardItem >
+              <Card style={{ backgroundColor: '#888888', elevation: 3 }}>
+                <CardItem style={{backgroundColor: 'transparent'}}>
                   <Left>
                     <Thumbnail source={item.image} />
                     <Body>
@@ -44,17 +44,20 @@ export default class AllQuestions extends Component {
                     </Body>
                   </Left>
                 </CardItem>
-                <CardItem cardBody>
+                <CardItem cardBody  style={{backgroundColor: '#aaaaaa', padding: 10, paddingTop: 10,  minHeight: 100, alignItems: 'flex-start', borderRadius: 10, marginLeft: 10, marginRight: 10}}>
                   <Text>{item.description}</Text>
                 </CardItem>
-                <CardItem>
+                <CardItem  style={{backgroundColor: 'transparent'}}>
                   <Icon name="heart" style={{ color: '#ED4A6A' }} />
-                  <Text style={{color: '#999999'}}>{item.likes}</Text>
+                  <Text style={{color: '#ccc'}}>{item.likes}</Text>
                 </CardItem>
               </Card>
             </TouchableOpacity>
             }
           />
+        </View>
+        <View style={{flex: 1, justifyContent: 'flex-start', alignItems: 'center'}}>
+          <Text style={{textAlign: 'center', color: '#888888', fontWeight: 'bold'}}>{`<-- Swipe Left and Right for Questions  -->`}</Text>
         </View>
       </Container>
     );
@@ -63,7 +66,7 @@ export default class AllQuestions extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#cccccc'
+        backgroundColor: '#333333'
     },
     item: {
 

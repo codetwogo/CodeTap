@@ -136,6 +136,7 @@ export default class CodeEnv extends Component {
     if (this.state.cursorPositions[0] === this.state.textValue.length) {
       this.setState({ cursorPositions: [this.state.cursorPositions[0] - 1, this.state.cursorPositions[1] - 1] });
     }
+
     this.setState({
       switchVal: false,
       showQuestion: false
@@ -250,6 +251,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 10,
     justifyContent: 'space-between',
-    backgroundColor: '#fff'
+    paddingTop: 12,
+    backgroundColor: '#333333'
   }
 });

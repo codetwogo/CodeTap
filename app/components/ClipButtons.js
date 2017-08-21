@@ -51,7 +51,7 @@ export default class ClipButton extends Component {
                 <Button dark style={styles.hotKey} key={hotkey.title} onPress={() => {
                   this.selectButton(hotkey.comp);
                   this.onButtonPush();}}>
-                  <Text>
+                  <Text style={{color: '#444444'}}>
                     {hotkey.title}
                   </Text>
                 </Button>);})}
