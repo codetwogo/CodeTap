@@ -40,7 +40,7 @@ export default class AllQuestions extends Component {
                     <Thumbnail source={item.image} />
                     <Body>
                       <Text>{item.title}</Text>
-                      <Text note>Medium</Text>
+                      <Text style={{color: '#333'}}note>Medium</Text>
                     </Body>
                   </Left>
                 </CardItem>
