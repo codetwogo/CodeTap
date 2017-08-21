@@ -182,7 +182,11 @@ export default class TestEnvComponent extends Component {
                 </Button>
               </View>
             : <View>
-              <Button danger style={styles.resultButton} onPress={this.navigateBack}>
+              <Button danger style={StyleSheet.flatten([
+                styles.resultButton, {
+                  backgroundColor: '#dd0000'
+                }
+              ])} onPress={this.navigateBack}>
                 <Text style={{color: '#aaa'}}>Try again</Text>
               </Button>
             </View>
