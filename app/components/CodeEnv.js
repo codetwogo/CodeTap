@@ -44,6 +44,7 @@ export default class CodeEnv extends Component {
     this.onSwitchChange = this.onSwitchChange.bind(this);
     this.undo = this.undo.bind(this);
     this.cursorBlur = this.cursorBlur.bind(this);
+    this.focusOnSwitch = this.focusOnSwitch.bind(this);
   }
 
   // **************************************//
@@ -64,6 +65,14 @@ export default class CodeEnv extends Component {
       textStates: this.state.textStates,
       description: this.state.description
     });
+  }
+
+  shiftLeft(){
+    const start = this.state.cursorPositions[0];
+    const end = this.state.cursorPositions[1];
+    if(this.state.cursorPositions[0]-1){
+      this.setState({cursorPositions:[]});
+    }
   }
 
   edit(text) {
@@ -185,6 +194,12 @@ export default class CodeEnv extends Component {
     });
   }
 
+focusOnSwitch(func){
+  if(!this.state.switchVal){
+    return func;
+  }
+}
+
   // method to keep track of cursor position when user moves cursor
   onSelectionChange(e) {
     if (this.state.startRender) {
@@ -223,6 +238,7 @@ export default class CodeEnv extends Component {
           behavior="padding">
           <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'stretch' }}>
             <KeyBoard
+              focusOnSwitch= {this.focusOnSwitch}
               textFocus={this.textFocus}
               textValue={this.state.textValue}
               textEnvChange={this.textEnvChange}
@@ -232,6 +248,7 @@ export default class CodeEnv extends Component {
              />
             <SwitchView
               undo={this.undo}
+              focusOnSwitch= {this.focusOnSwitch}
               switchVal={this.state.switchVal}
               onSwitchChange={this.onSwitchChange}
               onQuestionSwitchChange={this.onQuestionSwitchChange}

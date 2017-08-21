@@ -12,6 +12,7 @@ export default class CodeKeyboard extends Component {
     return (
       <View>
 
+        {()=>this.refs.input.focus()}
         <TextInput
           autoCorrect={false}
           editable={!this.props.switchVal}
@@ -24,8 +25,6 @@ export default class CodeKeyboard extends Component {
           multiline={true}
           ref={'input'}
         />
-        <Button title='Blur' onPress={()=>this.refs.input.blur()}/>
-        <Button title='Focus' onPress={()=>this.refs.input.focus()}/>
       </View>
     );
   }
