@@ -16,10 +16,10 @@ export default class HomeComponent extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text style={{textAlign: 'center', fontSize: 24, lineHeight: 36, fontWeight: 'bold'}}>Code to Train.{'\n'}Train to Code.</Text>
+                <Text style={{textAlign: 'center', fontSize: 76, lineHeight: 76, fontWeight: 'bold'}}>Code to Train.{'\n'}Train to Code.</Text>
 
                 <Button bordered rounded light style={{alignSelf: 'center', marginTop: 30}} onPress={this.onPress}>
-                  <Text style={{alignSelf: 'center', fontWeight: 'bold'}}>Code to War.</Text>
+                  <Text style={{alignSelf: 'center', fontWeight: 'bold'}}>Code to War</Text>
                 </Button>
             </View>
         )
