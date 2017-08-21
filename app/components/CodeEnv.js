@@ -3,6 +3,7 @@ import { KeyboardAvoidingView, Keyboard, StyleSheet, TextInput, Switch } from 'r
 
 import { Container, Header, View, DeckSwiper, Card, CardItem, Thumbnail, Text, Left, Body, Icon, Button, Input } from 'native-base';
 
+import KeyBoard from './Editor/KeyBoard';
 import TextIDE from './Editor/TextIDE';
 import SwitchView from './Editor/SwitchView';
 import CodeHeader from './CodeHeader.js';
@@ -77,7 +78,7 @@ export default class CodeEnv extends Component {
     this.textEnvChange(output, text.length);
     this.setState({
       switchVal: true
-    })
+    });
   }
 
   // changes the text value in state after keyboard sends data
@@ -220,7 +221,7 @@ export default class CodeEnv extends Component {
         <View style={styles.container}
           behavior="padding">
           <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'stretch' }}>
-            <TextIDE
+            <KeyBoard
               textFocus={this.textFocus}
               textValue={this.state.textValue}
               textEnvChange={this.textEnvChange}

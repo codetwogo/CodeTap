@@ -1,37 +1,31 @@
 import React, { Component } from 'react';
-import { View, AppRegistry, Keyboard, StyleSheet, Button, TextInput, TouchableOpacity, Clipboard } from 'react-native';
-import LoopsButton from './Buttons/LoopsButton';
-import ConditionalButton from './Buttons/ConditionalButton';
-import VariableButton from './Buttons/VariableButton';
-import ArrayButton from './Buttons/ArrayButton';
-import OperatorButton from './Buttons/OperatorButton';
-import ActionButton from './Buttons/ActionButton';
-import StringButton from './Buttons/StringButton';
-import SpacingButton from './Buttons/SpacingButton';
+import { TouchableWithoutFeedback, View, AppRegistry, Keyboard, StyleSheet, Button, TextInput, TouchableOpacity, Clipboard } from 'react-native';
 
 export default class CodeKeyboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      Keys: []
+      switchVal:this.props.switchVal
     };
   }
-
   render() {
     return (
       <View>
 
         <TextInput
+          autoCorrect={false}
+          editable={!this.props.switchVal}
+          selectTextOnFocus={!this.props.switchVal}
           style={styles.textInput}
-          onChangeText={text => {props.textEnvChange(text);}}
-          value={props.textValue}
-          onFocus={props.textFocus}
-          onBlur={props.cursorBlur}
-          onSelectionChange={(e) => {props.onSelectionChange(e);}}
+          onChangeText={text => {this.props.textEnvChange(text);}}
+          value={this.props.textValue}
+          onSelectionChange={(e) => {this.props.onSelectionChange(e);}}
           clearTextOnFocus={false}
           multiline={true}
           ref={'input'}
         />
+        <Button title='Blur' onPress={()=>this.refs.input.blur()}/>
+        <Button title='Focus' onPress={()=>this.refs.input.focus()}/>
       </View>
     );
   }

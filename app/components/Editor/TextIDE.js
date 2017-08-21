@@ -6,13 +6,13 @@ export default ({ textEnvChange, textValue, textFocus, onSelectionChange, cursor
     return (
         <TextInput
             style={styles.textInput}
+            autoCorrect={false}
             onChangeText={text => {textEnvChange(text);}}
             value={textValue}
             onFocus={textFocus}
-            onBlur={cursorBlur}
-
-            // This event keeps track of the cursor position...we will need for our keyboard implementation
-                onSelectionChange={(e) => {onSelectionChange(e);}}
+            editable={!switchVal}
+            selectTextOnFocus={!switchVal}
+            onSelectionChange={(e) => {onSelectionChange(e);}}
             clearTextOnFocus={false}
             multiline={true}
         />
