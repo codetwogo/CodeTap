@@ -97,7 +97,7 @@ export default class TestEnvComponent extends Component {
     const resultStr = (error)
       ? 'N/A'
       : (result == undefined || result == null)
-        ? '***No result returned from function***'
+        ? '*** No result returned ***'
         : result.toString();
 
     return {
@@ -156,9 +156,9 @@ export default class TestEnvComponent extends Component {
                 Sadly, you've FAILED {`\n`}one or more tests!!!!</Text>
             </View>
 }
-          {this.state.resultArr.map(result => {
+          {this.state.resultArr.map((result, idx) => {
             return (
-              <View style={styles.resultDetails}>
+              <View style={styles.resultDetails} key={idx}>
                 {result.error
                   ? `Error received: ${result.error}`
                   : <View style={styles.inputOutput}>
@@ -226,7 +226,7 @@ const styles = StyleSheet.create({
     fontSize: 22,
     textAlign: 'center',
     paddingTop: 35,
-    paddingBottom: 45,
+    paddingBottom: 35,
     borderColor: '#dd0000',
     borderWidth: 2.5,
     backgroundColor: '#bbb'
