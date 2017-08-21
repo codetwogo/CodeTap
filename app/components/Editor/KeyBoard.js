@@ -14,7 +14,6 @@ export default class CodeKeyboard extends Component {
         <TextInput
           autoCorrect={false}
           editable={!this.props.switchVal}
-          selectTextOnFocus={!this.props.switchVal}
           style={styles.textInput}
           onChangeText={text => {this.props.textEnvChange(text);}}
           value={this.props.textValue}
