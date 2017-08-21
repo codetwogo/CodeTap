@@ -11,8 +11,6 @@ export default class CodeKeyboard extends Component {
   render() {
     return (
       <View>
-
-        {()=>this.refs.input.focus()}
         <TextInput
           autoCorrect={false}
           editable={!this.props.switchVal}
