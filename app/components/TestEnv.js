@@ -122,6 +122,7 @@ export default class TestEnvComponent extends Component {
     
     eval(`callFunc = ${this.state.userAnswer}`);
 
+
     // callFunc = callFunc.bind(null, this.state.tests[0].inputs);
 
     // console.log('callfunc is: ', callFunc.toString());
@@ -153,7 +154,7 @@ render() {
     <WebView 
         style={{marginTop: 20}}
         ref={webview => {this.webview = webview}}
-        source={{html: require('../webviewScripts/load.html')}}
+        source={require('../webviewScripts/load.html')}
         onLoad={this.webViewLoaded.bind(this)}
         onMessage={this.getMessageFromWebView.bind(this)} />
     )

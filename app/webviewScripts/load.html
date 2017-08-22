@@ -1,24 +1,28 @@
 <html>
-    <head>
-    </head>
-    <body>
-        <script>
-            document.addEventListener("message", function(data) {
-                var dataObj = JSON.parse(data.data);
-                window.postMessage(dataObj.func);
-                var result;
-                var callFunc;
-                eval(`callFunc = ${dataObj.func}`);
-                try {
-                    var test;
-                    window.postMessage(callFunc);
-                    test = eval(callFunc.apply(this, dataObj.args));
-                }
-                catch (e) {
-                    window.postMessage(e.toString());
-                }
-                window.postMessage(test.toString());
-            })
-        </script>
-    </body>
+
+<head>
+</head>
+
+<body>
+    <h1>TEST</h1>
+</body>
+<script>
+    document.addEventListener('message', function (data) {
+        var dataObj = JSON.parse(data.data);
+        var result;
+        var callFunc;
+        eval(`callFunc = ${dataObj.func}`);
+        try {
+            var test;
+            window.postMessage(callFunc);
+            test = eval(callFunc.apply(this, dataObj.args));
+        }
+        catch (e) {
+            window.postMessage(e.toString());
+        }
+        window.postMessage(test.toString());
+    })
+
+</script>
+
 </html>
