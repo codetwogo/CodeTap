@@ -106,14 +106,14 @@ export default class NewCodeEnv extends Component {
           {
             this.state.switchVal
           ?
+          <SmartKeyboard
+            edit={this.onChangeText}
+          />
+        :
         <BasicKeyboard
           edit={this.onChangeText}
           shiftLeft={this.shiftLeft}
           shiftRight={this.shiftRight}
-        />
-        :
-        <SmartKeyboard
-          edit={this.onChangeText}
         />
       }
       </View>
