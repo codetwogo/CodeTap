@@ -21,11 +21,3 @@ export default class BasicKeyboard extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flexWrap: 'wrap',
-    marginTop: 50,
-    justifyContent: 'center'
-  }
-});

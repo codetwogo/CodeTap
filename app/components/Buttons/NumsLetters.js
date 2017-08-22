@@ -1,12 +1,13 @@
 import React from 'react';
-import { Switch, TouchableOpacity, StyleSheet} from 'react-native';
-import { Container, Header, View, DeckSwiper, Card, CardItem, Thumbnail, Text, Left, Body, Icon, Button, Input } from 'native-base';
+import { View, Button, Switch, TouchableOpacity, StyleSheet} from 'react-native';
+// import { Container, Header, View, DeckSwiper, Card, CardItem, Thumbnail, Text, Left, Body, Icon, Button, Input } from 'native-base';
 
 export default ({edit}) => {
-  const nums = '`0123456789-='.split('');
-  const topRow = 'qwertyuiop[]'.split('');
-  const middleRow = 'asdfghjkl;'.split('');
-  const bottomRow = 'zxcvbnm,./'.split('');
+  const symbols = '-=[];,./';
+  const nums = '`0123456789'.split('');
+  const topRow = 'qwertyuiop'.split('');
+  const middleRow = 'asdfghjkl'.split('');
+  const bottomRow = 'zxcvbnm'.split('');
 
   const capnums = '~!@#$%^&*()_+'.split('');
   const captopRow = 'QWERTYUIOP{}|'.split('');
@@ -16,20 +17,16 @@ export default ({edit}) => {
   const keys = [nums, topRow, middleRow, bottomRow];
   const upperkeys = [];
     return (
-        <View>
+        <View style={styles.container}>
           {keys.map((row)=>{
             return (
-              <View key={row}>
+              <View style={styles.keyrow} key={row}>
               {row.map((key)=>{
             return (
-              <Button key={key}
+              <Button title={key} key={key}
                 onPress={() =>
                   edit(key)
-                }>
-                  <Text style={{color: '#444444'}}>
-                    {key}
-                  </Text>
-                </Button>
+                }/>
             );
           }
           )}
@@ -39,5 +36,13 @@ export default ({edit}) => {
       );
 };
 
-const styles = StyleSheet.create({
+const styles = StyleSheet.create( {
+  container: {
+    flexWrap: 'wrap',
+    alignItems:'flex-start',
+    justifyContent: 'center'
+  },
+    keyrow: {
+      flexDirection: 'row',
+    }
   });

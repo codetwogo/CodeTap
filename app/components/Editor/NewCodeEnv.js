@@ -18,15 +18,15 @@ export default class NewCodeEnv extends Component {
     this.shiftRight=this.shiftRight.bind(this);
   }
     onChangeText(str){
-      const body = this.state.inputBody;
+      // const body = this.state.inputBody;
       const focus = this.state.focus;
-      const bodyPreFocus = body.slice(0, focus);
-      const bodyPostFocus = body.slice(focus+1, body.length);
-      const newFocus = focus+str.length;
-      const newBody = bodyPreFocus+str+"|"+bodyPostFocus;
+      // const bodyPreFocus = body.slice(0, focus);
+      // const bodyPostFocus = body.slice(focus+1, body.length);
+      // const newFocus = focus+str.length;
+      // const newBody = bodyPreFocus+str+"|"+bodyPostFocus;
       this.setState({
-        inputBody: newBody,
-        focus: newFocus
+        inputBody: this.state.inputBody.slice(0, focus) + str + "|" + this.state.inputBody.slice(focus + 1),
+        focus: focus + str.length
     });
   }
 
@@ -40,8 +40,8 @@ export default class NewCodeEnv extends Component {
       const newBodyPre = newBody.slice(0, newFocus);
       const newBodyPost = newBody.slice(newFocus);
         if(newFocus>-1){
-        console.log('prefocus', bodyPreFocus);
-        console.log('postfocus', bodyPostFocus);
+        // console.log('prefocus', bodyPreFocus);
+        // console.log('postfocus', bodyPostFocus);
         const shiftedBody = newBodyPre+'|'+newBodyPost;
         this.setState({
           inputBody: shiftedBody,
@@ -59,8 +59,8 @@ export default class NewCodeEnv extends Component {
         const newBodyPre = newBody.slice(0, newFocus);
         const newBodyPost = newBody.slice(newFocus);
           if(newFocus<=newBody.length){
-          console.log('prefocus', bodyPreFocus);
-          console.log('postfocus', bodyPostFocus);
+          // console.log('prefocus', bodyPreFocus);
+          // console.log('postfocus', bodyPostFocus);
           const shiftedBody = newBodyPre+'|'+newBodyPost;
           this.setState({
             inputBody: shiftedBody,
@@ -90,7 +90,6 @@ export default class NewCodeEnv extends Component {
 
 
   render(){
-    console.log(this.state.focus);
     return (
       <View>
         <CodeHeader
