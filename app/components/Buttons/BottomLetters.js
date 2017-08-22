@@ -4,17 +4,18 @@ import { Container, Header, View, DeckSwiper, Card, CardItem, Thumbnail, Text, L
 
 
 export default ({edit}) => {
-  const nums = '0123456789'.split('');
+  const bottomRow = 'zxcvbnm,./'.split('');
     return (
         <View style={styles.container}>
-          {nums.map((num)=>{
+          {bottomRow.map((letter)=>{
             return(
-              <Button key={num} style={styles.hotKey}
-                onPress={() =>
-                  edit(num)
+              <Button key={letter} style={styles.hotKey}
+                onPress={() => {
+                  edit(letter);
+                  }
                 }>
                   <Text style={{color: '#444444'}}>
-                    {num}
+                    {letter}
                   </Text>
                 </Button>
             );

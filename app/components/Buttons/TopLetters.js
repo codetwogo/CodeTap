@@ -2,14 +2,25 @@ import React from 'react';
 import { Switch, TouchableOpacity, StyleSheet} from 'react-native';
 import { Container, Header, View, DeckSwiper, Card, CardItem, Thumbnail, Text, Left, Body, Icon, Button, Input } from 'native-base';
 
-export default ({shiftRight}) => {
+
+
+export default ({edit}) => {
+  const topRow = ['q','w','e','r','t','y','u','i','o','p','[',']','|'];
   return (
-                  <Button style={styles.hotKey}
-                    onPress={()=>shiftRight()}>
+            <View style={styles.container}>
+              {topRow.map((letter)=>{
+                return(
+                  <Button key={letter} style={styles.hotKey}
+                    onPress={() =>
+                      edit(letter)
+                    }>
                       <Text style={{color: '#444444'}}>
-                        'Right'
+                        {letter}
                       </Text>
                     </Button>
+                );
+              })}
+            </View>
         );
     };
 
