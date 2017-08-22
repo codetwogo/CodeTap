@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {Image, StyleSheet, TouchableOpacity, WebView} from 'react-native';
+import React, { Component } from 'react';
+import { Image, StyleSheet, TouchableOpacity, WebView } from 'react-native';
 import {
   Container,
   Header,
@@ -39,26 +39,29 @@ export default class TestEnvComponent extends Component {
   }
 
   componentDidMount() {
-    const resultArr = this.props.tests.map(test => {
-      return this.evaluateTest(test);
-    })
+    // const resultArr = this.props.tests.map(test => {
+    //   return this.evaluateTest(test);
+    // })
 
-    const isPassing = resultArr.reduce((a, b) => {
-      console.log('bbbbbb', b.pass)
-      return a && b.pass
-    }, {"pass": true});
+    // const isPassing = resultArr.reduce((a, b) => {
+    //   console.log('bbbbbb', b.pass)
+    //   return a && b.pass
+    // }, {"pass": true});
 
-    this.setState({
-      tests: [...this.props.tests],
-      //userAnswer: this.props.userAnswer,
-      textStates: this.props.textStates,
-      isPassing: isPassing,
-      resultArr: resultArr
-    })
+    // this.setState({
+    //   tests: [...this.props.tests],
+    //   //userAnswer: this.props.userAnswer,
+    //   textStates: this.props.textStates,
+    //   isPassing: isPassing,
+    //   resultArr: resultArr
+    // })
 
   }
 
-  navigateBack() {
+  navigateBack(msg) {
+    if (msg === 'infinite loop') {
+      // need to redirect to new CodeEnv and supply warning with hidden btn 
+    }
     console.log(this.props.textStates)
     this.props.navigator.push({
       id: 'back-code-env',
@@ -72,41 +75,41 @@ export default class TestEnvComponent extends Component {
   }
 
   navigateToAllQuestions() {
-    this.props.navigator.push({id: 'all-questions-component'})
+    this.props.navigator.push({ id: 'all-questions-component' })
   }
 
   evaluateTest(test) {
-    // assigns the string function from user input into callFunc variable
-    var callFunc;
+    // // assigns the string function from user input into callFunc variable
+    // var callFunc;
 
-    eval(`callFunc = ${this.state.userAnswer}`);
+    // eval(`callFunc = ${this.state.userAnswer}`);
 
-    // stores result of running test with proper params
-    var result;
-    var error;
+    // // stores result of running test with proper params
+    // var result;
+    // var error;
 
-    // run try, catch to obtain errors and report back to the user
-    try {
-      result = eval(callFunc.apply(this, test.inputs))
-    } catch (err) {
-      error = err;
-      console.log(err)
-    }
+    // // run try, catch to obtain errors and report back to the user
+    // try {
+    //   result = eval(callFunc.apply(this, test.inputs))
+    // } catch (err) {
+    //   error = err;
+    //   console.log(err)
+    // }
 
-    const output = test.output.toString();
-    const resultStr = (error)
-      ? 'N/A'
-      : (result == undefined || result == null)
-        ? '*** No result returned ***'
-        : result.toString();
+    // const output = test.output.toString();
+    // const resultStr = (error)
+    //   ? 'N/A'
+    //   : (result == undefined || result == null)
+    //     ? '*** No result returned ***'
+    //     : result.toString();
 
-    return {
-      error: error || null,
-      inputs: test.inputs,
-      output: output,
-      result: resultStr,
-      pass: (output == resultStr)
-    }
+    // return {
+    //   error: error || null,
+    //   inputs: test.inputs,
+    //   output: output,
+    //   result: resultStr,
+    //   pass: (output == resultStr)
+    // }
 
     // return (
     //     <Text key={test.id}>
@@ -119,45 +122,58 @@ export default class TestEnvComponent extends Component {
     console.log('shit loaded!')
 
     var callFunc;
-    
+
     eval(`callFunc = ${this.state.userAnswer}`);
 
-    // callFunc = callFunc.bind(null, this.state.tests[0].inputs);
-
-    // console.log('callfunc is: ', callFunc.toString());
-
-    // var wrapper = function(callFunc) {
-    //     return callFunc;
-    // }
-
-    // wrapper = wrapper.bind(null, callFunc);
-
     const dataObj = {
-        func: callFunc.toString(),
-        args: this.state.tests[0].inputs
+      func: callFunc.toString(),
+      finished: false
     }
 
-    this.webview.postMessage(JSON.stringify(dataObj));
-}
+    // this timer checks if a test causes an infinite loop and will cancel out the webview component container
+    timer = setTimeout(() => {
+      const testNum = i;
+      this.navigateBack('infinite loop'); //signifies to CodeEnv to warn user about infinite loop
+    }, 10000)
 
-getMessageFromWebView(data) {
-    const keys = Object.keys(data.nativeEvent);
-    console.log('data???', data.nativeEvent.data)
+    for (var i = 0; i < this.state.tests.length; ++i) {
+      if (i === this.state.tests.length - 1) dataObj.finished = true;
+      console.log(this.state.tests[i]);
+      dataObj.test = this.state.tests[i];
+
+      this.webview.postMessage(JSON.stringify(dataObj));
+    }
+  }
+
+  getMessageFromWebView(data) {
+    const msg = data.nativeEvent.data;
+
+    if (msg === 'finished') {
+      clearTimeout(timer);
+    }
+    if (msg === 'Complete') {
+      // redirect to all questions and supply complete question id
+    }
+    // redirect to CodeEnv
+    if (msg === 'Try again') {
+      this.navigateBack();
+    }
+
 }
 
 
 render() {
 
-    return (
-        
-    <WebView 
-        style={{marginTop: 20}}
-        ref={webview => {this.webview = webview}}
-        source={require('../webviewScripts/load.html')}
-        onLoad={this.webViewLoaded.bind(this)}
-        onMessage={this.getMessageFromWebView.bind(this)} />
-    )
-  }
+  return (
+
+    <WebView
+      style={{ marginTop: 20 }}
+      ref={webview => { this.webview = webview }}
+      source={require('../webviewScripts/load.html')}
+      onLoad={this.webViewLoaded.bind(this)}
+      onMessage={this.getMessageFromWebView.bind(this)} />
+  )
+}
 }
 
 const styles = StyleSheet.create({
