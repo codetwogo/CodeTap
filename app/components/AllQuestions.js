@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {Image, StyleSheet, TouchableOpacity, AsyncStorage} from 'react-native';
+import React, { Component } from 'react';
+import { Image, StyleSheet, TouchableOpacity, AsyncStorage } from 'react-native';
 import {
   Container,
   Header,
@@ -87,21 +87,23 @@ export default class AllQuestions extends Component {
     this.onQuestionPress = this.onQuestionPress.bind(this);
   }
   componentDidMount() {
-      fetch('http://localhost:8080/api/questions')
+    fetch('http://localhost:8080/api/questions')
       .then(res => res.json())
       .then(resJson => {
-        AsyncStorage.setItem('myQuestions', JSON.stringify(resJson));      AsyncStorage.getItem('myQuestions').then((value) => {
-        this.setState({myQuestions: JSON.parse(value)})
-        console.log('resJson===>: ', resJson)
-        console.log('THIS.STATE.MYQESTIONS===>: ', this.state.myQuestions)
+        return AsyncStorage.setItem('myQuestions', JSON.stringify(resJson))
       })
+      .then(() => {
+        AsyncStorage.getItem('myQuestions')
+          .then((value) => {
+            console.log('VALUE', JSON.parse(value));
+            var result = JSON.parse(value).reduce((prev, curr) => {
+              return prev.concat(curr)
+            }, []);
+            console.log('RESULTTTT', result);
+            this.setState({ myQuestions: this.state.myQuestions.concat(result) })
+            // console.log('THIS.STATE.MYQESTIONS===>: ', this.state.myQuestions)
+          })
       })
-    // try {
-    //
-    // } catch (error) {
-    //   console.error(error)
-    // }
-
   }
 
   // saveData(cards) {
@@ -111,64 +113,66 @@ export default class AllQuestions extends Component {
   // }
 
   onQuestionPress(question) {
-    this.props.navigator.push({id: 'single-question-component', question: question})
+    this.props.navigator.push({ id: 'single-question-component', question: question })
   }
   render() {
     // const parsedCards = JSON.parse(this.state.myQuestions)
     // console.log('Async =-->', JSON.stringify(this.state.myQuestions))
+    console.log('MY QUESTIONS', this.state.myQuestions)
     return (
       <Container style={styles.container}>
-        <HeaderComponent navigator={this.props.navigator} style={styles.item}/>
+        <HeaderComponent navigator={this.props.navigator} style={styles.item} />
 
         <View style={{
           flex: 1
         }}>
-          <DeckSwiper
+          { Boolean(this.state.myQuestions.length) && <DeckSwiper
             dataSource={this.state.myQuestions}
             renderItem={item => <TouchableOpacity onPress={() => {
-            this.onQuestionPress(item)
-          }}>
-            <Card style={{
-              backgroundColor: '#888888',
-              elevation: 3
+              this.onQuestionPress(item)
             }}>
-              <CardItem style={{
-                backgroundColor: 'transparent'
+              <Card style={{
+                backgroundColor: '#888888',
+                elevation: 3
               }}>
-                <Left>
-                  <Thumbnail source={item.image}/>
-                  <Body>
-                    <Text>{item.title}</Text>
-                    <Text not style={{
-                      color: '#333'
-                    }}>Medium</Text>
-                  </Body>
-                </Left>
-              </CardItem>
-              <CardItem cardBody style={{
-                backgroundColor: '#aaaaaa',
-                padding: 10,
-                paddingTop: 10,
-                minHeight: 100,
-                alignItems: 'flex-start',
-                borderRadius: 10,
-                marginLeft: 10,
-                marginRight: 10
-              }}>
-                <Text>{item.description}</Text>
-              </CardItem>
-              <CardItem style={{
-                backgroundColor: 'transparent'
-              }}>
-                <Icon name="heart" style={{
-                  color: '#ED4A6A'
-                }}/>
-                <Text style={{
-                  color: '#ccc'
-                }}>{item.likes}</Text>
-              </CardItem>
-            </Card>
-          </TouchableOpacity>}/>
+                <CardItem style={{
+                  backgroundColor: 'transparent'
+                }}>
+                  <Left>
+                    <Thumbnail source={item.image} />
+                    <Body>
+                      <Text>{item.title}</Text>
+                      <Text not style={{
+                        color: '#333'
+                      }}>Medium</Text>
+                    </Body>
+                  </Left>
+                </CardItem>
+                <CardItem cardBody style={{
+                  backgroundColor: '#aaaaaa',
+                  padding: 10,
+                  paddingTop: 10,
+                  minHeight: 100,
+                  alignItems: 'flex-start',
+                  borderRadius: 10,
+                  marginLeft: 10,
+                  marginRight: 10
+                }}>
+                  <Text>{item.description}</Text>
+                </CardItem>
+                <CardItem style={{
+                  backgroundColor: 'transparent'
+                }}>
+                  <Icon name="heart" style={{
+                    color: '#ED4A6A'
+                  }} />
+                  <Text style={{
+                    color: '#ccc'
+                  }}>{item.likes}</Text>
+                </CardItem>
+              </Card>
+            </TouchableOpacity>} />
+            }
         </View>
         <View style={{
           flex: 1,
