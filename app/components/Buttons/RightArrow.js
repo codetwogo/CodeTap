@@ -4,7 +4,7 @@ import { Container, Header, View, DeckSwiper, Card, CardItem, Thumbnail, Text, L
 
 export default ({shiftRight}) => {
   return (
-                  <Button style={styles.hotKey}
+                  <Button
                     onPress={()=>shiftRight()}>
                       <Text style={{color: '#444444'}}>
                         'Right'
@@ -14,20 +14,4 @@ export default ({shiftRight}) => {
     };
 
     const styles = StyleSheet.create({
-      container: {
-        padding: 4,
-        flexDirection: 'row',
-        justifyContent: 'center'
-      },
-      hotKey: {
-        justifyContent: 'center',
-        alignItems: 'center',
-        fontSize: 30,
-        padding: 10,
-        marginTop: 3,
-        marginLeft: 1,
-        marginRight:1,
-        marginBottom: 5,
-        backgroundColor: '#999999'
-      }
     });

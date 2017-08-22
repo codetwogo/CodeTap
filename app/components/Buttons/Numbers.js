@@ -6,10 +6,10 @@ import { Container, Header, View, DeckSwiper, Card, CardItem, Thumbnail, Text, L
 export default ({edit}) => {
   const nums = '0123456789'.split('');
     return (
-        <View style={styles.container}>
+        <View>
           {nums.map((num)=>{
             return(
-              <Button key={num} style={styles.hotKey}
+              <Button key={num}
                 onPress={() =>
                   edit(num)
                 }>
@@ -24,20 +24,4 @@ export default ({edit}) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    padding: 4,
-    flexDirection: 'row',
-    justifyContent: 'center'
-  },
-  hotKey: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    fontSize: 30,
-    padding: 10,
-    marginTop: 3,
-    marginLeft: 1,
-    marginRight:1,
-    marginBottom: 5,
-    backgroundColor: '#999999'
-  }
 });
