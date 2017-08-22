@@ -162,7 +162,7 @@ export default class TestEnvComponent extends Component {
                 {result.error
                   ? `Error received: ${result.error}`
                   : <View style={styles.inputOutput}>
-                    <Text style={{color: '#aaa'}}>Inputs: [{result.inputs}]
+                    <Text style={{color: '#aaa'}}>Inputs: [{result.inputs.join(', ')}]
                     </Text>
                     <Text style={{color: '#66aa55'}}>Expected Output: {result.output}
                     </Text>
@@ -178,7 +178,7 @@ export default class TestEnvComponent extends Component {
           {(this.state.isPassing)
             ? <View>
                 <Button style={styles.resultButton} onPress={this.navigateToAllQuestions}>
-                  <Text>Go back to all questions</Text>
+                  <Text style={{color: '#333'}}>Go back to all questions</Text>
                 </Button>
               </View>
             : <View>
@@ -187,7 +187,7 @@ export default class TestEnvComponent extends Component {
                   backgroundColor: '#dd0000'
                 }
               ])} onPress={this.navigateBack}>
-                <Text style={{color: '#aaa'}}>Try again</Text>
+                <Text style={{color: '#333'}}>Try again</Text>
               </Button>
             </View>
 }
