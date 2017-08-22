@@ -153,7 +153,7 @@ render() {
     <WebView 
         style={{marginTop: 20}}
         ref={webview => {this.webview = webview}}
-        source={{html: require('../webviewScripts/load.html')}}
+        source={require('../webviewScripts/load.html')}
         onLoad={this.webViewLoaded.bind(this)}
         onMessage={this.getMessageFromWebView.bind(this)} />
     )
