@@ -208,15 +208,19 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     backgroundColor: '#333333'
   },
-    textInput: {
-      color: 'white',
-      fontSize: 18,
-      height: 200,
-      padding: 15,
-      paddingTop: 15,
-      marginTop: 4,
-      marginBottom: 4,
-      backgroundColor: '#666666',
-      borderRadius: 10
-    },
-  });
+  inputTextBg: {
+    backgroundColor: '#7D1B13',
+    borderRadius: 10,
+    marginTop: 4,
+    marginBottom: 4
+  },
+  textInput: {
+    color: 'white',
+    fontSize: 18,
+    height: 200,
+    padding: 15,
+    paddingTop: 15,
+    borderRadius: 10,
+    backgroundColor: 'transparent'
+  },
+});

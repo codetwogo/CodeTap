@@ -21,10 +21,10 @@ export default({edit, shiftLeft, shiftRight, del, space}) => {
   const middleRow = 'asdfghjkl'.split('');
   const bottomRow = 'zxcvbnm'.split('');
   const funcs= [
-    {title:'Left', output:shiftLeft, flx: 1},
+    {title:'<<  |', output:shiftLeft, flx: 1},
     {title:'Space', output:space, flx: 2},
     {title:'Del', output:del, flx: 1},
-    {title:'Right', output:shiftRight, flx: 1}]
+    {title:'|  >>', output:shiftRight, flx: 1}]
 
   const capnums = '~!@#$%^&*()_+'.split('');
   const captopRow = 'QWERTYUIOP{}|'.split('');
@@ -59,7 +59,7 @@ export default({edit, shiftLeft, shiftRight, del, space}) => {
             flex: flx
           }
         ])} key={func.title} onPress={() => func.output()} >
-          <Text style={styles.buttonText}>
+          <Text style={styles.funcButtonText}>
             {func.title}
           </Text>
           </TouchableOpacity>
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   smallContainer: {
-    minWidth: 400,
+    minWidth: 360,
     flexWrap: 'wrap',
     flexDirection: 'row',
     justifyContent: 'center'
@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
   funcKey: {
     justifyContent: 'center',
     alignItems: 'center',
-    borderColor: '#666666',
+    borderColor: '#888888',
     backgroundColor: 'transparent',
     borderRadius: 5,
     padding: 10,
@@ -109,5 +109,8 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: '#444444'
+  },
+  funcButtonText: {
+    color: '#999999'
   }
 });
