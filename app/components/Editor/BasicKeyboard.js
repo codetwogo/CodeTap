@@ -5,14 +5,23 @@ export default class BasicKeyboard extends Component {
   constructor(props) {
     super(props);
     this.state={
-      caps:false
+      caps:false,
+      syms:false
     };
     this.changeCaps=this.changeCaps.bind(this);
+    this.changeSyms=this.changeSyms.bind(this);
   }
   changeCaps(){
     let newState = !this.state.caps;
     this.setState({
       caps:newState
+    });
+  }
+
+  changeSyms(){
+    let newBoard = !this.state.syms;
+    this.setState({
+      syms:newBoard
     });
   }
   render(){
@@ -25,6 +34,8 @@ export default class BasicKeyboard extends Component {
             space={this.props.space}
             capslock={this.changeCaps}
             caps={this.state.caps}
+            syms={this.state.syms}
+            symslock={this.changeSyms}
             />
       </View>
     );
