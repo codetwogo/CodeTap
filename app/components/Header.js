@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { StatusBar } from 'react-native';
 import { Container, Header, Left, Body, Right, Button, Icon, Title, Text } from 'native-base';
 
 export default class HeaderComponent extends Component {
@@ -18,6 +19,10 @@ export default class HeaderComponent extends Component {
   render() {
     return (
         <Header>
+          <StatusBar
+            backgroundColor='blue'
+            barStyle='light-content'
+            />
           <Left>
             <Button transparent onPress={()=>
               this.onBackPress()
