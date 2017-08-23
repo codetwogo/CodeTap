@@ -19,7 +19,7 @@ export default({edit, shiftLeft, shiftRight, del, space}) => {
   const nums = '1234567890'.split('');
   const topRow = 'qwertyuiop'.split('');
   const middleRow = 'asdfghjkl'.split('');
-  const bottomRow = 'zxcvbnm'.split('');
+  const bottomRow = 'zxcvbnm.'.split('');
   const funcs= [
     {title:'<<  |', output:shiftLeft, flx: 1},
     {title:'Space', output:space, flx: 2},

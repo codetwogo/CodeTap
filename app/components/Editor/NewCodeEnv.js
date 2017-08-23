@@ -112,7 +112,7 @@ export default class NewCodeEnv extends Component {
 
   onSubmit() {
     const body = this.state.inputBody;
-    const Answer =body.slice(0, focus)+body.slice(focus+1, body.length);
+    const Answer =body.slice(0, this.state.focus)+body.slice(this.state.focus+1, body.length);
 
     this.props.navigator.push({
       id: 'test-env',
@@ -178,9 +178,12 @@ export default class NewCodeEnv extends Component {
           submit={this.onSubmit}
           style={styles.item} />
         <View  style={styles.container}>
-          <Text
-          style={styles.textInput}
-          >{this.state.inputBody}</Text>
+          <View style={styles.inputTextBg}>
+            <Text
+              style={styles.textInput}>
+              {this.state.inputBody}
+            </Text>
+          </View>
           <NewSwitchView
             undo={this.undo}
             switchVal={this.state.switchVal}
@@ -194,9 +197,9 @@ export default class NewCodeEnv extends Component {
             shiftRight={this.shiftRight}
             del={this.del}
             space={this.space}
-          />
-      </View>
-    </Container>
+            />
+        </View>
+      </Container>
     );
   }
 }
@@ -209,7 +212,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#333333'
   },
   inputTextBg: {
-    backgroundColor: '#7D1B13',
+    backgroundColor: '#6E3F3D',
     borderRadius: 10,
     marginTop: 4,
     marginBottom: 4
