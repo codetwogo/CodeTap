@@ -59,7 +59,7 @@ export default({edit, shiftLeft, shiftRight, del, space}) => {
             flex: flx
           }
         ])} key={func.title} onPress={() => func.output()} >
-          <Text style={styles.buttonText}>
+          <Text style={styles.funcButtonText}>
             {func.title}
           </Text>
           </TouchableOpacity>
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   smallContainer: {
-    minWidth: 400,
+    minWidth: 360,
     flexWrap: 'wrap',
     flexDirection: 'row',
     justifyContent: 'center'
@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
   funcKey: {
     justifyContent: 'center',
     alignItems: 'center',
-    borderColor: '#666666',
+    borderColor: '#888888',
     backgroundColor: 'transparent',
     borderRadius: 5,
     padding: 10,
@@ -109,5 +109,8 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: '#444444'
+  },
+  funcButtonText: {
+    color: '#999999'
   }
 });

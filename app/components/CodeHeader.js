@@ -18,17 +18,17 @@ export default class CodeHeader extends Component {
             <Button transparent onPress={()=>
               this.onBackPress()
             }>
-              <Icon name='arrow-back' />
+              <Icon name='arrow-back' style={{color: 'black'}} />
             </Button>
           </Left>
           <Body>
-            <Title>CodeToGo</Title>
+            <Title>{`CodeTap`}</Title>
           </Body>
           <Right>
             <Button transparent onPress={()=>
               this.props.submit()
             }>
-              <Text>Submit</Text>
+              <Text style={{color: 'black'}}>Submit</Text>
             </Button>
           </Right>
         </Header>
