@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Switch, View, AppRegistry, StyleSheet, Button, Text, TouchableOpaci} from 'react-native';
+import { Container } from 'native-base';
 
 import BasicKeyboard from './BasicKeyboard';
 import SmartKeyboard from '../ClipButtons';
@@ -16,6 +17,8 @@ export default class NewCodeEnv extends Component {
     this.onChangeText=this.onChangeText.bind(this);
     this.shiftLeft=this.shiftLeft.bind(this);
     this.shiftRight=this.shiftRight.bind(this);
+    this.del=this.del.bind(this)
+    this.space=this.space.bind(this)
   }
     onChangeText(str){
       const body = this.state.inputBody;
@@ -68,6 +71,24 @@ export default class NewCodeEnv extends Component {
         }
       }
 
+    del(){
+      const focus = this.state.focus;
+      const newFocus = focus-1;
+      const body = this.state.inputBody;
+      const bodyPreFocus = body.slice(0, newFocus)+'|';
+      const bodyPostFocus = body.slice(focus+1);
+      const newBody= bodyPreFocus+bodyPostFocus;
+        if(newFocus>-1){
+          this.setState({
+          inputBody: newBody,
+          focus:newFocus});
+      }
+    }
+
+    space(){
+      return(this.onChangeText(' '))
+    }
+
     onSwitchChange(value) {
       this.setState({
         switchVal: value,
@@ -92,12 +113,13 @@ export default class NewCodeEnv extends Component {
   render(){
     console.log(this.state.focus);
     return (
-      <View>
+      <Container>
         <CodeHeader
           navigator={this.props.navigator}
           submit={this.onSubmit}
           style={styles.item} />
-        <Text
+        <View  style={styles.container}>
+          <Text
           style={styles.textInput}
           >{this.state.inputBody}</Text>
           <Switch
@@ -114,14 +136,23 @@ export default class NewCodeEnv extends Component {
           edit={this.onChangeText}
           shiftLeft={this.shiftLeft}
           shiftRight={this.shiftRight}
+          del={this.del}
+          space={this.space}
         />
       }
       </View>
+    </Container>
     );
   }
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 10,
+    justifyContent: 'space-between',
+    backgroundColor: '#333333'
+  },
     textInput: {
       color: 'white',
       fontSize: 18,
@@ -132,6 +163,5 @@ const styles = StyleSheet.create({
       marginBottom: 4,
       backgroundColor: '#666666',
       borderRadius: 10
-
     },
   });

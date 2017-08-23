@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { View, AppRegistry, StyleSheet, Button, Text, TouchableOpaci} from 'react-native';
 
-import LeftArrow from '../Buttons/LeftArrow';
-import RightArrow from '../Buttons/RightArrow';
 import NumsLetters from '../Buttons/NumsLetters';
 
 
@@ -13,10 +11,13 @@ export default class BasicKeyboard extends Component {
 
   render(){
     return (
-      <View>
-          <NumsLetters edit={this.props.edit}/>
-          <LeftArrow shiftLeft={this.props.shiftLeft}/>
-          <RightArrow shiftRight={this.props.shiftRight}/>
+      <View style={styles.container}>
+          <NumsLetters
+            edit={this.props.edit} shiftLeft={this.props.shiftLeft}
+            shiftRight={this.props.shiftRight}
+            del={this.props.del}
+            space={this.props.space}
+            />
       </View>
     );
   }
@@ -25,7 +26,7 @@ export default class BasicKeyboard extends Component {
 const styles = StyleSheet.create({
   container: {
     flexWrap: 'wrap',
-    marginTop: 50,
-    justifyContent: 'center'
+    justifyContent: 'center',
+    alignItems: 'flex-start'
   }
 });
