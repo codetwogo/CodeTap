@@ -19,11 +19,10 @@ export default({edit, shiftLeft, shiftRight, del, space, capslock, caps, symsloc
   const nums = '1234567890'.split('');
   const topRow = 'qwertyuiop'.split('');
   const middleRow = 'asdfghjkl'.split('');
-  const bottomRow = 'zxcvbnm.'.split('');
+  const bottomRow = 'zxcvbnm'.split('');
 
-  const symTr="~!@#$%^&*()_+".split('');
-  const symMr="`{}:'?/<>.".split('');
-  const symBr=",.".split('');
+  const symTr="~!@#$%^&*()".split('');
+  const symMr="`{}:'?<>_+,./".split('');
 
 
 
@@ -37,17 +36,16 @@ export default({edit, shiftLeft, shiftRight, del, space, capslock, caps, symsloc
 
   var cap= caps;
   var sym= syms;
-  console.log(sym);
 
   const keys = [nums, topRow, middleRow, bottomRow];
-  const symboard = [symTr, symMr, symBr];
+  const symboard = [symTr, symMr];
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.hotKey} key='caps' onPress={() => capslock()} >
-        <Text style={styles.buttonText}>Caps</Text>
+      <TouchableOpacity style={styles.capsKey} key='caps' onPress={() => capslock ()} >
+        <Text style={styles.funcButtonText}>Caps</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.hotKey} key='Syms' onPress={() => symslock()} >
-        <Text style={styles.buttonText}>Syms</Text>
+      <TouchableOpacity style={styles.capsKey} key='Syms' onPress={() => symslock()} >
+        <Text style={styles.funcButtonText}>Symbols</Text>
       </TouchableOpacity>
       {
         sym
@@ -134,6 +132,16 @@ const styles = StyleSheet.create({
     backgroundColor: '#999999'
   },
   funcKey: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderColor: '#888888',
+    backgroundColor: 'transparent',
+    borderRadius: 5,
+    padding: 10,
+    margin: 3,
+    borderWidth: 1
+  },
+  capsKey: {
     justifyContent: 'center',
     alignItems: 'center',
     borderColor: '#888888',
