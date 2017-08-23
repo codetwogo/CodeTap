@@ -1,42 +1,22 @@
 import React, { Component } from 'react';
-import { Image, StyleSheet, TouchableOpacity, AsyncStorage } from 'react-native';
-import {
-  Container,
-  Header,
-  View,
-  DeckSwiper,
-  Card,
-  CardItem,
-  Thumbnail,
-  Text,
-  Left,
-  Body,
-  Icon,
-  Button,
-  Input
-} from 'native-base';
+import { Image, StyleSheet, TouchableOpacity, AsyncStorage, NetInfo } from 'react-native';
+import { Container, Header, View, DeckSwiper, Card, CardItem, Thumbnail, Text, Left, Body, Icon, Button, Input } from 'native-base';
 
 import HeaderComponent from './Header.js'
 
 const cards = [
   {
     id: 'single-question-component',
-    title: 'String Search',
+    title: 'String Search (SAMPLE)',
     tests: [
       {
-        inputs: [
-          'or', 'hello world'
-        ],
+        inputs: ['or', 'hello world'],
         output: [true]
       }, {
-        inputs: [
-          'he', 'hello'
-        ],
+        inputs: ['he', 'hello'],
         output: [true]
       }, {
-        inputs: [
-          'wet', 'youse sir'
-        ],
+        inputs: ['wet', 'youse sir'],
         output: [false]
       }
     ],
@@ -46,79 +26,93 @@ const cards = [
     likes: 0
   }, {
     id: 'single-question-component',
-    title: 'Reverse Array',
+    title: 'Reverse Array (SAMPLE)',
     tests: [
       {
-        inputs: [
-          [1, 2, 3, 4]
-        ],
-        output: [
-          [4, 3, 2, 1]
-        ]
+        inputs: [[1, 2, 3, 4]],
+        output: [[4, 3, 2, 1]]
       }
     ],
     boilerPlate: 'function reverseArray(arr){\n\t\n}',
     description: 'Write a function reverseArray that reverses the elements of an array and returns the reversed array.',
     image: require('./img/fullstack.png'),
     likes: 0
-  }, {
-    id: 'single-question-component',
-    title: 'Question3',
-    tests: [
-      {
-        inputs: [1],
-        output: [false]
-      }
-    ],
-    boilerPlate: 'function(word3){\n\t\n}',
-    description: 'Enter question Description',
-    image: require('./img/fs-logo.png'),
-    likes: 0
-  }
+  },
 ];
 
 export default class AllQuestions extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      myQuestions: [],
-      onlineQuestions: [{}] // fetched from server
+      isOnline: false,
+      initializeCards: false,
+      myQuestions: cards,
+      onlineQuestions: [{}], // fetched from server
     }
     this.onQuestionPress = this.onQuestionPress.bind(this);
-  }
-  componentDidMount() {
-    fetch('http://localhost:8080/api/questions')
-      .then(res => res.json())
-      .then(resJson => {
-        return AsyncStorage.setItem('myQuestions', JSON.stringify(resJson))
-      })
-      .then(() => {
-        AsyncStorage.getItem('myQuestions')
-          .then((value) => {
-            console.log('VALUE', JSON.parse(value));
-            var result = JSON.parse(value).reduce((prev, curr) => {
-              return prev.concat(curr)
-            }, []);
-            console.log('RESULTTTT', result);
-            this.setState({ myQuestions: this.state.myQuestions.concat(result) })
-            // console.log('THIS.STATE.MYQESTIONS===>: ', this.state.myQuestions)
-          })
-      })
+
+    //Sets the state based on connectivity
+    //Initializes the myQuestions state
+    const handleFirstConnectivityChange = (isConnected) => {
+      console.log('Then, is ' + (isConnected ? 'online' : 'offline'));
+      NetInfo.isConnected.removeEventListener(
+        'change',
+        handleFirstConnectivityChange
+      );
+      const result = this.state.isOnline === isConnected ? null : this.setState({ isOnline: isConnected });
+      this.intializeComponent();
+      return result;
+    }
+    NetInfo.isConnected.addEventListener(
+      'change',
+      handleFirstConnectivityChange
+    );
   }
 
-  // saveData(cards) {
-  //   AsyncStorage.setItem('myQestions', JSON.stringify(cards));
-  //   console.log('Async =---->', JSON.stringify(cards))
-  //   this.setState({'myQuestions': JSON.stringify(cards)})
-  // }
+  //Populates state.myQuestions based connectivity
+  intializeComponent() {
+    if (this.state.isOnline) {
+      fetch('https://c2g-question-maker.herokuapp.com/api/questions')
+        .then(res => res.json())
+        .then(resJson => {
+          return AsyncStorage.setItem('myQuestions', JSON.stringify(resJson))
+        })
+        .then(() => {
+          AsyncStorage.getItem('myQuestions')
+            .then((value) => {
+              var result = JSON.parse(value).reduce((prev, curr) => {
+                return prev.concat(curr)
+              }, []);
+              this.setState(
+                {
+                  myQuestions: this.state.myQuestions.concat(result),
+                  initializeCards: true
+                })
+            })
+        })
+    } else {
+      //Used to clear local storage
+      // AsyncStorage.setItem('myQuestions', JSON.stringify([]))
+
+      AsyncStorage.getItem('myQuestions')
+        .then((value) => {
+          var result = JSON.parse(value).reduce((prev, curr) => {
+            return prev.concat(curr)
+          }, []);
+          this.setState(
+            {
+              myQuestions: this.state.myQuestions.concat(result),
+              initializeCards: true
+            })
+        })
+    }
+  }
 
   onQuestionPress(question) {
     this.props.navigator.push({ id: 'single-question-component', question: question })
   }
   render() {
-    // const parsedCards = JSON.parse(this.state.myQuestions)
-    // console.log('Async =-->', JSON.stringify(this.state.myQuestions))
-    console.log('MY QUESTIONS', this.state.myQuestions)
+
     return (
       <Container style={styles.container}>
         <HeaderComponent navigator={this.props.navigator} style={styles.item} />
@@ -126,7 +120,9 @@ export default class AllQuestions extends Component {
         <View style={{
           flex: 1
         }}>
-          { Boolean(this.state.myQuestions.length) && <DeckSwiper
+        {/* DeckSwiper can only render dataSource once
+        Boolean ensures that Questions are initialized beforehand */}
+          {Boolean(this.state.initializeCards) && <DeckSwiper
             dataSource={this.state.myQuestions}
             renderItem={item => <TouchableOpacity onPress={() => {
               this.onQuestionPress(item)
@@ -139,7 +135,7 @@ export default class AllQuestions extends Component {
                   backgroundColor: 'transparent'
                 }}>
                   <Left>
-                    <Thumbnail source={item.image} />
+                    <Thumbnail source={require('./img/fullstack.png')} />
                     <Body>
                       <Text>{item.title}</Text>
                       <Text not style={{
@@ -172,7 +168,7 @@ export default class AllQuestions extends Component {
                 </CardItem>
               </Card>
             </TouchableOpacity>} />
-            }
+          }
         </View>
         <View style={{
           flex: 1,
