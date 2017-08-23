@@ -1,0 +1,169 @@
+<html>
+
+<head>
+</head>
+
+<body>
+    <style>
+        #container {
+            flex: 1;
+            flex-direction: 'column';
+            padding: 10;
+            padding-top: 12;
+            background-color: '#333333';
+            text-align: center;
+        }
+
+        #loading-img {
+            height: 150px;
+            width: 200px;
+            /* animation: spinner 0.3s infinite; */
+        }
+
+        #pass-container {
+            width: 100%;
+        }
+
+        #fail-container {
+            width: 100%;
+        }
+
+        .pass-holder {
+            border: 1px solid green;
+        }
+
+        .fail-holder {
+            border: 1px solid red;
+        }
+
+        p {
+            text-align: center;
+            margin: 1px;
+        }
+        #passed-div {
+            color:green;
+            font-size:24px;
+            text-decoration: underline;
+        }
+        #failed-div {
+            color:red;
+            font-size:24px;
+            text-decoration: underline;
+        }
+        #finish-button {
+            margin: 10px 0;
+        }
+    </style>
+
+    <div id="container">
+        <div id="failed-div" style="display:none;">
+            Sorry you have failed one or more of your tests...please try again!
+        </div>
+        <div id="passed-div" style="display:none;">
+            Congratulations you have passed all the tests!
+        </div>
+        <button id="finish-button" style="display:none;">
+            
+        </button>
+        <img id="loading-img" src="/app/components/img/loading.gif">
+
+        <div id="pass-container">
+
+        </div>
+        <div id="fail-container">
+
+        </div>
+    </div>
+
+
+    <script>
+        var collectionOfPassOrFail = [];
+
+        document.addEventListener("message", function (data) {
+            var dataObj = JSON.parse(data.data); // will contain props: func, test, finished
+
+            var results = [];
+            var callFunc;
+            eval(`callFunc = ${dataObj.func}`);
+
+            var result;
+            var error;
+            var isPassing;
+
+            try {
+                result = eval(callFunc.apply(this, dataObj.test.inputs));
+            } catch (e) {
+                error = e;
+            }
+
+            result = (error)
+                ? 'N/A'
+                : (result == undefined || result == null)
+                    ? '*** No result returned ***'
+                    : result.toString();
+
+            isPassing = (result === dataObj.test.output) ? true : false;
+            collectionOfPassOrFail.push(isPassing);
+
+            if (dataObj.finished) {
+                window.postMessage('finished') // signifies that all tests are completed
+                document.getElementById('loading-img').style.display = 'none';
+                testResultBuilder(dataObj.test.inputs, dataObj.test.output, result, isPassing);
+
+                var finBtn = document.getElementById('finish-button');
+                var didPass = collectionOfPassOrFail.reduce((a, b) => a && b);
+                var textNode = document.createTextNode(`${(didPass) ? 'Complete' : 'Try again'}`)
+
+                finBtn.appendChild(textNode);
+                finBtn.style.display = 'inline-block';
+                finBtn.addEventListener('click', function (e) {
+                    window.postMessage(e.target.value);
+                }, false)
+
+                var finDivId = (didPass) ? 'passed-div' : 'failed-div';
+                var finDiv = document.getElementById(finDivId);
+
+                finDiv.style.display = 'inline-block';
+            }
+
+            else {
+                testResultBuilder(dataObj.test.inputs, dataObj.test.output, result, isPassing);
+            }
+        })
+
+        function testResultBuilder(inputs, output, result, isPassing) {
+            var divContainer = (isPassing) ? 'pass-container' : 'fail-container';
+
+            var divHolder = document.createElement('DIV');
+            divHolder.className = (isPassing) ? 'pass-holder' : 'fail-holder';
+
+            var paraNode1 = document.createElement('P')
+            var paraNode2 = document.createElement('P')
+            var paraNode3 = document.createElement('P')
+            var paraNode4 = document.createElement('P')
+
+            var textNode1 = document.createTextNode(`You have ${(isPassing) ? 'passed' : 'failed'} this test where:`);
+            var textNode2 = document.createTextNode(`Inputs are: ${inputs.join(", ")}`);
+            var textNode3 = document.createTextNode(`Expected output is: ${output}`);
+            var textNode4 = document.createTextNode(`And the actual result is : ${result}`);
+
+            paraNode1.appendChild(textNode1);
+            paraNode2.appendChild(textNode2);
+            paraNode3.appendChild(textNode3);
+            paraNode4.appendChild(textNode4);
+
+            var docFrag = document.createDocumentFragment();
+
+            docFrag.appendChild(paraNode1);
+            docFrag.appendChild(paraNode2);
+            docFrag.appendChild(paraNode3);
+            docFrag.appendChild(paraNode4);
+
+            divHolder.appendChild(docFrag);
+
+            document.getElementById(divContainer).appendChild(divHolder);
+        }
+    </script>
+</body>
+
+</html>
