@@ -143,7 +143,7 @@
                     ? '*** No result returned ***'
                     : result.toString();
 
-            isPassing = (result === dataObj.test.output) ? true : false;
+            isPassing = (result === dataObj.test.output.toString()) ? true : false;
             collectionOfPassOrFail.push(isPassing);
 
             if (dataObj.finished) {
@@ -154,6 +154,8 @@
                 // configure finBtn to reflect based on tests passed/failed
                 var finBtn = document.getElementById('finish-button');
                 var didPass = collectionOfPassOrFail.reduce((a, b) => a && b);
+
+                window.postMessage('reduce: ' + didPass.toString());
                 var textNode = document.createTextNode(`${(didPass) ? 'Complete' : 'Try again'}`)
 
                 finBtn.className = (didPass) ? 'pass-btn' : 'fail-btn';
@@ -176,6 +178,8 @@
 
         function testResultBuilder(inputs, output, result, isPassing) {
             var divContainer = (isPassing) ? 'pass-container' : 'fail-container';
+
+            window.postMessage(isPassing.toString());
 
             var divHolder = document.createElement('DIV');
             divHolder.className = (isPassing) ? 'pass-holder' : 'fail-holder';
