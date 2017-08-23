@@ -160,7 +160,7 @@
                 finBtn.appendChild(textNode);
                 finBtn.style.display = 'inline-block';
                 finBtn.addEventListener('click', function (e) {
-                    window.postMessage(e.target.value);
+                    window.postMessage(e.target.textContent);
                 }, false)
 
                 var finDivId = (didPass) ? 'passed-div' : 'failed-div';

@@ -85,7 +85,8 @@ export default class TestEnvComponent extends Component {
   }
 
   getMessageFromWebView(data) {
-    const msg = data.nativeEvent.data;
+    const msg = data.nativeEvent.data.trim();
+    console.log('herro', msg);
 
     if (msg === 'finished') {
       clearTimeout(timer);
@@ -95,6 +96,7 @@ export default class TestEnvComponent extends Component {
     }
     // redirect to CodeEnv
     if (msg === 'Try again') {
+      console.log('yooo')
       this.navigateBack();
     }
 
