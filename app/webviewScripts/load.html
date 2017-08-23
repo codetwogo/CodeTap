@@ -1,15 +1,17 @@
-html>
+<html>
 
 <head>
 </head>
 
 <body>
     <style>
+        body {
+            background-color: #333333;
+        }
+
         #container {
             flex: 1;
             flex-direction: 'column';
-            padding: 10;
-            padding-top: 12;
             background-color: '#333333';
             text-align: center;
         }
@@ -29,29 +31,68 @@ html>
         }
 
         .pass-holder {
-            border: 1px solid green;
+            background-color: #777777;
+            border-radius: 5px;
+            padding: 5px;
+            margin: 5px 0;
         }
 
         .fail-holder {
-            border: 1px solid red;
+            background-color: #777777;
+            border-radius: 5px;
+            padding: 5px;
+            margin: 5px 0;
         }
 
         p {
             text-align: center;
             margin: 1px;
         }
+
         #passed-div {
-            color:green;
-            font-size:24px;
-            text-decoration: underline;
+            color: green;
+            font-size: 20px;
+            border: 3px outset green;
+            background-color: gray;
+            padding: 20px 5px;
+            margin: 20px 0;
         }
+
         #failed-div {
-            color:red;
-            font-size:24px;
-            text-decoration: underline;
+            color: #8b0000;
+            font-size: 20px;
+            border: 3px outset #8b0000;
+            background-color: gray;
+            padding: 20px 5px;
+            margin: 20px 0;
         }
+
         #finish-button {
             margin: 10px 0;
+        }
+
+        .expected-para {
+            color: green;
+        }
+
+        .pass-para {
+            color: green;
+        }
+
+        .fail-para {
+            color: #8b0000;
+        }
+
+        .fail-btn {
+            padding: 10px;
+            font-size: 18px;
+            background-color: #8b0000;
+        }
+
+        .pass-btn {
+            padding: 10px;
+            font-size: 18px;
+            background-color: green;
         }
     </style>
 
@@ -62,9 +103,6 @@ html>
         <div id="passed-div" style="display:none;">
             Congratulations you have passed all the tests!
         </div>
-        <button id="finish-button" style="display:none;">
-            
-        </button>
         <img id="loading-img" src="/app/components/img/loading.gif">
 
         <div id="pass-container">
@@ -73,6 +111,9 @@ html>
         <div id="fail-container">
 
         </div>
+        <button id="finish-button" style="display:none;">
+                
+            </button>
     </div>
 
 
@@ -110,10 +151,12 @@ html>
                 document.getElementById('loading-img').style.display = 'none';
                 testResultBuilder(dataObj.test.inputs, dataObj.test.output, result, isPassing);
 
+                // configure finBtn to reflect based on tests passed/failed
                 var finBtn = document.getElementById('finish-button');
                 var didPass = collectionOfPassOrFail.reduce((a, b) => a && b);
                 var textNode = document.createTextNode(`${(didPass) ? 'Complete' : 'Try again'}`)
 
+                finBtn.className = (didPass) ? 'pass-btn' : 'fail-btn';
                 finBtn.appendChild(textNode);
                 finBtn.style.display = 'inline-block';
                 finBtn.addEventListener('click', function (e) {
@@ -137,10 +180,14 @@ html>
             var divHolder = document.createElement('DIV');
             divHolder.className = (isPassing) ? 'pass-holder' : 'fail-holder';
 
-            var paraNode1 = document.createElement('P')
-            var paraNode2 = document.createElement('P')
-            var paraNode3 = document.createElement('P')
-            var paraNode4 = document.createElement('P')
+            var paraClassHolder = (isPassing) ? 'pass-para' : 'fail-para';
+
+            var paraNode1 = document.createElement('P');
+            var paraNode2 = document.createElement('P');
+            var paraNode3 = document.createElement('P');
+            var paraNode4 = document.createElement('P');
+            paraNode3.className = 'expected-para';
+            paraNode4.className = paraClassHolder;
 
             var textNode1 = document.createTextNode(`You have ${(isPassing) ? 'passed' : 'failed'} this test where:`);
             var textNode2 = document.createTextNode(`Inputs are: ${inputs.join(", ")}`);
