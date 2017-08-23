@@ -129,15 +129,16 @@ export default class AllQuestions extends Component {
         }}>
           <Text style={{
             textAlign: 'right',
-            margin: 20,
+            margin: 15,
             fontSize: 15,
             color: this.state.isOnline ? 'green' : 'red'
             }}> Status: {this.state.isOnline ? 'Online' : 'Offline'}</Text>
         <Text style={{
           textAlign: 'center',
-          margin: 20,
-          fontSize: 30,
-          color: 'white'
+          fontSize: 28,
+          color: '#aaaaaa',
+          marginTop: 10,
+          marginBottom: 15
         }}>Click to Select a Question</Text>
         {/* DeckSwiper can only render dataSource once
         Boolean ensures that Questions are initialized beforehand */}
@@ -191,7 +192,7 @@ export default class AllQuestions extends Component {
         </View>
       <View style={{
         flex: 1,
-        justifyContent: 'flex-end',
+        justifyContent: 'center',
         alignItems: 'center',
       }}>
         <Text style={{
