@@ -11,7 +11,7 @@ export default class NewCodeEnv extends Component {
   constructor(props) {
     super(props);
     const focus = (this.props.userAnswer) ? this.props.textStates[this.props.textStates.length - 1].focus : this.props.question.boilerPlate.length - 3;
-    const inputBody = (this.props.userAnswer) ? this.props.userAnswer : this.props.question.boilerPlate;
+    const inputBody = (this.props.userAnswer) ? this.props.userAnswer : this.props.question.boilerPlate.slice(0, focus)+'|'+this.props.question.boilerPlate.slice(focus, this.props.question.boilerPlate.length);
     const textStates= this.props.textStates || [{body:inputBody, focus:focus}];
     this.state = {
       inputBody:inputBody,
