@@ -15,7 +15,7 @@ import {
   Input
 } from 'native-base';
 
-export default({edit, shiftLeft, shiftRight, del, space}) => {
+export default({edit, shiftLeft, shiftRight, del, space, capslock, caps}) => {
   const nums = '1234567890'.split('');
   const topRow = 'qwertyuiop'.split('');
   const middleRow = 'asdfghjkl'.split('');
@@ -24,22 +24,24 @@ export default({edit, shiftLeft, shiftRight, del, space}) => {
     {title:'<<  |', output:shiftLeft, flx: 1},
     {title:'Space', output:space, flx: 2},
     {title:'Del', output:del, flx: 1},
-    {title:'|  >>', output:shiftRight, flx: 1}]
-
-  const capnums = '~!@#$%^&*()_+'.split('');
-  const captopRow = 'QWERTYUIOP{}|'.split('');
+    {title:'|  >>', output:shiftRight, flx: 1},
+    // {title:'Caps', output:capslock, flx:1}
+  ];
+  const captopRow = 'QWERTYUIOP'.split('');
   const capmiddleRow = 'ASDFGHJKL:"'.split('');
-  const capbottomRow = 'ZXCVBNM<>?'.split('');
-
+  const capbottomRow = 'ZXCVBNM'.split('');
+  var cap= caps;
   const keys = [nums, topRow, middleRow, bottomRow];
-  const upperkeys = [];
-
+  const capKeys=[captopRow, capmiddleRow, capbottomRow];
   return (
     <View style={styles.container}>
       {keys.map((row) => {
         return (
           <View key={row} style={styles.smallContainer}>
             {row.map((key) => {
+              if(cap){
+                key=key.toUpperCase();
+              }
               return (
                 <TouchableOpacity style={styles.hotKey} key={key} onPress={() => edit(key)} >
                   <Text style={styles.buttonText}>{key}</Text>
