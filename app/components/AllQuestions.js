@@ -120,6 +120,12 @@ export default class AllQuestions extends Component {
         <View style={{
           flex: 1
         }}>
+        <Text style={{
+          textAlign: 'center',
+          margin: 20,
+          fontSize: 30,
+          color: 'white'
+        }}>Click to Select a Question</Text>
         {/* DeckSwiper can only render dataSource once
         Boolean ensures that Questions are initialized beforehand */}
           {Boolean(this.state.initializeCards) && <DeckSwiper
