@@ -92,7 +92,9 @@ export default class TestEnvComponent extends Component {
       clearTimeout(timer);
     }
     if (msg === 'Complete') {
-      // redirect to all questions and supply complete question id
+      this.props.navigator.push({
+        id: 'all-questions-component'
+      })
     }
     // redirect to CodeEnv
     if (msg === 'Try again') {
