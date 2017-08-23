@@ -55,6 +55,8 @@ export default class AllQuestions extends Component {
 
     //Sets the state based on connectivity
     //Initializes the myQuestions state
+
+    // **** android fix
     NetInfo.isConnected.fetch().then(isConnected => {
       console.log('First, is ' + (isConnected ? 'online' : 'offline'));
       this.setState({
