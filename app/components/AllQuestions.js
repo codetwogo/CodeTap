@@ -7,7 +7,7 @@ import HeaderComponent from './Header.js'
 const cards = [
   {
     id: 'single-question-component',
-    title: 'String Search (SAMPLE)',
+    title: 'String Search (Offline)',
     tests: [
       {
         inputs: ['or', 'hello world'],
@@ -23,10 +23,11 @@ const cards = [
     boilerPlate: 'function indexOf (needle, haystack){\n\t\n}',
     description: 'You are attempting to find the index of the first appearance of one string (the needle) inside of another (the haystack).',
     image: require('./img/fullstack.png'),
+    difficulty: 'Medium',
     likes: 0
   }, {
     id: 'single-question-component',
-    title: 'Reverse Array (SAMPLE)',
+    title: 'Reverse Array (Offline)',
     tests: [
       {
         inputs: [[1, 2, 3, 4]],
@@ -36,6 +37,7 @@ const cards = [
     boilerPlate: 'function reverseArray(arr){\n\t\n}',
     description: 'Write a function reverseArray that reverses the elements of an array and returns the reversed array.',
     image: require('./img/fullstack.png'),
+    difficulty: 'Medium',
     likes: 0
   },
 ];
@@ -55,13 +57,15 @@ export default class AllQuestions extends Component {
     //Initializes the myQuestions state
     const handleFirstConnectivityChange = (isConnected) => {
       console.log('Then, is ' + (isConnected ? 'online' : 'offline'));
-      NetInfo.isConnected.removeEventListener(
-        'change',
-        handleFirstConnectivityChange
-      );
-      const result = this.state.isOnline === isConnected ? null : this.setState({ isOnline: isConnected });
+      // NetInfo.isConnected.removeEventListener(
+      //   'change',
+      //   handleFirstConnectivityChange
+      // );
+      // const result = this.state.isOnline === isConnected ? null : this.setState({ isOnline: isConnected });
+      if (this.state.isOnline !== isConnected) {
+        this.setState({isOnline: isConnected})
+      }
       this.intializeComponent();
-      return result;
     }
     NetInfo.isConnected.addEventListener(
       'change',
@@ -120,6 +124,12 @@ export default class AllQuestions extends Component {
         <View style={{
           flex: 1
         }}>
+          <Text style={{
+            textAlign: 'right',
+            margin: 20,
+            fontSize: 15,
+            color: this.state.isOnline ? 'green' : 'red'
+            }}> Status: {this.state.isOnline ? 'Online' : 'Offline'}</Text>
         <Text style={{
           textAlign: 'center',
           margin: 20,
@@ -128,66 +138,66 @@ export default class AllQuestions extends Component {
         }}>Click to Select a Question</Text>
         {/* DeckSwiper can only render dataSource once
         Boolean ensures that Questions are initialized beforehand */}
-          {Boolean(this.state.initializeCards) && <DeckSwiper
-            dataSource={this.state.myQuestions}
-            renderItem={item => <TouchableOpacity onPress={() => {
-              this.onQuestionPress(item)
+        {Boolean(this.state.initializeCards) && <DeckSwiper
+          dataSource={this.state.myQuestions}
+          renderItem={item => <TouchableOpacity onPress={() => {
+            this.onQuestionPress(item)
+          }}>
+            <Card style={{
+              backgroundColor: '#888888',
+              elevation: 3
             }}>
-              <Card style={{
-                backgroundColor: '#888888',
-                elevation: 3
+              <CardItem style={{
+                backgroundColor: 'transparent'
               }}>
-                <CardItem style={{
-                  backgroundColor: 'transparent'
-                }}>
-                  <Left>
-                    <Thumbnail source={require('./img/fullstack.png')} />
-                    <Body>
-                      <Text>{item.title}</Text>
-                      <Text not style={{
-                        color: '#333'
-                      }}>Medium</Text>
-                    </Body>
-                  </Left>
-                </CardItem>
-                <CardItem cardBody style={{
-                  backgroundColor: '#aaaaaa',
-                  padding: 10,
-                  paddingTop: 10,
-                  minHeight: 100,
-                  alignItems: 'flex-start',
-                  borderRadius: 10,
-                  marginLeft: 10,
-                  marginRight: 10
-                }}>
-                  <Text>{item.description}</Text>
-                </CardItem>
-                <CardItem style={{
-                  backgroundColor: 'transparent'
-                }}>
-                  <Icon name="heart" style={{
-                    color: '#ED4A6A'
-                  }} />
-                  <Text style={{
-                    color: '#ccc'
-                  }}>{item.likes}</Text>
-                </CardItem>
-              </Card>
-            </TouchableOpacity>} />
-          }
+                <Left>
+                  <Thumbnail source={require('./img/fullstack.png')} />
+                  <Body>
+                    <Text>{item.title}</Text>
+                    <Text not style={{
+                      color: '#333'
+                    }}>{item.difficulty}</Text>
+                  </Body>
+                </Left>
+              </CardItem>
+              <CardItem cardBody style={{
+                backgroundColor: '#aaaaaa',
+                padding: 10,
+                paddingTop: 10,
+                minHeight: 100,
+                alignItems: 'flex-start',
+                borderRadius: 10,
+                marginLeft: 10,
+                marginRight: 10
+              }}>
+                <Text>{item.description}</Text>
+              </CardItem>
+              <CardItem style={{
+                backgroundColor: 'transparent'
+              }}>
+                <Icon name="heart" style={{
+                  color: '#ED4A6A'
+                }} />
+                <Text style={{
+                  color: '#ccc'
+                }}>{item.likes}</Text>
+              </CardItem>
+            </Card>
+          </TouchableOpacity>} />
+        }
         </View>
-        <View style={{
-          flex: 1,
-          justifyContent: 'flex-start',
-          alignItems: 'center'
-        }}>
-          <Text style={{
-            textAlign: 'center',
-            color: '#888888',
-            fontWeight: 'bold'
-          }}>{`<-- Swipe Left and Right for Questions  -->`}</Text>
-        </View>
-      </Container>
+      <View style={{
+        flex: 1,
+        justifyContent: 'flex-end',
+        alignItems: 'center',
+      }}>
+        <Text style={{
+          textAlign: 'center',
+          color: '#888888',
+          fontWeight: 'bold'
+        }}>{`<-- Swipe Left and Right for Questions  -->`}</Text>
+      </View>
+      </Container >
     );
   }
 }
