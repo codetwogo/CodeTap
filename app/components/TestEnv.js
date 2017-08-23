@@ -37,9 +37,9 @@ export default class TestEnvComponent extends Component {
   }
 
   navigateBack(msg) {
-    if (msg === 'infinite loop') {
-      // need to redirect to new CodeEnv and supply warning with hidden btn 
-    }
+    // if (msg === 'infinite loop') {
+    //   // need to redirect to new CodeEnv and supply warning with hidden btn 
+    // }
 
     this.props.navigator.push({
       id: 'back-code-env',
