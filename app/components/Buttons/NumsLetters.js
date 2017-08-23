@@ -15,11 +15,18 @@ import {
   Input
 } from 'native-base';
 
-export default({edit, shiftLeft, shiftRight, del, space, capslock, caps}) => {
+export default({edit, shiftLeft, shiftRight, del, space, capslock, caps, symslock, syms}) => {
   const nums = '1234567890'.split('');
   const topRow = 'qwertyuiop'.split('');
   const middleRow = 'asdfghjkl'.split('');
   const bottomRow = 'zxcvbnm.'.split('');
+
+  const symTr="~!@#$%^&*()_+".split('');
+  const symMr="`{}:'?/<>.".split('');
+  const symBr=",.".split('');
+
+
+
   const funcs= [
     {title:'<<  |', output:shiftLeft, flx: 1},
     {title:'Space', output:space, flx: 2},
@@ -27,15 +34,42 @@ export default({edit, shiftLeft, shiftRight, del, space, capslock, caps}) => {
     {title:'|  >>', output:shiftRight, flx: 1},
     // {title:'Caps', output:capslock, flx:1}
   ];
-  const captopRow = 'QWERTYUIOP'.split('');
-  const capmiddleRow = 'ASDFGHJKL:"'.split('');
-  const capbottomRow = 'ZXCVBNM'.split('');
+
   var cap= caps;
+  var sym= syms;
+  console.log(sym);
+
   const keys = [nums, topRow, middleRow, bottomRow];
-  const capKeys=[captopRow, capmiddleRow, capbottomRow];
+  const symboard = [symTr, symMr, symBr];
   return (
     <View style={styles.container}>
-      {keys.map((row) => {
+      <TouchableOpacity style={styles.hotKey} key='caps' onPress={() => capslockgit ()} >
+        <Text style={styles.buttonText}>Caps</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.hotKey} key='Syms' onPress={() => symslock()} >
+        <Text style={styles.buttonText}>Syms</Text>
+      </TouchableOpacity>
+      {
+        sym
+        ?
+        symboard.map((row) => {
+        return (
+          <View key={row} style={styles.smallContainer}>
+            {row.map((key) => {
+              if(cap){
+                key=key.toUpperCase();
+              }
+              return (
+                <TouchableOpacity style={styles.hotKey} key={key} onPress={() => edit(key)} >
+                  <Text style={styles.buttonText}>{key}</Text>
+                </TouchableOpacity>
+              );
+            })}
+          </View>
+        );
+      })
+        :
+        keys.map((row) => {
         return (
           <View key={row} style={styles.smallContainer}>
             {row.map((key) => {
@@ -54,7 +88,7 @@ export default({edit, shiftLeft, shiftRight, del, space, capslock, caps}) => {
     }
       <View style={styles.smallContainer}>
       {funcs.map((func)=> {
-        let flx= func.flx
+        let flx= func.flx;
       return(
         <TouchableOpacity style={StyleSheet.flatten([
           styles.funcKey, {
@@ -65,7 +99,7 @@ export default({edit, shiftLeft, shiftRight, del, space, capslock, caps}) => {
             {func.title}
           </Text>
           </TouchableOpacity>
-      )}
+      );}
     )}
       </View>
     </View>
