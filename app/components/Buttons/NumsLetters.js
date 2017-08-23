@@ -43,7 +43,7 @@ export default({edit, shiftLeft, shiftRight, del, space, capslock, caps, symsloc
   const symboard = [symTr, symMr, symBr];
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.hotKey} key='caps' onPress={() => capslockgit ()} >
+      <TouchableOpacity style={styles.hotKey} key='caps' onPress={() => capslock()} >
         <Text style={styles.buttonText}>Caps</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.hotKey} key='Syms' onPress={() => symslock()} >
