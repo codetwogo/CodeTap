@@ -22,7 +22,7 @@ export default({edit, shiftLeft, shiftRight, del, space, capslock, caps, symsloc
   const bottomRow = 'zxcvbnm'.split('');
 
   const symTr="~!@#$%^&*()".split('');
-  const symMr="`{}:'?<>_+,./".split('');
+  const symMr="`{}:'?<>_+,-=./".split('');
 
 
 
