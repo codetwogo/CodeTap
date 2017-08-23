@@ -22,7 +22,7 @@ export default({edit, shiftLeft, shiftRight, del, space, capslock, caps}) => {
   const bottomRow = 'zxcvbnm.'.split('');
   const funcs= [
     {title:'<<  |', output:shiftLeft, flx: 1},
-    {title:'Space', output:space, flx: 1},
+    {title:'Space', output:space, flx: 2},
     {title:'Del', output:del, flx: 1},
     {title:'|  >>', output:shiftRight, flx: 1},
     // {title:'Caps', output:capslock, flx:1}
