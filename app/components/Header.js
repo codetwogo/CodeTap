@@ -26,7 +26,7 @@ export default class HeaderComponent extends Component {
             </Button>
           </Left>
           <Body>
-            <Title>CodeToGo</Title>
+            <Title>Code Tap</Title>
           </Body>
           <Right>
             <Button transparent onPress={()=>
