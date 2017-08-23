@@ -57,7 +57,13 @@ export default class AllQuestions extends Component {
     //Initializes the myQuestions state
     NetInfo.isConnected.fetch().then(isConnected => {
       console.log('First, is ' + (isConnected ? 'online' : 'offline'));
+      this.setState({
+        isOnline: isConnected
+      }, () => {
+        this.intializeComponent();
+      })
     })
+
     const handleFirstConnectivityChange = (isConnected) => {
       console.log('Then, is ' + (isConnected ? 'online' : 'offline'));
       NetInfo.isConnected.removeEventListener(
