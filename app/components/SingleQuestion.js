@@ -3,7 +3,7 @@ import { AppRegistry, StyleSheet} from 'react-native';
 
 import { Container, Content, Header, View, DeckSwiper, Card, CardItem, Thumbnail, Text, Left, Body, Icon, Button, Input } from 'native-base';
 
-import HeaderComponent from './Header.js'
+import HeaderComponent from './Header.js';
 
 export default class SingleQuestionComponent extends Component {
     //consider destructuring {question: { title, tests, boilerPlate, description}}
@@ -57,7 +57,7 @@ export default class SingleQuestionComponent extends Component {
                         <Text style={{lineHeight: 40, color: '#442222'}}>Inputs:    {test.inputs.join(', ')}</Text>
                         <Text style={{ color: '#333300', fontStyle: 'italic'}}>Output:   {test.output.join(' ')} </Text>
                       </View>
-                    )
+                    );
                   })
                 }
               </View>

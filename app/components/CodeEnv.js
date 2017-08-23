@@ -3,6 +3,7 @@ import { KeyboardAvoidingView, Keyboard, StyleSheet, TextInput, Switch } from 'r
 
 import { Container, Header, View, DeckSwiper, Card, CardItem, Thumbnail, Text, Left, Body, Icon, Button, Input } from 'native-base';
 
+import NewCodeEnv from './Editor/NewCodeEnv';
 import KeyBoard from './Editor/KeyBoard';
 import TextIDE from './Editor/TextIDE';
 import SwitchView from './Editor/SwitchView';
@@ -188,17 +189,6 @@ export default class CodeEnv extends Component {
     this.setState({
       showQuestion: !value,
       switchVal: value,
-      focus: false
-    }, () => {
-      if (this.state.switchVal) {
-        Keyboard.dismiss();
-      }
-    }, () => {
-      if (this.state.focus) {
-        this.setState({
-          switchVal: false
-        });
-      }
     });
   }
 
@@ -245,15 +235,7 @@ focusOnSwitch(func){
         <View style={styles.container}
           behavior="padding">
           <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'stretch' }}>
-            <KeyBoard
-              focusOnSwitch= {this.focusOnSwitch}
-              textFocus={this.textFocus}
-              textValue={this.state.textValue}
-              textEnvChange={this.textEnvChange}
-              onSelectionChange={this.onSelectionChange}
-              cursorBlur={this.cursorBlur}
-              switchVal={this.state.switchVal}
-             />
+            <NewCodeEnv/>
             <SwitchView
               undo={this.undo}
               focusOnSwitch= {this.focusOnSwitch}
