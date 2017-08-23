@@ -36,7 +36,6 @@ export default({edit, shiftLeft, shiftRight, del, space, capslock, caps, symsloc
 
   var cap= caps;
   var sym= syms;
-  console.log(sym);
 
   const keys = [nums, topRow, middleRow, bottomRow];
   const symboard = [symTr, symMr];

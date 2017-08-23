@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Switch, View, AppRegistry, StyleSheet, Button, Text, TouchableOpaci} from 'react-native';
+import { Switch, View, AppRegistry, StyleSheet, Button, Text, TouchableOpaci, ScrollView } from 'react-native';
 import { Container } from 'native-base';
 
 import BasicKeyboard from './BasicKeyboard';
@@ -179,10 +179,12 @@ export default class NewCodeEnv extends Component {
           style={styles.item} />
         <View  style={styles.container}>
           <View style={styles.inputTextBg}>
-            <Text
-              style={styles.textInput}>
-              {this.state.inputBody}
-            </Text>
+            <ScrollView style={{height: 200}}>
+              <Text
+                style={styles.textInput}>
+                {this.state.inputBody}
+              </Text>
+            </ScrollView>
           </View>
           <NewSwitchView
             undo={this.undo}
@@ -218,9 +220,9 @@ const styles = StyleSheet.create({
     marginBottom: 4
   },
   textInput: {
+    flex: 1,
     color: 'white',
     fontSize: 18,
-    height: 200,
     padding: 15,
     paddingTop: 15,
     borderRadius: 10,
