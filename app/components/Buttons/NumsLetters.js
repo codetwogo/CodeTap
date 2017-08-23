@@ -21,10 +21,10 @@ export default({edit, shiftLeft, shiftRight, del, space}) => {
   const middleRow = 'asdfghjkl'.split('');
   const bottomRow = 'zxcvbnm'.split('');
   const funcs= [
-    {title:'Left', output:shiftLeft, flx: 1},
+    {title:'<<  |', output:shiftLeft, flx: 1},
     {title:'Space', output:space, flx: 2},
     {title:'Del', output:del, flx: 1},
-    {title:'Right', output:shiftRight, flx: 1}]
+    {title:'|  >>', output:shiftRight, flx: 1}]
 
   const capnums = '~!@#$%^&*()_+'.split('');
   const captopRow = 'QWERTYUIOP{}|'.split('');

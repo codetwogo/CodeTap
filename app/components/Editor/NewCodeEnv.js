@@ -118,30 +118,34 @@ export default class NewCodeEnv extends Component {
           navigator={this.props.navigator}
           submit={this.onSubmit}
           style={styles.item} />
-        <View  style={styles.container}>
-          <Text
-          style={styles.textInput}
-          >{this.state.inputBody}</Text>
-          <Switch
-            value={this.state.switchVal}
-            onValueChange={(value) => {this.onSwitchChange(value);}} />
-          {
-            this.state.switchVal
-          ?
-          <SmartKeyboard
-            edit={this.onChangeText}
-          />
-        :
-        <BasicKeyboard
-          edit={this.onChangeText}
-          shiftLeft={this.shiftLeft}
-          shiftRight={this.shiftRight}
-          del={this.del}
-          space={this.space}
-        />
-      }
-      </View>
-    </Container>
+        <View style={styles.container}>
+          <View>
+            <View style={styles.inputTextBg}>
+              <Text style={styles.textInput}>
+                {this.state.inputBody}
+              </Text>
+            </View>
+            <Switch
+              value={this.state.switchVal}
+              onValueChange={(value) => {this.onSwitchChange(value);}} />
+            {
+              this.state.switchVal
+              ?
+              <SmartKeyboard
+                edit={this.onChangeText}
+                />
+              :
+              <BasicKeyboard
+                edit={this.onChangeText}
+                shiftLeft={this.shiftLeft}
+                shiftRight={this.shiftRight}
+                del={this.del}
+                space={this.space}
+              />
+            }
+          </View>
+        </View>
+      </Container>
     );
   }
 }
@@ -153,15 +157,19 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     backgroundColor: '#333333'
   },
-    textInput: {
-      color: 'white',
-      fontSize: 18,
-      height: 200,
-      padding: 15,
-      paddingTop: 15,
-      marginTop: 4,
-      marginBottom: 4,
-      borderRadius: 30,
-      backgroundColor: '#550600'
-    },
-  });
+  inputTextBg: {
+    backgroundColor: '#7D1B13',
+    borderRadius: 10,
+    marginTop: 4,
+    marginBottom: 4
+  },
+  textInput: {
+    color: 'white',
+    fontSize: 18,
+    height: 200,
+    padding: 15,
+    paddingTop: 15,
+    borderRadius: 10,
+    backgroundColor: 'transparent'
+  },
+});

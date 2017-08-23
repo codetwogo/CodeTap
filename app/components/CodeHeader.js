@@ -28,7 +28,7 @@ export default class CodeHeader extends Component {
             <Button transparent onPress={()=>
               this.props.submit()
             }>
-              <Text style={{color: 'black'}}>Submit</Text>
+              <Text style={{color: '#7D1b13'}}>Submit</Text>
             </Button>
           </Right>
         </Header>

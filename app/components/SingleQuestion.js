@@ -3,7 +3,7 @@ import { AppRegistry, StyleSheet} from 'react-native';
 
 import { Container, Content, Header, View, DeckSwiper, Card, CardItem, Thumbnail, Text, Left, Body, Icon, Button, Input } from 'native-base';
 
-import HeaderComponent from './Header.js';
+import HeaderComponent from './Header.js'
 
 export default class SingleQuestionComponent extends Component {
     //consider destructuring {question: { title, tests, boilerPlate, description}}
@@ -43,7 +43,7 @@ export default class SingleQuestionComponent extends Component {
             <Content style={styles.container}>
               <View style={styles.topRowContainer}>
                 <View style={{flexDirection: 'row', alignItems:'center'}}>
-                  <Icon name="heart" style={{ fontSize: 24, color: '#ED4A6A' }} />
+                  <Icon name="heart" style={{ fontSize: 24, color: '#888888' }} />
                   <Text style={{flex: 1, color: '#888888'}}>{` ${this.props.question.likes}`}</Text>
                   <Text style={{flex: 2, fontSize: 22, fontWeight: 'bold', color: '#aa0000', alignSelf: 'center'}}>{this.state.title}</Text>
                   <Text style={{flex: 1, color: '#880000', alignSelf: 'center'}}>{` `}</Text>
@@ -54,10 +54,10 @@ export default class SingleQuestionComponent extends Component {
                   this.state.tests.map(test => {
                     return (
                       <View key={test.inputs}>
-                        <Text style={{lineHeight: 44}}>Inputs: {test.inputs}</Text>
-                        <Text>Output: {test.output} </Text>
+                        <Text style={{lineHeight: 40, color: '#442222'}}>Inputs:    {test.inputs.join(', ')}</Text>
+                        <Text style={{ color: '#333300', fontStyle: 'italic'}}>Output:   {test.output.join(' ')} </Text>
                       </View>
-                    );
+                    )
                   })
                 }
               </View>
