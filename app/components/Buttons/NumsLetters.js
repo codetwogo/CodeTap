@@ -21,31 +21,33 @@ export default({edit, shiftLeft, shiftRight, del, space, capslock, caps, symsloc
   const middleRow = 'asdfghjkl'.split('');
   const bottomRow = 'zxcvbnm'.split('');
 
-  const symTr="~!@#$%^&*()".split('');
-  const symMr="`{}:'?<>_+,./".split('');
+  const symTr='#%^*+-=/"<>'.split('');
+  const symMr=":;()$&@_\|~".split('');
+  const symBr=".,?!'[]{}".split('');
 
-
-
+  // const mathTr= "[]{}#%^*+=".split('');
+  // const mathMr= "_\|~<>".split('');
+  // const symMr="-/:;()$&@".split('');
+  // const symBr=".,?!'".split('');
   const funcs= [
     {title:'<<  |', output:shiftLeft, flx: 1},
     {title:'Space', output:space, flx: 2},
     {title:'Del', output:del, flx: 1},
-    {title:'|  >>', output:shiftRight, flx: 1},
-    // {title:'Caps', output:capslock, flx:1}
+    {title:'|  >>', output:shiftRight, flx: 1}
   ];
 
   var cap= caps;
   var sym= syms;
 
   const keys = [nums, topRow, middleRow, bottomRow];
-  const symboard = [symTr, symMr];
+  const symboard = [symTr, symMr, symBr];
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.capsKey} key='caps' onPress={() => capslock ()} >
         <Text style={styles.funcButtonText}>Caps</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.capsKey} key='Syms' onPress={() => symslock()} >
-        <Text style={styles.funcButtonText}>Symbols</Text>
+        <Text style={styles.funcButtonText}>{sym ? "ABC" : "Sym"}</Text>
       </TouchableOpacity>
       {
         sym
