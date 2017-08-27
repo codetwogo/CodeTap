@@ -7,7 +7,7 @@ import HeaderComponent from './Header.js'
 const cards = [
   {
     id: 'single-question-component',
-    title: 'String Search (Offline)',
+    title: 'String Search',
     tests: [
       {
         inputs: ['or', 'hello world'],
@@ -21,13 +21,13 @@ const cards = [
       }
     ],
     boilerPlate: 'function indexOf (needle, haystack){\n\t\n}',
-    description: 'You are attempting to find the index of the first appearance of one string (the needle) inside of another (the haystack).',
+    description: 'You are attempting to test if the appearance of one string (the needle) is inside of another (the haystack).',
     image: require('./img/fullstack.png'),
     difficulty: 'Medium',
     likes: 0
   }, {
     id: 'single-question-component',
-    title: 'Reverse Array (Offline)',
+    title: 'Reverse Array',
     tests: [
       {
         inputs: [[1, 2, 3, 4]],
@@ -38,6 +38,27 @@ const cards = [
     description: 'Write a function reverseArray that reverses the elements of an array and returns the reversed array.',
     image: require('./img/fullstack.png'),
     difficulty: 'Medium',
+    likes: 0
+  },
+  {
+    id: 'single-question-component',
+    title: 'Sum',
+    tests: [
+      {
+        inputs: [4, 5],
+        output: [9]
+      }, {
+        inputs: [0, 10],
+        output: [10]
+      }, {
+        inputs: [24, 2],
+        output: [26]
+      }
+    ],
+    boilerPlate: 'function sum(a,b){\n\t\n}',
+    description: 'Write a function Sum that adds two numbers together',
+    image: require('./img/fullstack.png'),
+    difficulty: 'Easy',
     likes: 0
   },
 ];
@@ -89,7 +110,7 @@ export default class AllQuestions extends Component {
   //Populates state.myQuestions based connectivity
   intializeComponent() {
     if (this.state.isOnline) {
-      fetch('https://c2g-question-maker.herokuapp.com/api/questions')
+      fetch('https://codetap.herokuapp.com/api/questions')
         .then(res => res.json())
         .then(resJson => {
           return AsyncStorage.setItem('myQuestions', JSON.stringify(resJson))
