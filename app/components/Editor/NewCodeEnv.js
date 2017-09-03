@@ -17,9 +17,17 @@ import {
 export default class NewCodeEnv extends Component {
   constructor(props) {
     super(props);
-    const focus = (this.props.userAnswer) ? this.props.textStates[this.props.textStates.length - 1].focus : this.props.question.boilerPlate.length - 3;
-    const inputBody = (this.props.userAnswer) ? this.props.userAnswer : this.props.question.boilerPlate.slice(0, focus) + '|' + this.props.question.boilerPlate.slice(focus, this.props.question.boilerPlate.length);
+    // set initial state based on whether we navigated from single question or testenv component
+    const focus = (this.props.userAnswer)
+    ? this.props.textStates[this.props.textStates.length - 1].focus
+    : this.props.question.boilerPlate.length - 3;
+
+    const inputBody = (this.props.userAnswer)
+    ? this.props.userAnswer
+    : this.props.question.boilerPlate.slice(0, focus) + '|' + this.props.question.boilerPlate.slice(focus, this.props.question.boilerPlate.length);
+    
     const textStates = this.props.textStates || [{ body: inputBody, focus: focus }];
+
     this.state = {
       inputBody: inputBody,
       focus: focus,
@@ -28,12 +36,6 @@ export default class NewCodeEnv extends Component {
       switchVal: false,
       showQuestion: false
     };
-
-    this.space = this.space.bind(this);
-    this.undo = this.undo.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
-    this.onQuestionSwitchChange = this.onQuestionSwitchChange.bind(this);
-    this.onSwitchChange = this.onSwitchChange.bind(this);
   }
 
 
@@ -55,32 +57,32 @@ export default class NewCodeEnv extends Component {
     this.setState(setDelete(this.state.inputBody, this.state.focus, this.state.textStates));
   }
 
-  space() {
+  space = () => {
     return (this.onChangeText(' '));
   }
 
   //Navigation functions
 
-  onSubmit() {
+  onSubmit = () => {
     const body = this.state.inputBody;
-    const Answer = body.slice(0, this.state.focus) + body.slice(this.state.focus + 1, body.length);
+    const answer = body.slice(0, this.state.focus) + body.slice(this.state.focus + 1);
 
     this.props.navigator.push({
       id: 'test-env',
-      userAnswer: Answer,
+      userAnswer: answer,
       tests: this.props.question.tests,
       textStates: this.state.textStates,
       description: this.state.description
     });
   }
 
-  onBackPress() {
+  onBackPress = () => {
     this.props.navigator.push({ id: 'homecomponent' });
   }
 
   //Switch Management Functions
 
-  onSwitchChange(value) {
+  onSwitchChange = (value) => {
     this.setState({
       switchVal: value
     });
@@ -91,7 +93,7 @@ export default class NewCodeEnv extends Component {
     }
   }
 
-  onQuestionSwitchChange(value) {
+  onQuestionSwitchChange = (value) => {
     this.setState({
       showQuestion: value
     });
@@ -105,8 +107,7 @@ export default class NewCodeEnv extends Component {
 
   //Undo State management functions
 
-  undo() {
-    console.log(this.state.textStates);
+  undo = () => {
     if (this.state.textStates.length === 1) return false;
     const statesPlaceHolder = this.state.textStates;
     statesPlaceHolder.pop();
