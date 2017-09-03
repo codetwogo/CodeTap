@@ -2,10 +2,10 @@ import React from 'react';
 import {Text, Switch, StyleSheet} from 'react-native';
 import { Container, Header, DeckSwiper, Card, CardItem, Thumbnail, Left, Body, Icon, Button, Input, View } from 'native-base';
 
+import BasicKeyboard from './BasicKeyboard';
+import SmartKeyboard from '../ClipButtons';
 
-import ClipButtons from '../ClipButtons';
-
-export default ({switchVal, onSwitchChange, onQuestionSwitchChange, switchQuestion, description, edit, showQuestion, undo}) => {
+export default ({switchVal, onSwitchChange, onQuestionSwitchChange, switchQuestion, description, edit, showQuestion, undo, shiftLeft, shiftRight, del, space}) => {
     return (
         <Container style={styles.container}>
           <View  style={styles.midRow}>
@@ -17,10 +17,10 @@ export default ({switchVal, onSwitchChange, onQuestionSwitchChange, switchQuesti
               </Button>
             </View>
             <View style={{flex: 1, flexDirection: 'row', justifyContent: 'flex-end'}}>
-              <Text style={{color:'#777777', fontSize: 13, width: 66, textAlign: 'right', paddingRight: 5}}>Smart Keyboard</Text>
+              <Text style={{color:'#777777', fontSize: 13, width: 66, textAlign: 'right', paddingRight: 5}}>Hot Keys</Text>
               <Switch
                 value={switchVal}
-                onValueChange={(value) => {onSwitchChange(value);}} />
+                onValueChange={(value) => onSwitchChange(value)} />
             </View>
             <View style={{flex: 1, flexDirection: 'row', justifyContent: 'flex-end'}}>
               <Text style={{color:'#777777', fontSize: 13, width: 66, textAlign: 'right', paddingRight: 5}}>Detailed Question</Text>
@@ -36,15 +36,23 @@ export default ({switchVal, onSwitchChange, onQuestionSwitchChange, switchQuesti
                 <Text style={{flex: 2, color: '#779973', lineHeight: 22,  padding: 5,  alignItems: 'stretch' }}>
                   {description}
                 </Text>
-                : null
-              }
-              {
-                switchVal ?
+                :
+                <View>
+                {switchVal ?
                 <View style={{flex: 1, minHeight: 100}}>
-                  <ClipButtons edit={edit}  />
+                  <SmartKeyboard
+                    edit={edit}
+                  />
                 </View>
                 :
-                null
+                <BasicKeyboard
+                  edit={edit}
+                  shiftLeft={shiftLeft}
+                  shiftRight={shiftRight}
+                  del={del}
+                  space={space}
+                />}
+                </View>
               }
             </View>
           </View>

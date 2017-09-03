@@ -1,154 +1,142 @@
 import React, { Component } from 'react';
-
-import { View, Text, StyleSheet, Button } from 'react-native';
-
-
+import { StyleSheet, WebView } from 'react-native';
 
 export default class TestEnvComponent extends Component {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.state = {
-            questionTitle: '',
-            userAnswer: this.props.userAnswer,
-            tests: [],
-            questionDescription: '',
-            textStates: this.props.textStates,
-            isPassing: false,
-            resultArr: []
-        }
+    this.state = {
+      questionTitle: '',
+      userAnswer: this.props.userAnswer,
+      tests: this.props.tests,
+      questionDescription: '',
+      textStates: this.props.textStates,
+      isPassing: false,
+      resultArr: []
+    }
+    this.navigateBack = this.navigateBack.bind(this);
+    this.navigateToAllQuestions = this.navigateToAllQuestions.bind(this);
+  }
 
-        this.evaluateTest = this.evaluateTest.bind(this);
-        this.navigateBack = this.navigateBack.bind(this);
-        this.navigateToAllQuestions = this.navigateToAllQuestions.bind(this);
+  navigateBack(msg) {
+    // if (msg === 'infinite loop') {
+    //   // need to redirect to new CodeEnv and supply warning with hidden btn 
+    // }
+
+    this.props.navigator.push({
+      id: 'back-code-env',
+      userAnswer: this.props.userAnswer,
+      textStates: this.props.textStates,
+      question: {
+        description: this.props.description,
+        tests: this.props.tests
+      }
+    })
+  }
+
+  navigateToAllQuestions() {
+    this.props.navigator.push({ id: 'all-questions-component' })
+  }
+
+  // called after webview is loaded
+  webViewLoaded() {
+    console.log('shit loaded!')
+
+    var callFunc;
+
+    eval(`callFunc = ${this.state.userAnswer}`);
+
+    // this timer checks if a test causes an infinite loop and will cancel out the webview component container
+    timer = setTimeout(() => {
+      this.navigateBack('infinite loop'); //signifies to CodeEnv to warn user about infinite loop
+    }, 10000)
+
+    const dataObj = {
+      func: callFunc.toString(),
+      finished: false
     }
 
-    componentDidMount() {
-        const resultArr = this.props.tests.map(test => {
-            return this.evaluateTest(test);
-        })
+    for (var i = 0; i < this.state.tests.length; ++i) {
+      if (i === this.state.tests.length - 1) dataObj.finished = true;
+      console.log(this.state.tests[i]);
+      dataObj.test = this.state.tests[i];
 
-        const isPassing = resultArr.reduce((a, b) => {
-            console.log('bbbbbb', b.pass)
-            return a && b.pass
-        }, {"pass":true});
-
-        this.setState({
-            tests: [...this.props.tests],
-            //userAnswer: this.props.userAnswer,
-            textStates: this.props.textStates,
-            isPassing: isPassing,
-            resultArr: resultArr
-        })
-
-
+      this.webview.postMessage(JSON.stringify(dataObj));
     }
+  }
 
-    navigateBack() {
-        console.log(this.props.textStates)
-        this.props.navigator.push({
-            id: 'back-code-env',
-            userAnswer: this.props.userAnswer,
-            textStates: this.props.textStates,
-            question: {
-                description: this.props.description,
-                tests: this.props.tests
-            }
-        })
+  getMessageFromWebView(data) {
+    const msg = data.nativeEvent.data.trim();
+    console.log('herro', msg);
+
+    if (msg === 'finished') {
+      clearTimeout(timer);
     }
-
-    navigateToAllQuestions() {
-        this.props.navigator.push({
-            id: 'all-questions-component'
-        })
+    if (msg === 'Complete') {
+      this.props.navigator.push({
+        id: 'all-questions-component'
+      })
     }
-
-    evaluateTest(test) {
-        // assigns the string function from user input into callFunc variable
-        var callFunc;
-
-        eval(`callFunc = ${this.state.userAnswer}`);
-
-        // stores result of running test with proper params
-        var result;
-        var error;
-
-        // run try, catch to obtain errors and report back to the user
-        try {
-            result = eval(callFunc.apply(this, test.inputs))
-        }
-        catch (err) {
-            error = err;
-            console.log(err)
-        }
-
-
-        const output = test.output.toString();
-        const resultStr = (error)
-            ? 'N/A'
-            : (result == undefined || result == null)
-                ? '***No result returned from function***'
-                : result.toString();
-
-        return {
-            error: error || null,
-            inputs: test.inputs,
-            output: output,
-            result: resultStr,
-            pass: (output == resultStr)
-        }
-
-
-        // return (
-        //     <Text key={test.id}>
-        //         {error ? `Error received: ${error}` : `The result of test with inputs of [${test.inputs}] \n An expected output of : ${output} \n Actually returned : ${resultStr} \n`}
-        //     </Text>
-        // )
+    // redirect to CodeEnv
+    if (msg === 'Try again') {
+      console.log('yooo')
+      this.navigateBack();
     }
+  }
 
-    render() {
-        console.log('TEST', this.state.tests)
-        return (
-            <View style={styles.container}>
-                {
-                    this.state.resultArr.map(result => {
-                        return (
-                            <Text>
-                                {result.error ? `Error received: ${result.error}` : `The result of test with inputs of [${result.inputs}] \n An expected output of : ${result.output} \n Actually returned : ${result.result} \n`}
-                            </Text>
-                        )
-                    })
-                }
-
-                {
-                    (this.state.isPassing)
-                        ? <View>
-                            <Text style={{color: 'green'}}> Congratulations you passed all the tests!!!!</Text>
-                            <Button
-                                onPress={this.navigateToAllQuestions}
-                                title='Go back to all questions' />
-                        </View>
-                        : <View>
-                            <Text style={{color: 'red'}}> Sadly, you failed one or more tests!!!!</Text>
-                            <Button
-                                onPress={this.navigateBack}
-                                title='Try again' />
-                        </View>
-                }
-
-            </View>
-        )
-    }
+  render() {
+    return (
+      <WebView
+        style={{ marginTop: 20 }}
+        ref={webview => { this.webview = webview }}
+        source={require('../webviewScripts/load.html')}
+        onLoad={this.webViewLoaded.bind(this)}
+        onMessage={this.getMessageFromWebView.bind(this)} />
+    )
+  }
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        marginTop: 20,
-    },
-    textInput: {
-        margin: 15,
-        height: 200,
-        borderWidth: 1
-    },
-});
+  container: {
+    flex: 1,
+    flexDirection: 'column',
+    padding: 10,
+    paddingTop: 12,
+    backgroundColor: '#333333'
+  },
+  topRowContainer: {
+    flex: 1
+  },
+  resultButton: {
+    flex: 1,
+    alignSelf: 'center',
+    backgroundColor: '#339933'
+
+  },
+  resultDetails: {
+    paddingTop: 3,
+    paddingBottom: 10
+  },
+  resultText: {
+    color: '#dd0000',
+    marginTop: 10,
+    marginBottom: 10,
+    fontWeight: 'bold',
+    fontSize: 22,
+    textAlign: 'center',
+    paddingTop: 35,
+    paddingBottom: 35,
+    borderColor: '#dd0000',
+    borderWidth: 2.5,
+    backgroundColor: '#bbb'
+  },
+  inputOutput: {
+    flex: 1,
+    backgroundColor: '#555555',
+    borderWidth: 1,
+    borderColor: '#555555',
+    padding: 15,
+    paddingBottom: 15,
+    borderRadius: 10
+  }
+})
