@@ -8,9 +8,10 @@ import CodeHeader from '../CodeHeader';
 import NewSwitchView from './NewSwitchView';
 
 import {
-  textChange,
-  shiftLeft,
-  shiftRight
+  setTextChange,
+  setShiftLeft,
+  setShiftRight,
+  setDelete
 } from '../utils/CodeEnv.utils.js';
 
 export default class NewCodeEnv extends Component {
@@ -28,7 +29,6 @@ export default class NewCodeEnv extends Component {
       showQuestion: false
     };
 
-    this.del = this.del.bind(this);
     this.space = this.space.bind(this);
     this.undo = this.undo.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -39,32 +39,20 @@ export default class NewCodeEnv extends Component {
 
   //Text management functions
   onChangeText = (str) => {
-    this.setState(textChange(this.state.inputBody, this.state.focus, str, this.state.textStates));
+    this.setState(setTextChange(this.state.inputBody, this.state.focus, str, this.state.textStates));
   }
 
   shiftLeft = () => {
-    this.setState(shiftLeft(this.state.inputBody, this.state.focus));
+    this.setState(setShiftLeft(this.state.inputBody, this.state.focus));
   }
 
   shiftRight = () => {
-    this.setState(shiftRight(this.state.inputBody, this.state.focus))
+    this.setState(setShiftRight(this.state.inputBody, this.state.focus))
   }
 
   //Text altering functions
   del = () => {
-    const focus = this.state.focus;
-    const newFocus = focus - 1;
-    const body = this.state.inputBody;
-    const bodyPreFocus = body.slice(0, newFocus) + '|';
-    const bodyPostFocus = body.slice(focus + 1);
-    const newBody = bodyPreFocus + bodyPostFocus;
-    if (newFocus > -1) {
-      this.setState({
-        inputBody: newBody,
-        focus: newFocus,
-        textStates: [...this.state.textStates, { body: newBody, focus: newFocus }]
-      });
-    }
+    this.setState(setDelete(this.state.inputBody, this.state.focus, this.state.textStates));
   }
 
   space() {

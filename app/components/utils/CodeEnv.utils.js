@@ -1,4 +1,4 @@
-export const textChange = (inputBody, focus, newStr, textStates) => {
+export const setTextChange = (inputBody, focus, newStr, textStates) => {
     // captures the body around our old focus point
     const bodyPreFocus = inputBody.slice(0, focus);
     const bodyPostFocus = inputBody.slice(focus + 1);
@@ -14,7 +14,7 @@ export const textChange = (inputBody, focus, newStr, textStates) => {
     }
 }
 
-export const shiftLeft = (inputBody, focus) => {
+export const setShiftLeft = (inputBody, focus) => {
     const newFocus = focus - 1;
     // do nothing if trying to navigate at an index that doesn't exist
     if (newFocus < 0) return {};
@@ -27,7 +27,7 @@ export const shiftLeft = (inputBody, focus) => {
     }
 }
 
-export const shiftRight = (inputBody, focus) => {
+export const setShiftRight = (inputBody, focus) => {
     const newFocus = focus + 1;
     if (newFocus > inputBody.length) return {};
 
@@ -36,6 +36,22 @@ export const shiftRight = (inputBody, focus) => {
     return {
         focus: newFocus,
         inputBody: newBody
+    }
+}
+
+export const setDelete = (inputBody, focus, textStates) => {
+    const newFocus = focus - 1;
+    // set no state if trying to erase non-existent text
+    if (newFocus < 0) return {};
+
+    const bodyPreFocus = body.slice(0, newFocus);
+    const bodyPostFocus = body.slice(focus + 1);
+    const newBody = bodyPreFocus + "|" + bodyPostFocus;
+
+    return {
+        inputBody: newBody,
+        focus: newFocus,
+        textStates: [...textStates, {body: newBody, focus: newFocus}]
     }
 }
 
