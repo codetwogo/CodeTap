@@ -1,23 +1,5 @@
 import React, { Component } from 'react';
-import { Image, StyleSheet, TouchableOpacity, WebView } from 'react-native';
-import {
-  Container,
-  Header,
-  View,
-  DeckSwiper,
-  Card,
-  CardItem,
-  Thumbnail,
-  Text,
-  Left,
-  Body,
-  Icon,
-  Button,
-  Input,
-  Content
-} from 'native-base';
-
-import HeaderComponent from './Header.js'
+import { StyleSheet, WebView } from 'react-native';
 
 export default class TestEnvComponent extends Component {
   constructor(props) {
@@ -64,16 +46,15 @@ export default class TestEnvComponent extends Component {
 
     eval(`callFunc = ${this.state.userAnswer}`);
 
+    // this timer checks if a test causes an infinite loop and will cancel out the webview component container
+    timer = setTimeout(() => {
+      this.navigateBack('infinite loop'); //signifies to CodeEnv to warn user about infinite loop
+    }, 10000)
+
     const dataObj = {
       func: callFunc.toString(),
       finished: false
     }
-
-    // this timer checks if a test causes an infinite loop and will cancel out the webview component container
-    timer = setTimeout(() => {
-      const testNum = i;
-      this.navigateBack('infinite loop'); //signifies to CodeEnv to warn user about infinite loop
-    }, 10000)
 
     for (var i = 0; i < this.state.tests.length; ++i) {
       if (i === this.state.tests.length - 1) dataObj.finished = true;
@@ -101,22 +82,18 @@ export default class TestEnvComponent extends Component {
       console.log('yooo')
       this.navigateBack();
     }
+  }
 
-}
-
-
-render() {
-
-  return (
-
-    <WebView
-      style={{ marginTop: 20 }}
-      ref={webview => { this.webview = webview }}
-      source={require('../webviewScripts/load.html')}
-      onLoad={this.webViewLoaded.bind(this)}
-      onMessage={this.getMessageFromWebView.bind(this)} />
-  )
-}
+  render() {
+    return (
+      <WebView
+        style={{ marginTop: 20 }}
+        ref={webview => { this.webview = webview }}
+        source={require('../webviewScripts/load.html')}
+        onLoad={this.webViewLoaded.bind(this)}
+        onMessage={this.getMessageFromWebView.bind(this)} />
+    )
+  }
 }
 
 const styles = StyleSheet.create({
@@ -162,82 +139,4 @@ const styles = StyleSheet.create({
     paddingBottom: 15,
     borderRadius: 10
   }
-});
-
-
-//       <Container >
-//         <HeaderComponent navigator={this.props.navigator} style={styles.item}/>
-//         <Content style={styles.container}>
-//           <View style={styles.topRowContainer}>
-//             <View style={{
-//               flex: 1,
-//               flexDirection: 'row',
-//               alignItems: 'center',
-//               justifyContent: 'center'
-//             }}>
-
-//               <Text style={{
-//                 flex: 1,
-//                 textAlign: 'center',
-//                 height: 25,
-//                 paddingTop: 5,
-//                 fontSize: 20,
-//                 fontWeight: 'bold',
-//                 color: '#aaaaaa'
-//               }}>Result</Text>
-
-//             </View>
-//           </View>
-//           {(this.state.isPassing)
-//             ? <View>
-//                 <Text style={StyleSheet.flatten([
-//                   styles.resultText, {
-//                     color: '#339933',
-//                     borderColor: '#339933'
-//                   }
-//                 ])}>
-//                   Congratulations,{`\n`}
-//                   you've passed all the tests!!!!</Text>
-//               </View>
-//             : <View>
-//               <Text style={styles.resultText}>
-//                 Sadly, you've FAILED {`\n`}one or more tests!!!!</Text>
-//             </View>
-// }
-//           {this.state.resultArr.map((result, idx) => {
-//             return (
-//               <View style={styles.resultDetails} key={idx}>
-//                 {result.error
-//                   ? `Error received: ${result.error}`
-//                   : <View style={styles.inputOutput}>
-//                     <Text style={{color: '#aaa'}}>Inputs: [{result.inputs}]
-//                     </Text>
-//                     <Text style={{color: '#66aa55'}}>Expected Output: {result.output}
-//                     </Text>
-//                     <Text style={{color: '#cc7777'}}>
-//                       Actual Output : {result.result}
-//                     </Text>
-//                   </View>}
-//               </View>
-//             )
-//           })
-// }
-
-//           {(this.state.isPassing)
-//             ? <View>
-//                 <Button style={styles.resultButton} onPress={this.navigateToAllQuestions}>
-//                   <Text>Go back to all questions</Text>
-//                 </Button>
-//               </View>
-//             : <View>
-//               <Button danger style={StyleSheet.flatten([
-//                 styles.resultButton, {
-//                   backgroundColor: '#dd0000'
-//                 }
-//               ])} onPress={this.navigateBack}>
-//                 <Text style={{color: '#aaa'}}>Try again</Text>
-//               </Button>
-//             </View>
-// }
-//         </Content>
-//       </Container>
+})

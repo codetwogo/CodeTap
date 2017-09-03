@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Image, StyleSheet, TouchableOpacity, AsyncStorage, NetInfo } from 'react-native';
-import { Container, Header, View, DeckSwiper, Card, CardItem, Thumbnail, Text, Left, Body, Icon, Button, Input } from 'native-base';
+import { StyleSheet, TouchableOpacity, AsyncStorage, NetInfo } from 'react-native';
+import { Container, View, DeckSwiper, Card, CardItem, Thumbnail, Text, Left, Body, Icon } from 'native-base';
 
 import HeaderComponent from './Header.js'
 
@@ -97,7 +97,7 @@ export default class AllQuestions extends Component {
       );
       // const result = this.state.isOnline === isConnected ? null : this.setState({ isOnline: isConnected });
       if (this.state.isOnline !== isConnected) {
-        this.setState({isOnline: isConnected})
+        this.setState({ isOnline: isConnected })
       }
       this.intializeComponent();
     }
@@ -163,75 +163,75 @@ export default class AllQuestions extends Component {
             margin: 15,
             fontSize: 15,
             color: this.state.isOnline ? 'green' : 'red'
-            }}> Status: {this.state.isOnline ? 'Online' : 'Offline'}</Text>
-        <Text style={{
-          textAlign: 'center',
-          fontSize: 28,
-          color: '#aaaaaa',
-          marginTop: 10,
-          marginBottom: 15
-        }}>Click to Select a Question</Text>
-        {/* DeckSwiper can only render dataSource once
+          }}> Status: {this.state.isOnline ? 'Online' : 'Offline'}</Text>
+          <Text style={{
+            textAlign: 'center',
+            fontSize: 28,
+            color: '#aaaaaa',
+            marginTop: 10,
+            marginBottom: 15
+          }}>Click to Select a Question</Text>
+          {/* DeckSwiper can only render dataSource once
         Boolean ensures that Questions are initialized beforehand */}
-        {Boolean(this.state.initializeCards) && <DeckSwiper
-          dataSource={this.state.myQuestions}
-          renderItem={item => <TouchableOpacity onPress={() => {
-            this.onQuestionPress(item)
-          }}>
-            <Card style={{
-              backgroundColor: '#888888',
-              elevation: 3
+          {Boolean(this.state.initializeCards) && <DeckSwiper
+            dataSource={this.state.myQuestions}
+            renderItem={item => <TouchableOpacity onPress={() => {
+              this.onQuestionPress(item)
             }}>
-              <CardItem style={{
-                backgroundColor: 'transparent'
+              <Card style={{
+                backgroundColor: '#888888',
+                elevation: 3
               }}>
-                <Left>
-                  <Thumbnail source={require('./img/fullstack.png')} />
-                  <Body>
-                    <Text>{item.title}</Text>
-                    <Text not style={{
-                      color: '#333'
-                    }}>{item.difficulty}</Text>
-                  </Body>
-                </Left>
-              </CardItem>
-              <CardItem cardBody style={{
-                backgroundColor: '#aaaaaa',
-                padding: 10,
-                paddingTop: 10,
-                minHeight: 100,
-                alignItems: 'flex-start',
-                borderRadius: 10,
-                marginLeft: 10,
-                marginRight: 10
-              }}>
-                <Text>{item.description}</Text>
-              </CardItem>
-              <CardItem style={{
-                backgroundColor: 'transparent'
-              }}>
-                <Icon name="heart" style={{
-                  color: '#ED4A6A'
-                }} />
-                <Text style={{
-                  color: '#ccc'
-                }}>{item.likes}</Text>
-              </CardItem>
-            </Card>
-          </TouchableOpacity>} />
-        }
+                <CardItem style={{
+                  backgroundColor: 'transparent'
+                }}>
+                  <Left>
+                    <Thumbnail source={require('./img/fullstack.png')} />
+                    <Body>
+                      <Text>{item.title}</Text>
+                      <Text not style={{
+                        color: '#333'
+                      }}>{item.difficulty}</Text>
+                    </Body>
+                  </Left>
+                </CardItem>
+                <CardItem cardBody style={{
+                  backgroundColor: '#aaaaaa',
+                  padding: 10,
+                  paddingTop: 10,
+                  minHeight: 100,
+                  alignItems: 'flex-start',
+                  borderRadius: 10,
+                  marginLeft: 10,
+                  marginRight: 10
+                }}>
+                  <Text>{item.description}</Text>
+                </CardItem>
+                <CardItem style={{
+                  backgroundColor: 'transparent'
+                }}>
+                  <Icon name="heart" style={{
+                    color: '#ED4A6A'
+                  }} />
+                  <Text style={{
+                    color: '#ccc'
+                  }}>{item.likes}</Text>
+                </CardItem>
+              </Card>
+            </TouchableOpacity>} />
+          }
         </View>
-      <View style={{
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}>
-        <Text style={{
-          textAlign: 'center',
-          color: '#888888',
-          fontWeight: 'bold'
-        }}>{`<-- Swipe Left and Right for Questions  -->`}</Text>
-      </View>
+        <View style={{
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+          <Text style={{
+            textAlign: 'center',
+            color: '#888888',
+            fontWeight: 'bold'
+          }}>{`<-- Swipe Left and Right for Questions  -->`}</Text>
+        </View>
       </Container >
     );
   }
@@ -240,6 +240,5 @@ export default class AllQuestions extends Component {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#333333'
-  },
-  item: {}
-});
+  }
+})
