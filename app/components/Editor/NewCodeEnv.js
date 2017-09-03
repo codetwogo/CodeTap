@@ -7,6 +7,8 @@ import SmartKeyboard from '../ClipButtons';
 import CodeHeader from '../CodeHeader';
 import NewSwitchView from './NewSwitchView';
 
+import {returnNewBodyAndStates} from '../utils/CodeEnv.utils.js';
+
 export default class NewCodeEnv extends Component {
   constructor(props) {
     super(props);
@@ -36,18 +38,19 @@ export default class NewCodeEnv extends Component {
 
   //Text management functions
     onChangeText(str){
-      const body = this.state.inputBody;
-      const focus = this.state.focus;
-      const bodyPreFocus = body.slice(0, focus);
-      const bodyPostFocus = body.slice(focus+1, body.length);
-      const newFocus = focus+str.length;
-      const newBody = bodyPreFocus+str+"|"+bodyPostFocus;
+      this.setState(returnNewBodyAndStates(this.state.inputBody, this.state.focus, str, this.state.textStates));
+      // const body = this.state.inputBody;
+      // const focus = this.state.focus;
+      // const bodyPreFocus = body.slice(0, focus);
+      // const bodyPostFocus = body.slice(focus+1, body.length);
+      // const newFocus = focus+str.length;
+      // const newBody = bodyPreFocus+str+"|"+bodyPostFocus;
 
-      this.setState({
-        inputBody: newBody,
-        focus: newFocus,
-        textStates: [...this.state.textStates, {body:newBody, focus:newFocus}]
-    });
+    //   this.setState({
+    //     inputBody: newBody,
+    //     focus: newFocus,
+    //     textStates: [...this.state.textStates, {body:newBody, focus:newFocus}]
+    // });
   }
 
   shiftLeft(){
