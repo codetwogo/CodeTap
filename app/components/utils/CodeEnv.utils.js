@@ -5,7 +5,7 @@ export const setTextChange = (inputBody, focus, newStr, textStates) => {
     // changes new focus point to reflect inserted text
     const newFocus = focus + newStr.length;
     // puts cursor back in to show focus position
-    const newBody = bodyPreFocus + str + "|" + bodyPostFocus
+    const newBody = bodyPreFocus + newStr + "|" + bodyPostFocus
 
     return {
         inputBody: newBody,
