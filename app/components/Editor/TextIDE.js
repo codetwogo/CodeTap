@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { TextInput, StyleSheet } from 'react-native';
 
 export default ({ textEnvChange, textValue, textFocus, onSelectionChange, cursorBlur, switchVal }) => {
