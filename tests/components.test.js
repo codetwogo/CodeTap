@@ -1,80 +1,31 @@
 import React from 'react';
-import App from '../App';
-import Home from '../app/components/Home';
-import AllQuestions from '../app/components/AllQuestions';
-import SingleQuestion from '../app/components/SingleQuestion';
 
-import renderer from 'react-test-renderer';
-//import {shallow} from 'enzyme';
-import shallowRenderer from 'react-test-renderer/shallow';
-import { isDOMComponent, isComponentOfType, findWithType } from 'react-shallow-testutils';
+import {
+    setTextChange,
+    setShiftLeft,
+    setShiftRight,
+    setDelete
+} from '../app/components/utils/CodeEnv.utils';
 
-const shallow = new shallowRenderer();
+describe('Our CodeEnv utils functions file has a setTextChange method...', () => {
 
-describe('The main App Entry Point...', () => {
+    const someText = 'Here we will add: to the text.';
+    const focus = 17;
+    const textStates = [];
 
-    const component = renderer.create(<App />)
+    const addedStr = 'monkey';
 
-    it('renders without crashing', () => {
-        const rendered = component.toJSON();
-        expect(rendered).toBeTruthy();
-    });
+    const newStateAfterTextChange = setTextChange(someText, focus, addedStr, textStates);
 
-    it('matches snapshot', () => {
-        const rendered = component.toJSON();
-        expect(rendered).toMatchSnapshot();
-        // console.log(rendered.find('Navigator'));
+    it('that returns a new body, focus, and correct text states with the added text.', () => {
+        expect(newStateAfterTextChange.inputBody).toBe('Here we will add:monkey|to the text.');
     })
-})
 
-describe('The Home Component...', () => {
-
-    const component = renderer.create(<Home />)
-
-    it('renders without crashing', () => {
-        const rendered = component;
-        expect(rendered).toBeTruthy();
-    });
-
-    it('matches snapshot', () => {
-        const rendered = component.toJSON();
-        expect(rendered).toMatchSnapshot();
+    it('that has the correct focus after inserting.', () => {
+        expect(newStateAfterTextChange.focus).toBe(23);
     })
-})
 
-describe('The AllQuestions Component...', () => {
-
-    const component = renderer.create(<AllQuestions />)
-
-    it('renders without crashing', () => {
-        const rendered = component.toJSON();
-        expect(rendered).toBeTruthy();
-    });
-
-    it('matches snapshot', () => {
-        const rendered = component.toJSON();
-        expect(rendered).toMatchSnapshot();
-        // console.log(rendered.find('Navigator'));
-    })
-})
-
-describe('The SingleQuestion Component...', () => {
-
-    const component = renderer.create(<SingleQuestion question={{
-        id: 'single-question-component',
-        title: 'testing-question',
-        tests: 'tests',
-        boilerPlate: '1234'
-    }} />)
-
-    it('renders without crashing', () => {
-        const rendered = component.toJSON();
-        expect(rendered).toBeTruthy();
-    });
-
-    it('matches snapshot', () => {
-        const rendered = component.toJSON();
-        expect(rendered).toMatchSnapshot();
-        // console.log(rendered.find('Navigator'));
+    it('that has the correct text states after inserting.', () => {
+        expect(newStateAfterTextChange.textStates.length).toBe(1);
     })
 })
