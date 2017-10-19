@@ -1,4 +1,4 @@
-CodeTap
+##CodeTap
 
 ![Splash Page Image](codeTapSplash.png)
 
