@@ -7,179 +7,131 @@ import SmartKeyboard from '../ClipButtons';
 import CodeHeader from '../CodeHeader';
 import NewSwitchView from './NewSwitchView';
 
+import {
+  setTextChange,
+  setShiftLeft,
+  setShiftRight,
+  setDelete
+} from '../utils/CodeEnv.utils.js';
+
 export default class NewCodeEnv extends Component {
   constructor(props) {
     super(props);
-    const focus = (this.props.userAnswer) ? this.props.textStates[this.props.textStates.length - 1].focus : this.props.question.boilerPlate.length - 3;
-    const inputBody = (this.props.userAnswer) ? this.props.userAnswer : this.props.question.boilerPlate.slice(0, focus)+'|'+this.props.question.boilerPlate.slice(focus, this.props.question.boilerPlate.length);
-    const textStates= this.props.textStates || [{body:inputBody, focus:focus}];
+    // set initial state based on whether we navigated from single question or testenv component
+    const focus = (this.props.userAnswer)
+    ? this.props.textStates[this.props.textStates.length - 1].focus
+    : this.props.question.boilerPlate.length - 3;
+
+    const inputBody = (this.props.userAnswer)
+    ? this.props.userAnswer
+    : this.props.question.boilerPlate.slice(0, focus) + '|' + this.props.question.boilerPlate.slice(focus, this.props.question.boilerPlate.length);
+    
+    const textStates = this.props.textStates || [{ body: inputBody, focus: focus }];
+
     this.state = {
-      inputBody:inputBody,
-      focus:focus,
+      inputBody: inputBody,
+      focus: focus,
       description: this.props.question.description,
       textStates: textStates,
-      switchVal:false,
+      switchVal: false,
       showQuestion: false
     };
-
-    this.onChangeText=this.onChangeText.bind(this);
-    this.shiftLeft=this.shiftLeft.bind(this);
-    this.shiftRight=this.shiftRight.bind(this);
-    this.del=this.del.bind(this);
-    this.space=this.space.bind(this);
-    this.undo=this.undo.bind(this);
-    this.onSubmit=this.onSubmit.bind(this);
-    this.onQuestionSwitchChange=this.onQuestionSwitchChange.bind(this);
-    this.onSwitchChange=this.onSwitchChange.bind(this);
   }
 
 
   //Text management functions
-    onChangeText(str){
-      const body = this.state.inputBody;
-      const focus = this.state.focus;
-      const bodyPreFocus = body.slice(0, focus);
-      const bodyPostFocus = body.slice(focus+1, body.length);
-      const newFocus = focus+str.length;
-      const newBody = bodyPreFocus+str+"|"+bodyPostFocus;
-
-      this.setState({
-        inputBody: newBody,
-        focus: newFocus,
-        textStates: [...this.state.textStates, {body:newBody, focus:newFocus}]
-    });
+  onChangeText = (str) => {
+    this.setState(setTextChange(this.state.inputBody, this.state.focus, str, this.state.textStates));
   }
 
-  shiftLeft(){
-    const focus = this.state.focus;
-    const newFocus = focus-1;
-    const body = this.state.inputBody;
-    const bodyPreFocus = body.slice(0, focus);
-    const bodyPostFocus = body.slice(focus+1);
-    const newBody= bodyPreFocus+bodyPostFocus;
-    const newBodyPre = newBody.slice(0, newFocus);
-    const newBodyPost = newBody.slice(newFocus);
-    if(newFocus>-1){
-      console.log('prefocus', bodyPreFocus);
-      console.log('postfocus', bodyPostFocus);
-      const shiftedBody = newBodyPre+'|'+newBodyPost;
-      this.setState({
-        inputBody: shiftedBody,
-        focus:newFocus});
-      }
-    }
+  shiftLeft = () => {
+    this.setState(setShiftLeft(this.state.inputBody, this.state.focus));
+  }
 
-    shiftRight(){
-      const focus = this.state.focus;
-      const newFocus = focus+1;
-      const body = this.state.inputBody;
-      const bodyPreFocus = body.slice(0, focus);
-      const bodyPostFocus = body.slice(focus+1);
-      const newBody= bodyPreFocus+bodyPostFocus;
-      const newBodyPre = newBody.slice(0, newFocus);
-      const newBodyPost = newBody.slice(newFocus);
+  shiftRight = () => {
+    this.setState(setShiftRight(this.state.inputBody, this.state.focus))
+  }
 
-      if(newFocus<=newBody.length){
-        const shiftedBody = newBodyPre+'|'+newBodyPost;
-        this.setState({
-          inputBody: shiftedBody,
-          focus:newFocus});
-        }
-      }
+  //Text altering functions
+  del = () => {
+    this.setState(setDelete(this.state.inputBody, this.state.focus, this.state.textStates));
+  }
 
-      //Text altering functions
-    del(){
-        const focus = this.state.focus;
-        const newFocus = focus-1;
-        const body = this.state.inputBody;
-        const bodyPreFocus = body.slice(0, newFocus)+'|';
-        const bodyPostFocus = body.slice(focus+1);
-        const newBody= bodyPreFocus+bodyPostFocus;
-        if(newFocus>-1){
-          this.setState({
-            inputBody: newBody,
-            focus:newFocus,
-            textStates: [...this.state.textStates, {body:newBody, focus:newFocus}]
-          });
-          }
-        }
-
-        space(){
-          return(this.onChangeText(' '));
-        }
+  space = () => {
+    return (this.onChangeText(' '));
+  }
 
   //Navigation functions
 
-  onSubmit() {
+  onSubmit = () => {
     const body = this.state.inputBody;
-    const Answer =body.slice(0, this.state.focus)+body.slice(this.state.focus+1, body.length);
+    const answer = body.slice(0, this.state.focus) + body.slice(this.state.focus + 1);
 
     this.props.navigator.push({
       id: 'test-env',
-      userAnswer: Answer,
+      userAnswer: answer,
       tests: this.props.question.tests,
       textStates: this.state.textStates,
       description: this.state.description
     });
   }
 
-  onBackPress() {
+  onBackPress = () => {
     this.props.navigator.push({ id: 'homecomponent' });
   }
 
-//Switch Management Functions
+  //Switch Management Functions
 
-    onSwitchChange(value) {
+  onSwitchChange = (value) => {
+    this.setState({
+      switchVal: value
+    });
+    if (this.state.showQuestion) {
       this.setState({
-        switchVal: value
+        showQuestion: false
       });
-      if (this.state.showQuestion) {
-            this.setState({
-              showQuestion: false
-            });
-          }
     }
+  }
 
-    onQuestionSwitchChange(value) {
-      this.setState({
-        showQuestion: value
-      });
+  onQuestionSwitchChange = (value) => {
+    this.setState({
+      showQuestion: value
+    });
     if (this.state.switchVal) {
-          this.setState({
-            switchVal: false
-          });
-        }
-
-    }
-
-//Undo State management functions
-
-    undo() {
-      console.log(this.state.textStates);
-      if (this.state.textStates.length === 1) return false;
-      const statesPlaceHolder = this.state.textStates;
-      statesPlaceHolder.pop();
-      const lastInd = statesPlaceHolder.length - 1;
-
       this.setState({
-        inputBody: statesPlaceHolder[lastInd].body,
-        focus:statesPlaceHolder[lastInd].focus,
-        textStates: [...statesPlaceHolder]
+        switchVal: false
       });
     }
 
+  }
+
+  //Undo State management functions
+
+  undo = () => {
+    if (this.state.textStates.length === 1) return false;
+    const statesPlaceHolder = this.state.textStates;
+    statesPlaceHolder.pop();
+    const lastInd = statesPlaceHolder.length - 1;
+
+    this.setState({
+      inputBody: statesPlaceHolder[lastInd].body,
+      focus: statesPlaceHolder[lastInd].focus,
+      textStates: [...statesPlaceHolder]
+    });
+  }
 
 
-  render(){
+
+  render() {
     return (
       <Container>
         <CodeHeader
           navigator={this.props.navigator}
           submit={this.onSubmit}
           style={styles.item} />
-        <View  style={styles.container}>
+        <View style={styles.container}>
           <View style={styles.inputTextBg}>
-            <ScrollView style={{height: 200}}>
+            <ScrollView style={{ height: 200 }}>
               <Text
                 style={styles.textInput}>
                 {this.state.inputBody}
@@ -199,7 +151,7 @@ export default class NewCodeEnv extends Component {
             shiftRight={this.shiftRight}
             del={this.del}
             space={this.space}
-            />
+          />
         </View>
       </Container>
     );
