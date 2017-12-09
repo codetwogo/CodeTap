@@ -16,24 +16,9 @@ export default class HomeComponent extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text style={
-                    {
-                        color: '#AC807E',
-                        textAlign: 'center',
-                        fontSize: 76, lineHeight: 76,
-                        fontWeight: 'bold'
-                    }
-                }>Code to Train.{'\n'}Train to Code.</Text>
-                <Button
-                    bordered rounded light style={
-                        { alignSelf: 'center', marginTop: 30 }
-                    } onPress={this.onPress}>
-                    <Text style={
-                        {
-                            alignSelf: 'center',
-                            fontWeight: 'bold'
-                        }
-                    }>START</Text>
+                <Text style={styles.openingText}>Code to Train.{'\n'}Train to Code.</Text>
+                <Button bordered rounded light style={styles.button} onPress={this.onPress}>
+                    <Text style={styles.startText}>START</Text>
                 </Button>
             </View>
         );
@@ -49,4 +34,18 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    openingText: {
+        color: '#AC807E',
+        textAlign: 'center',
+        fontSize: 76, lineHeight: 76,
+        fontWeight: 'bold'
+    },
+    button: {
+        alignSelf: 'center',
+        marginTop: 30
+    },
+    startText: {
+        alignSelf: 'center',
+        fontWeight: 'bold'
+    }
 });
