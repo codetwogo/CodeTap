@@ -15,6 +15,7 @@ describe('Our CodeEnv utils functions file has a setTextChange method...', () =>
 
     const addedStr = 'monkey';
 
+    // ensures when text is added all proper state properties change
     const newStateAfterTextChange = setTextChange(someText, focus, addedStr, textStates);
 
     it('that returns a new body, focus, and correct text states with the added text.', () => {
@@ -27,5 +28,13 @@ describe('Our CodeEnv utils functions file has a setTextChange method...', () =>
 
     it('that has the correct text states after inserting.', () => {
         expect(newStateAfterTextChange.textStates.length).toBe(1);
+    })
+})
+
+describe('CodeEnv\'s shift left method...', () => {
+    const resultAfterShiftLeft = setShiftLeft('test|ing', 4);
+    it('shifts left properly, accounts for | and focus.', () => {
+        expect(resultAfterShiftLeft.focus).toBe(3);
+        expect(resultAfterShiftLeft.inputBody).toBe('tes|ting');
     })
 })
