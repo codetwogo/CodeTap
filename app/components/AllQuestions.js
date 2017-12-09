@@ -153,24 +153,11 @@ export default class AllQuestions extends Component {
 
     return (
       <Container style={styles.container}>
-        <HeaderComponent navigator={this.props.navigator} style={styles.item} />
-
-        <View style={{
-          flex: 1
-        }}>
-          <Text style={{
-            textAlign: 'right',
-            margin: 15,
-            fontSize: 15,
-            color: this.state.isOnline ? 'green' : 'red'
-          }}> Status: {this.state.isOnline ? 'Online' : 'Offline'}</Text>
-          <Text style={{
-            textAlign: 'center',
-            fontSize: 28,
-            color: '#aaaaaa',
-            marginTop: 10,
-            marginBottom: 15
-          }}>Click to Select a Question</Text>
+        <HeaderComponent navigator={this.props.navigator} />
+        <View style={styles.mainView}>
+          <Text style={styles.status}>
+            Status: {this.state.isOnline ? 'Online' : 'Offline'}</Text>
+          <Text style={styles.selectQuestion}>Click to Select a Question</Text>
           {/* DeckSwiper can only render dataSource once
         Boolean ensures that Questions are initialized beforehand */}
           {Boolean(this.state.initializeCards) && <DeckSwiper
@@ -178,59 +165,29 @@ export default class AllQuestions extends Component {
             renderItem={item => <TouchableOpacity onPress={() => {
               this.onQuestionPress(item)
             }}>
-              <Card style={{
-                backgroundColor: '#888888',
-                elevation: 3
-              }}>
-                <CardItem style={{
-                  backgroundColor: 'transparent'
-                }}>
+              <Card style={styles.cardContainer}>
+                <CardItem style={styles.cardItem}>
                   <Left>
                     <Thumbnail source={require('./img/fullstack.png')} />
                     <Body>
                       <Text>{item.title}</Text>
-                      <Text not style={{
-                        color: '#333'
-                      }}>{item.difficulty}</Text>
+                      <Text style={styles.difficulty}>{item.difficulty}</Text>
                     </Body>
                   </Left>
                 </CardItem>
-                <CardItem cardBody style={{
-                  backgroundColor: '#aaaaaa',
-                  padding: 10,
-                  paddingTop: 10,
-                  minHeight: 100,
-                  alignItems: 'flex-start',
-                  borderRadius: 10,
-                  marginLeft: 10,
-                  marginRight: 10
-                }}>
+                <CardItem style={styles.cardBody}>
                   <Text>{item.description}</Text>
                 </CardItem>
-                <CardItem style={{
-                  backgroundColor: 'transparent'
-                }}>
-                  <Icon name="heart" style={{
-                    color: '#ED4A6A'
-                  }} />
-                  <Text style={{
-                    color: '#ccc'
-                  }}>{item.likes}</Text>
+                <CardItem style={styles.cardBackground}>
+                  <Icon name="heart" style={styles.heart} />
+                  <Text style={styles.likes}>{item.likes}</Text>
                 </CardItem>
               </Card>
             </TouchableOpacity>} />
           }
         </View>
-        <View style={{
-          flex: 1,
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}>
-          <Text style={{
-            textAlign: 'center',
-            color: '#888888',
-            fontWeight: 'bold'
-          }}>{`<-- Swipe Left and Right for Questions  -->`}</Text>
+        <View style={styles.swipeContainer}>
+          <Text style={styles.swipe}>{`<-- Swipe Left and Right for Questions  -->`}</Text>
         </View>
       </Container >
     );
@@ -240,5 +197,60 @@ export default class AllQuestions extends Component {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#333333'
+  },
+  mainView: {
+    flex: 1
+  },
+  status: {
+    textAlign: 'right',
+    margin: 15,
+    fontSize: 15,
+    color: 'green'
+  },
+  selectQuestion: {
+    textAlign: 'center',
+    fontSize: 28,
+    color: '#aaaaaa',
+    marginTop: 10,
+    marginBottom: 15
+  },
+  cardContainer: {
+    backgroundColor: '#888888',
+    elevation: 3
+  },
+  cardItem: {
+    backgroundColor: 'transparent'
+  },
+  difficulty: {
+    color: '#333'
+  },
+  cardBody: {
+    backgroundColor: '#aaaaaa',
+    padding: 10,
+    paddingTop: 10,
+    minHeight: 100,
+    alignItems: 'flex-start',
+    borderRadius: 10,
+    marginLeft: 10,
+    marginRight: 10
+  },
+  cardBackground: {
+    backgroundColor: 'transparent'
+  },
+  heart: {
+    color: '#ED4A6A'
+  },
+  likes: {
+    color: '#ccc'
+  },
+  swipeContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  swipe: {
+    textAlign: 'center',
+    color: '#888888',
+    fontWeight: 'bold'
   }
 })
