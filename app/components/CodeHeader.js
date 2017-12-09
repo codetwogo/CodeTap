@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Header, Left, Body, Right, Button, Icon, Title, Text } from 'native-base';
+import { Header, Left, Body, Right, Button, Icon, Title, Text } from 'native-base';
 
 export default class CodeHeader extends Component {
   constructor(props) {
@@ -15,21 +15,26 @@ export default class CodeHeader extends Component {
     return (
       <Header>
         <Left>
-          <Button transparent onPress={() =>
-            this.onBackPress()
-          }>
-            <Icon name='arrow-back' style={{ color: 'black' }} />
+          <Button
+            transparent onPress={() =>
+              this.onBackPress()
+            }>
+            <Icon
+              name="arrow-back"
+              style={{ color: 'black' }} />
           </Button>
         </Left>
         <Body>
           <Title>{`CodeTap`}</Title>
         </Body>
         <Right>
-          <Button ref={btn => { this.btn = btn }} transparent onPress={() => {
-            this.btn.disabled = true
-            this.props.submit()
-          }
-          }>
+          <Button
+            ref={btn => { this.btn = btn }}
+            transparent onPress={() => {
+              this.btn.disabled = true
+              this.props.submit()
+            }
+            }>
             <Text style={{ color: '#7D1b13' }}>Submit</Text>
           </Button>
         </Right>
