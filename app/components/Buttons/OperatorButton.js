@@ -39,9 +39,7 @@ export default class OperatorButton extends Component {
                 return this.props.toggle();
               }
               }>
-              <Text style={{ color: '#444444' }}>
-                {key.title}
-              </Text>
+              <Text style={styles.hotKeyText}>{key.title}</Text>
             </Button>);
         })
         }
@@ -49,7 +47,7 @@ export default class OperatorButton extends Component {
           <Button
             small style={styles.backKey}
             onPress={() => this.props.toggle()}>
-            <Text style={{ color: '#666666' }}>Previous</Text>
+            <Text style={styles.backKeyText}>Previous</Text>
           </Button>
         </View>
       </View>
@@ -81,6 +79,9 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     backgroundColor: '#999999'
   },
+  hotKeyText: {
+    color: '#444444'
+  },
   backKey: {
     justifyContent: 'center',
     alignItems: 'center',
@@ -91,5 +92,8 @@ const styles = StyleSheet.create({
     marginTop: 5,
     marginBottom: 5,
     borderWidth: 1
+  },
+  backKeyText: {
+    color: '#666666'
   }
 });

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, AppRegistry, StyleSheet, Button, Text, TouchableOpaci } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import NumsLetters from '../Buttons/NumsLetters';
 export default class BasicKeyboard extends Component {
   constructor(props) {
