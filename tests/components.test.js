@@ -1,80 +1,40 @@
 import React from 'react';
-import App from '../App';
-import Home from '../app/components/Home';
-import AllQuestions from '../app/components/AllQuestions';
-import SingleQuestion from '../app/components/SingleQuestion';
 
-import renderer from 'react-test-renderer';
-//import {shallow} from 'enzyme';
-import shallowRenderer from 'react-test-renderer/shallow';
-import { isDOMComponent, isComponentOfType, findWithType } from 'react-shallow-testutils';
+import {
+    setTextChange,
+    setShiftLeft,
+    setShiftRight,
+    setDelete
+} from '../app/components/utils/CodeEnv.utils';
 
-const shallow = new shallowRenderer();
+describe('Our CodeEnv utils functions file has a setTextChange method...', () => {
 
-describe('The main App Entry Point...', () => {
+    const someText = 'Here we will add: to the text.';
+    const focus = 17;
+    const textStates = [];
 
-    const component = renderer.create(<App />)
+    const addedStr = 'monkey';
 
-    it('renders without crashing', () => {
-        const rendered = component.toJSON();
-        expect(rendered).toBeTruthy();
-    });
+    // ensures when text is added all proper state properties change
+    const newStateAfterTextChange = setTextChange(someText, focus, addedStr, textStates);
 
-    it('matches snapshot', () => {
-        const rendered = component.toJSON();
-        expect(rendered).toMatchSnapshot();
-        // console.log(rendered.find('Navigator'));
+    it('that returns a new body, focus, and correct text states with the added text.', () => {
+        expect(newStateAfterTextChange.inputBody).toBe('Here we will add:monkey|to the text.');
+    })
+
+    it('that has the correct focus after inserting.', () => {
+        expect(newStateAfterTextChange.focus).toBe(23);
+    })
+
+    it('that has the correct text states after inserting.', () => {
+        expect(newStateAfterTextChange.textStates.length).toBe(1);
     })
 })
 
-describe('The Home Component...', () => {
-
-    const component = renderer.create(<Home />)
-
-    it('renders without crashing', () => {
-        const rendered = component;
-        expect(rendered).toBeTruthy();
-    });
-
-    it('matches snapshot', () => {
-        const rendered = component.toJSON();
-        expect(rendered).toMatchSnapshot();
-    })
-})
-
-describe('The AllQuestions Component...', () => {
-
-    const component = renderer.create(<AllQuestions />)
-
-    it('renders without crashing', () => {
-        const rendered = component.toJSON();
-        expect(rendered).toBeTruthy();
-    });
-
-    it('matches snapshot', () => {
-        const rendered = component.toJSON();
-        expect(rendered).toMatchSnapshot();
-        // console.log(rendered.find('Navigator'));
-    })
-})
-
-describe('The SingleQuestion Component...', () => {
-
-    const component = renderer.create(<SingleQuestion question={{
-        id: 'single-question-component',
-        title: 'testing-question',
-        tests: 'tests',
-        boilerPlate: '1234'
-    }} />)
-
-    it('renders without crashing', () => {
-        const rendered = component.toJSON();
-        expect(rendered).toBeTruthy();
-    });
-
-    it('matches snapshot', () => {
-        const rendered = component.toJSON();
-        expect(rendered).toMatchSnapshot();
-        // console.log(rendered.find('Navigator'));
+describe('CodeEnv\'s shift left method...', () => {
+    const resultAfterShiftLeft = setShiftLeft('test|ing', 4);
+    it('shifts left properly, accounts for | and focus.', () => {
+        expect(resultAfterShiftLeft.focus).toBe(3);
+        expect(resultAfterShiftLeft.inputBody).toBe('tes|ting');
     })
 })
