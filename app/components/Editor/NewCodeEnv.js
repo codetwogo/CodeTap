@@ -19,13 +19,13 @@ export default class NewCodeEnv extends Component {
     super(props);
     // set initial state based on whether we navigated from single question or testenv component
     const focus = (this.props.userAnswer)
-    ? this.props.textStates[this.props.textStates.length - 1].focus
-    : this.props.question.boilerPlate.length - 3;
+      ? this.props.textStates[this.props.textStates.length - 1].focus
+      : this.props.question.boilerPlate.length - 3;
 
     const inputBody = (this.props.userAnswer)
-    ? this.props.userAnswer
-    : this.props.question.boilerPlate.slice(0, focus) + '|' + this.props.question.boilerPlate.slice(focus, this.props.question.boilerPlate.length);
-    
+      ? this.props.userAnswer
+      : this.props.question.boilerPlate.slice(0, focus) + '|' + this.props.question.boilerPlate.slice(focus, this.props.question.boilerPlate.length);
+
     const textStates = this.props.textStates || [{ body: inputBody, focus: focus }];
 
     this.state = {
@@ -131,7 +131,7 @@ export default class NewCodeEnv extends Component {
           style={styles.item} />
         <View style={styles.container}>
           <View style={styles.inputTextBg}>
-            <ScrollView style={{ height: 200 }}>
+            <ScrollView style={styles.scrollView}>
               <Text
                 style={styles.textInput}>
                 {this.state.inputBody}
@@ -170,6 +170,9 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginTop: 4,
     marginBottom: 4
+  },
+  scrollView: {
+    height: 200
   },
   textInput: {
     flex: 1,
