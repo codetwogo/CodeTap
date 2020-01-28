@@ -2,7 +2,12 @@
   "expo": {
     "name": "CodeTap",
     "slug": "code-tap",
-    "sdkVersion": "UNVERSIONED",
-    "privacy": "public"
+    "sdkVersion": "36.0.0",
+    "privacy": "public",
+    "version": "0.1.0",
+    "platforms": [
+      "android",
+      "ios"
+    ]
   }
 }
