@@ -23,6 +23,7 @@
     "preset": "jest-expo"
   },
   "dependencies": {
+    "@babel/plugin-transform-react-jsx": "^7.8.3",
     "@expo/vector-icons": "^10.0.0",
     "expo": "^36.0.0",
     "native-base": "^2.3.1",
