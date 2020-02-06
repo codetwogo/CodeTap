@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import { StyleSheet, TouchableOpacity, AsyncStorage, NetInfo } from 'react-native';
+import { StyleSheet, TouchableOpacity, AsyncStorage } from 'react-native';
 import { Container, View, DeckSwiper, Card, CardItem, Thumbnail, Text, Left, Body, Icon } from 'native-base';
+import NetInfo from "@react-native-community/netinfo"
 
 import HeaderComponent from './Header.js'
 
+console.log(NetInfo)
 const cards = [
   {
     id: 'single-question-component',

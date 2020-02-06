@@ -23,7 +23,7 @@ export default class HomeComponent extends Component {
                         fontSize: 76, lineHeight: 76,
                         fontWeight: 'bold'
                     }
-                }>Code to Train.{'\n'}Train to Code.</Text>
+                }>Code to Train.{'\n'}Train to Code.  Purple MOnkey</Text>
                 <Button
                     bordered rounded light style={
                         { alignSelf: 'center', marginTop: 30 }
