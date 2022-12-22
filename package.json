@@ -6,7 +6,7 @@
     "enzyme": "^2.9.1",
     "jest-expo": "^36.0.0",
     "lodash": "^4.17.4",
-    "react-native-scripts": "1.1.0",
+    "react-native-scripts": "1.14.1",
     "react-shallow-testutils": "^3.0.0",
     "react-test-renderer": "16.0.0-alpha.12"
   },
